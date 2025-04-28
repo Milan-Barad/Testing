@@ -1,35 +1,85 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "demo_nmbTQE": {
+    "demo_J3R7PF": {
       "type": "demo",
       "blocks": {
-        "text_FgnCYJ": {
-          "type": "text",
+        "video_r4QmqH": {
+          "type": "video",
           "settings": {
-            "bg_image": "shopify:\/\/shop_images\/image1.png",
-            "mobile_image": "shopify:\/\/shop_images\/gempages_541886220976784558-b7825f4b-870c-497b-b673-ef3821abc7d5.png",
-            "title": "Hello",
-            "content": "<p>asdasdasdasda  asdasdasdasda  asdasdasdasda  asdasdasdasda <\/p>",
-            "image": "shopify:\/\/shop_images\/image2.png"
+            "video_url": "shopify:\/\/files\/videos\/ea1c4b8317ea4ea7bb9b0bc31ec13046.HD-1080p-7.2Mbps-33889422.mp4"
           }
         },
-        "text_BAaNMh": {
-          "type": "text",
+        "video_k3d4gw": {
+          "type": "video",
           "settings": {
-            "bg_image": "shopify:\/\/shop_images\/Group_24991_1.png",
-            "mobile_image": "shopify:\/\/shop_images\/gempages_541886220976784558-7a0b3ad8-6bc3-46ae-95f5-61666a23b5cd.png",
-            "title": "Hello",
-            "content": "<p>asdasdasdasda  asdasdasdasda  asdasdasdasda  asdasdasdasda <\/p>",
-            "image": "shopify:\/\/shop_images\/gempages_541886220976784558-20c58adf-5fb6-472e-9140-991fb48939a1.png"
+            "video_url": "shopify:\/\/files\/videos\/-0ee8-45b1-a690-8d3c83ea9a33.mp4"
+          }
+        },
+        "video_c9rLfy": {
+          "type": "video",
+          "settings": {
+            "video_url": "shopify:\/\/files\/videos\/-7fb2-463e-8b83-b11d0295c72f.mp4"
+          }
+        },
+        "video_dUWkzW": {
+          "type": "video",
+          "settings": {
+            "video_url": "shopify:\/\/files\/videos\/ea1c4b8317ea4ea7bb9b0bc31ec13046.HD-1080p-7.2Mbps-33889422.mp4"
+          }
+        },
+        "video_EnqpgT": {
+          "type": "video",
+          "settings": {
+            "video_url": "shopify:\/\/files\/videos\/-0ee8-45b1-a690-8d3c83ea9a33.mp4"
+          }
+        },
+        "video_XEB6F8": {
+          "type": "video",
+          "settings": {
+            "video_url": "shopify:\/\/files\/videos\/e1de5b04f07b4e47acc59be056365b1f.HD-1080p-4.8Mbps-35348363.mp4"
+          }
+        },
+        "video_wiLXnB": {
+          "type": "video",
+          "settings": {
+            "video_url": "shopify:\/\/files\/videos\/-7fb2-463e-8b83-b11d0295c72f.mp4"
           }
         }
       },
       "block_order": [
-        "text_FgnCYJ",
-        "text_BAaNMh"
+        "video_r4QmqH",
+        "video_k3d4gw",
+        "video_c9rLfy",
+        "video_dUWkzW",
+        "video_EnqpgT",
+        "video_XEB6F8",
+        "video_wiLXnB"
       ],
-      "disabled": true,
-      "settings": {}
+      "settings": {
+        "title": "What is Lorem Ipsum?",
+        "content": "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.<\/p>",
+        "text_align": "center",
+        "button_name": "Shop Now",
+        "button_url": "",
+        "button_text_align": "center",
+        "background_color": "",
+        "padding_top": 70,
+        "padding_bottom": 70,
+        "tablet_padding_top": 50,
+        "tablet_padding_bottom": 50,
+        "mobile_padding_top": 50,
+        "mobile_padding_bottom": 50,
+        "custome_class": ""
+      }
     },
     "1621243260e1af0c20": {
       "type": "slider",
@@ -1037,7 +1087,7 @@
             "footer": "<p>Alyssa A.<\/p>",
             "image_text": "",
             "image_link": "",
-            "product": ""
+            "product": "300-tc-cotton-blend-king-sized-bed-sheets-with-2-pillow"
           }
         },
         "testimonial_X8q9A4": {
@@ -1246,7 +1296,7 @@
     }
   },
   "order": [
-    "demo_nmbTQE",
+    "demo_J3R7PF",
     "1621243260e1af0c20",
     "16225316461d1cff80",
     "162251092958fcda7c",
