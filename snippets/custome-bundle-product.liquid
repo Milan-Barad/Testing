@@ -1,0 +1,235 @@
+{% style %}
+  .main-product__block.main-product__block-buy_buttons,
+  .main-product__block.main-product__block-price,
+  iframe#preview-bar-iframe {
+    display: none;
+  }
+  .custome-bundle-product {
+    padding: 30px 0;
+  }
+  .custome-bundle-product .choose-title {
+    margin-bottom: 15px;
+  }
+  .custome-bundle-product .choose-title p {
+    color: #000;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 28px;
+  }
+  .custome-bundle-product .collection-button {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+  .custome-bundle-product .collection-button button {
+    border: 1px solid #000;
+    display: block;
+    color: #000;
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: 700;
+    border-radius: 8px;
+    padding: 5px 19px;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+  }
+  .custome-bundle-product .collection-button button:hover,
+  .custome-bundle-product .collection-button button.active {
+    background: #b9b9b982;
+  }
+  .custome-bundle-product .bundle-list span.item-label {
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: 500;
+    text-transform: capitalize;
+    margin-bottom: 5px;
+    display: block;
+  }
+  .custome-bundle-product .bundle-list .collection-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .custome-bundle-product .bundle-list .collection-group .collection-select,
+  .custome-bundle-product .bundle-list .collection-group .variant-select {
+    width: calc(25% - 4px);
+  }
+  .custome-bundle-product .bundle-list .collection-group .product-select {
+    width: calc(50% - 4px);
+  }
+  .custome-bundle-product .bundle-list .collection-group .collection-select,
+  .custome-bundle-product .bundle-list .collection-group .product-select,
+  .custome-bundle-product .bundle-list .collection-group .variant-select {
+    background-color: #dddddd54;
+    color: #000;
+    border-radius: 4px;
+    border: 1px solid #000;
+    padding: 10px 25px 10px 10px;
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: 500;
+  }
+{% endstyle %}
+
+<div class="custome-bundle-product">
+  <div class="choose-title">
+    <p>Choose Number of Items</p>
+  </div>
+  <div class="collection-button">
+    <button data-items="2">2 Items</button>
+    <button data-items="3">3 Items</button>
+    <button data-items="4">4 Items</button>
+    <button data-items="5">5 Items</button>
+  </div>
+  <div class="choose-title">
+    <p>Choose Product Type and Scent</p>
+  </div>
+  <div class="bundle-list" id="bundle-list">
+    {% assign selected = collection %}
+    
+    <select id="collection-select">
+      {% for collection in selected %}
+        <option value="{{ collection.handle }}">{{ collection.title }}</option>
+      {% endfor %}
+    </select>
+    
+    <select id="product-select"></select>
+    <select id="variant-select"></select>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const collections = {
+      {% for collection in selected %}
+        "{{ collection.handle }}": {
+          "title": "{{ collection.title }}",
+          "products": [
+            {% for product in collection.products %}
+              { 
+                "title": "{{ product.title }}", 
+                "handle": "{{ product.handle }}",
+                "variants": [
+                  {% for variant in product.variants %}
+                    { "title": "{{ variant.title }}", "id": "{{ variant.id }}" }
+                    {% unless forloop.last %},{% endunless %}
+                  {% endfor %}
+                ]
+              }
+              {% unless forloop.last %},{% endunless %}
+            {% endfor %}
+          ]
+        }
+        {% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    };
+
+    const buttons = document.querySelectorAll(".collection-button button");
+    const bundleList = document.getElementById("bundle-list");
+
+    // Set default active button and generate selectors for 2 items
+    buttons[0].classList.add("active");
+    generateCollectionSelectors(2);
+
+    buttons.forEach(button => {
+      button.addEventListener("click", function () {
+        buttons.forEach(btn => btn.classList.remove("active"));
+        this.classList.add("active");
+
+        const numItems = parseInt(this.getAttribute("data-items"));
+        generateCollectionSelectors(numItems);
+      });
+    });
+
+    function generateCollectionSelectors(numItems) {
+      bundleList.innerHTML = '';
+
+      for (let i = 0; i < numItems; i++) {
+        // Create the label span
+        const itemLabel = document.createElement("span");
+        itemLabel.classList.add("item-label");
+        itemLabel.textContent = `${i + 1}${getOrdinalSuffix(i + 1)} item`;
+
+        // Create the div for selection
+        const collectionDiv = document.createElement("div");
+        collectionDiv.classList.add("collection-group");
+
+        collectionDiv.innerHTML = `
+          <select id="collection-select-${i}" class="collection-select">
+            {% for collection in selected %}
+              <option value="{{ collection.handle }}">{{ collection.title }}</option>
+            {% endfor %}
+          </select>
+          <select id="product-select-${i}" class="product-select"></select>
+          <select id="variant-select-${i}" class="variant-select"></select>
+        `;
+
+        // Append the label and collectionDiv to the bundleList
+        bundleList.appendChild(itemLabel);
+        bundleList.appendChild(collectionDiv);
+
+        const collectionSelect = document.getElementById(`collection-select-${i}`);
+        const productSelect = document.getElementById(`product-select-${i}`);
+        const variantSelect = document.getElementById(`variant-select-${i}`);
+
+        updateProducts(collectionSelect, productSelect, variantSelect, collections[collectionSelect.value]);
+
+        collectionSelect.addEventListener("change", function () {
+          updateProducts(collectionSelect, productSelect, variantSelect, collections[this.value]);
+        });
+
+        productSelect.addEventListener("change", function () {
+          const selectedCollection = collections[collectionSelect.value];
+          const selectedProduct = selectedCollection.products.find(p => p.handle === this.value);
+          updateVariants(productSelect, variantSelect, selectedProduct);
+        });
+      }
+    }
+
+    function updateProducts(collectionSelect, productSelect, variantSelect, selectedCollection) {
+      productSelect.innerHTML = '';
+      variantSelect.innerHTML = '';
+
+      if (selectedCollection && selectedCollection.products.length > 0) {
+        selectedCollection.products.forEach((product, index) => {
+          const option = document.createElement("option");
+          option.value = product.handle;
+          option.textContent = product.title;
+          if (index === 0) option.selected = true;
+          productSelect.appendChild(option);
+        });
+
+        updateVariants(productSelect, variantSelect, selectedCollection.products[0]);
+      }
+    }
+
+    function updateVariants(productSelect, variantSelect, selectedProduct) {
+      variantSelect.innerHTML = '';
+
+      if (selectedProduct && selectedProduct.variants.length > 0) {
+        selectedProduct.variants.forEach((variant, index) => {
+          const option = document.createElement("option");
+          option.value = variant.id;
+          option.textContent = variant.title;
+          if (index === 0) option.selected = true;
+          variantSelect.appendChild(option);
+        });
+      }
+    }
+
+    function getOrdinalSuffix(n) {
+      if (n >= 11 && n <= 13) return "th";
+      switch (n % 10) {
+        case 1: return "st";
+        case 2: return "nd";
+        case 3: return "rd";
+        default: return "th";
+      }
+    }
+  });
+</script>
