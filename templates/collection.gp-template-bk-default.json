@@ -1,104 +1,113 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
+  "order": [
+    "collection-header",
+    "main",
+    "recent-viewed"
+  ],
   "sections": {
     "collection-header": {
-      "type": "collection-page-header",
       "settings": {
+        "collection_all_desc": "",
         "color_scheme": "dark",
         "container": "container-fluid",
-        "layout": "inside",
-        "image_position": "background",
+        "enable_bg_zoom_effect": true,
         "enable_parallax": false,
+        "image_position": "background",
+        "layout": "inside",
+        "padding_bottom": 50,
+        "padding_top": 36,
         "parallax_direction": "vertical",
+        "show_desc": true,
         "text_alignment": "center",
         "text_color": "inherit",
-        "upper_title": false,
-        "show_desc": true,
-        "collection_all_desc": "",
-        "padding_top": 36,
-        "padding_bottom": 50,
-        "enable_bg_zoom_effect": true
-      }
+        "upper_title": false
+      },
+      "type": "collection-page-header"
     },
     "main": {
-      "type": "main-collection-product-grid",
-      "blocks": {
-        "banner_promotion_KppNc9": {
-          "type": "banner_promotion",
-          "settings": {
-            "color_scheme": "dark",
-            "text_size": "medium",
-            "text_color": "white",
-            "link": "",
-            "content_position": "bottom_center",
-            "content_alignment": "center",
-            "title": "SALE UP TO 25% OFF",
-            "subtitle": "Online Exclusive",
-            "button_label": "Shop The Sale",
-            "button_style": "m-button--primary",
-            "button_size": "",
-            "button_fixed": false
-          }
-        }
-      },
       "block_order": [
         "banner_promotion_KppNc9"
       ],
+      "blocks": {
+        "banner_promotion_KppNc9": {
+          "settings": {
+            "button_fixed": false,
+            "button_label": "Shop The Sale",
+            "button_size": "",
+            "button_style": "m-button--primary",
+            "color_scheme": "dark",
+            "content_alignment": "center",
+            "content_position": "bottom_center",
+            "link": "",
+            "subtitle": "Online Exclusive",
+            "text_color": "white",
+            "text_size": "medium",
+            "title": "SALE UP TO 25% OFF"
+          },
+          "type": "banner_promotion"
+        }
+      },
       "custom_css": [
         ".m-banner-promotion {order: 3 !important; margin-top: 30px; margin-bottom: 0;}",
         ".m-collection-filters-form {margin-bottom: 0;}"
       ],
       "settings": {
-        "container": "container-fluid",
-        "grid_layout": "grid",
-        "grid_columns": "4",
-        "show_columns_switcher": true,
-        "pagination_limit": 12,
-        "paginate_type": "paginate",
-        "show_sorting": true,
-        "show_filter": true,
-        "filters_type": "storefront_filters",
-        "sidebar": "leftColumn",
-        "sidebar_title": "Filters",
-        "limit_height_widget": true,
-        "limit_height": 300,
         "change_product_variant_on_fitlering": true,
-        "show_product_count": true,
         "collapsed_groups": "Product type, Brand, Vendor, Size",
         "color_swatches": "color,colour,couleur,farbe",
-        "color_swatches_design": "list"
-      }
+        "color_swatches_design": "list",
+        "container": "container-fluid",
+        "filters_type": "storefront_filters",
+        "grid_columns": "4",
+        "grid_layout": "grid",
+        "limit_height": 300,
+        "limit_height_widget": true,
+        "paginate_type": "paginate",
+        "pagination_limit": 12,
+        "show_columns_switcher": true,
+        "show_filter": true,
+        "show_product_count": true,
+        "show_sorting": true,
+        "sidebar": "leftColumn",
+        "sidebar_title": "Filters"
+      },
+      "type": "main-collection-product-grid"
     },
     "recent-viewed": {
-      "type": "recent-viewed-products",
       "settings": {
-        "container": "container-fluid",
+        "animations": "inherit",
         "color_scheme": "",
+        "column_gap": 30,
+        "columns": 5,
+        "container": "container-fluid",
+        "custom_class": "",
+        "enable_slider": true,
         "heading": "Recently Viewed Products",
         "heading_size": "h3",
-        "text_align": "left",
-        "limit": 8,
-        "columns": 5,
-        "column_gap": 30,
-        "pcard_layout": "",
-        "pcard_image_ratio": "",
-        "show_vendor": false,
         "hide_title": false,
-        "enable_slider": true,
-        "show_pagination": false,
-        "show_navigation": false,
-        "mobile_disable_slider": false,
-        "use_scroll_mobile": true,
         "item_gap_mobile": 16,
-        "padding_top": 40,
+        "limit": 8,
+        "mobile_disable_slider": false,
         "padding_bottom": 100,
-        "custom_class": "",
-        "animations": "inherit"
-      }
+        "padding_top": 40,
+        "pcard_image_ratio": "",
+        "pcard_layout": "",
+        "show_navigation": false,
+        "show_pagination": false,
+        "show_vendor": false,
+        "text_align": "left",
+        "use_scroll_mobile": true
+      },
+      "type": "recent-viewed-products"
     }
-  },
-  "order": [
-    "collection-header",
-    "main",
-    "recent-viewed"
-  ]
+  }
 }
