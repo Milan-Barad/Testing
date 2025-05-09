@@ -18,13 +18,9 @@
 <div class="demo-section">
   <h2>{{ section.settings.heading }}</h2>
 
-  {% if section.settings.show_image and section.settings.image != blank %}
     <img src="{{ section.settings.image | image_url: width: 800 }}" alt="Selected Image" loading="lazy">
-  {% endif %}
 
-  {% if section.settings.show_image and section.settings.custom_text != blank %}
     <p><strong>Custom Text:</strong> {{ section.settings.custom_text }}</p>
-  {% endif %}
 </div>
 
 {% schema %}
