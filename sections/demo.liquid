@@ -110,6 +110,9 @@
 <section class="memorial-day-banner">
   <div class="page-width">
     <div class="banner-content">
+      {% if section.settings.logo != blank %}
+        <img src="{{ section.settings.logo | image_url }}" height="auto" width="auto" alt="Logo">
+      {% endif %}
       {% if section.settings.title != blank %}
         {{ section.settings.title }}
       {% endif %}
@@ -119,6 +122,9 @@
       {% if section.settings.button_name != blank %}
         <a href="{{ section.settings.button_url }}">{{ section.settings.button_name }}</a>
       {% endif %}
+      {% if section.settings.bottom_text != blank %}
+        <h4>{{ section.settings.bottom_text }}</h4>
+      {% endif %}
     </div>
   </div>
 </section>
@@ -127,6 +133,11 @@
   {
     "name": "Memorial Day Banner",
     "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
       {
         "type": "text",
         "id": "title",
