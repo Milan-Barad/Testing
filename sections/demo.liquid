@@ -1,65 +1,167 @@
-{% stylesheet %}
-.demo-section {
-  padding: 2rem;
-  background: #f5f5f5;
-  border: 1px solid #ccc;
-  margin: 2rem 0;
-}
-.demo-section h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-}
-.demo-section img {
-  max-width: 100%;
-  height: auto;
-}
-{% endstylesheet %}
+{% style %}
+  .memorial-day-banner {
+    {% if section.settings.bg_image != blank %}
+      background-image: url({{ section.settings.bg_image | image_url }});
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    {% endif %}
+    padding: 6.4% 0 14.9% 0;
+  }
+  .memorial-day-banner .page-width {
+    max-width: 1230px;
+    padding: 0 15px;
+    margin: 0 auto;
+    width: 100%;
+    display: block;
+  }
+  .memorial-day-banner .banner-content {
+    text-align: center;
+    padding-left: 23px;
+  }
+  .memorial-day-banner .banner-content h1 {
+    font-size: 96px;
+    line-height: 87px;
+    letter-spacing: 0;
+    font-weight: 800;
+    text-transform: uppercase;
+    background: linear-gradient(182deg, #1D524F -57.11%, #28A668 122.86%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .memorial-day-banner .banner-content h3 {
+    font-size: 48px;
+    line-height: 58px;
+    letter-spacing: -1px;
+    font-weight: 700;
+    color: #13645C;
+    margin: 38px 0 50px 0;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .memorial-day-banner .banner-content a {
+    display: block;
+    background: #1D524F;
+    color: #FFF;
+    border-radius: 10px;
+    max-width: 332px;
+    margin: 0 auto;
+    padding: 21.5px 20px;
+    font-size: 24px;
+    line-height: 34px;
+    letter-spacing: 0;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+  }
+  .memorial-day-banner .banner-content a:hover {
+    background: #000;
+  }
 
-<div class="demo-section">
-  <h2>{{ section.settings.heading }}</h2>
+  @media screen and (max-width: 1024px) {
+    .memorial-day-banner .banner-content h1 {
+      font-size: 66px;
+      line-height: 56px;
+    }
+    .memorial-day-banner .banner-content h3 {
+      font-size: 38px;
+      line-height: 48px;
+      margin: 20px 0 25px 0;
+    }
+    .memorial-day-banner .banner-content a {
+      padding: 13px 20px;
+    }
+  }
+  
+  @media screen and (max-width: 767px) {
+    .memorial-day-banner {
+      {% if section.settings.mobile_bg_image != blank %}
+        background-image: url({{ section.settings.mobile_bg_image | image_url }});
+      {% endif %}
+      padding: 16.1% 0 126.1% 0;
+    }
+    .memorial-day-banner .banner-content {
+      padding-left: 0;
+    }
+    .memorial-day-banner .banner-content h1 {
+      font-size: 40px;
+      line-height: 38.4px;
+      padding-left: 4px;
+    }
+    .memorial-day-banner .banner-content h3 {
+      font-size: 26px;
+      line-height: 36px;
+      margin: 16px 0 13px 0;
+      letter-spacing: -0.6px;
+    }
+    .memorial-day-banner .banner-content a {
+      max-width: 178px;
+      padding: 8.5px 20px;
+      font-size: 20px;
+      line-height: 30px;
+    }
+  }
+{% endstyle %}
 
-  {% if section.settings.show_image and section.settings.image != blank %}
-    <img src="{{ section.settings.image | image_url: width: 800 }}" alt="Selected Image" loading="lazy">
-  {% endif %}
-
-  {% if section.settings.show_image and section.settings.custom_text != blank %}
-    <p><strong>Custom Text:</strong> {{ section.settings.custom_text }}</p>
-  {% endif %}
-</div>
+<section class="memorial-day-banner">
+  <div class="page-width">
+    <div class="banner-content">
+      {% if section.settings.title != blank %}
+        {{ section.settings.title }}
+      {% endif %}
+      {% if section.settings.sub_title != blank %}
+        <h3>{{ section.settings.sub_title }}</h3>
+      {% endif %}
+      {% if section.settings.button_name != blank %}
+        <a href="{{ section.settings.button_url }}">{{ section.settings.button_name }}</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
 
 {% schema %}
-{
-  "name": "Demo Visible If",
-  "settings": [
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "This is a demo section"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_image",
-      "label": "Show Image"
-    },
-    {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Select Image",
-      "visible_if": "{{ section.settings.show_image == true }}"
-    },
-    {
-      "type": "text",
-      "id": "custom_text",
-      "label": "Custom Text",
-      "default": "Visible when image is shown",
-      "visible_if": "{{ section.settings.show_image == true }}"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Demo Visible If"
-    }
-  ]
-}
+  {
+    "name": "Memorial Day Banner",
+    "settings": [
+      {
+        "type": "richtext",
+        "id": "title",
+        "label": "Heading"
+      },
+      {
+        "type": "text",
+        "id": "sub_title",
+        "label": "Sub Heading"
+      },
+      {
+        "type": "text",
+        "id": "button_name",
+        "label": "Button Name"
+      },
+      {
+        "type": "url",
+        "id": "button_url",
+        "label": "Button URL"
+      },
+      {
+        "type": "image_picker",
+        "id": "bg_image",
+        "label": "Desktop Background Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "mobile_bg_image",
+        "label": "Mobile Background Image"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Memorial Day Banner"
+      }
+    ]
+  }
 {% endschema %}
