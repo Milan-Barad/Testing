@@ -27,12 +27,17 @@
 </section>
 
 <script>
+  // ADD ACTIVE CLASS
   document.querySelector('.test h5').addEventListener('click', function () {
     this.classList.toggle('active');
   });
+  
+  // ADD CLASS IN BODY TAG
   document.querySelector('.test h5').addEventListener('click', function () {
     document.body.classList.toggle('tesrting');
   });
+  
+  // REMOVE CLASS
   document.querySelector('.test h5').addEventListener('click', function () {
     const demoElement = document.querySelector('.test .demo-class');
     if (demoElement) {
