@@ -1,193 +1,162 @@
+  
 {% style %}
-  .memorial-day-banner {
-    {% if section.settings.bg_image != blank %}
-      background-image: url({{ section.settings.bg_image | image_url }});
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-size: cover;
-    {% endif %}
-    padding: 40px 0 27px 0;
+  .collection-tabbing {
+    padding: 100px 0;
   }
-  .memorial-day-banner .page-width {
-    max-width: 1230px;
+  .collection-tabbing .page-width {
+    max-width: 1400px;
     padding: 0 15px;
     margin: 0 auto;
+    display: block;
     width: 100%;
-    display: block;
   }
-  .memorial-day-banner .banner-content {
-    text-align: center;
+  .collection-tabbing .collection-list .product-list {
+    width: 100%;
   }
-  .memorial-day-banner .banner-content h1 {
-    font-size: 76px;
-    line-height: 86px;
+  .collection-tabbing .collection-list .product {
+    margin: 0 15px;
+  }
+  .collection-tabbing .collection-list .slick-track {
+    margin: 0 -15px;
+  }
+  .collection-tabbing .tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 30px;
+  }
+  .collection-tabbing .tab button {
+    padding: 10px 50px;
+    font-size: 20px;
+    line-height: 20px;
     letter-spacing: 0;
     font-weight: 700;
-    text-transform: capitalize;
-    color: #5D3B4B;
-    font-family: 'Aleo', serif;
-    margin: 50px 0 7px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid #000;
   }
-  .memorial-day-banner .banner-content h3 {
-    font-size: 68px;
-    line-height: 78px;
-    letter-spacing: 0;
-    font-weight: 700;
-    color: #5D3B4B;
-    margin: 0;
-    font-family: 'Aleo', serif;
-  }
-  .memorial-day-banner .banner-content h4 {
-    font-size: 30px;
-    line-height: 40px;
-    letter-spacing: 0;
-    font-weight: 700;
-    color: #FFF;
-    margin: 0;
-    font-family: 'Aleo', serif;
-  }
-  .memorial-day-banner .banner-content a {
-    display: block;
-    background: #642F4E;
-    color: #FFF;
-    border-radius: 6px;
-    max-width: 456px;
-    margin: 0 auto;
-    padding: 21.5px 20px;
-    font-size: 22px;
-    line-height: 32px;
-    letter-spacing: 0;
-    font-weight: 700;
-    font-family: Helvetica;
-    margin: 52px 0 129px 0;
-    text-transform: uppercase;
-    -webkit-transition: all 0.3s ease-in-out;
-    -moz-transition: all 0.3s ease-in-out;
-    -ms-transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
-  }
-  .memorial-day-banner .banner-content a:hover {
-    background: #DE5C70;
-  }
-
-  @media screen and (max-width: 1024px) {
-    .memorial-day-banner .banner-content h1 {
-      font-size: 66px;
-      line-height: 56px;
-    }
-    .memorial-day-banner .banner-content h3 {
-      font-size: 38px;
-      line-height: 48px;
-      margin: 20px 0 25px 0;
-    }
-    .memorial-day-banner .banner-content h4 {
-      font-size: 22px;
-      line-height: 32px;
-    }
-    .memorial-day-banner .banner-content a {
-      padding: 13px 20px;
-    }
-  }
-  
-  @media screen and (max-width: 767px) {
-    .memorial-day-banner {
-      {% if section.settings.mobile_bg_image != blank %}
-        background-image: url({{ section.settings.mobile_bg_image | image_url }});
-      {% endif %}
-      padding: 79px 0 18px 0;
-    }
-    .memorial-day-banner .banner-content h1 {
-      font-size: 36px;
-      line-height: 46px;
-    }
-    .memorial-day-banner .banner-content h3 {
-      font-size: 26px;
-      line-height: 36px;
-    }
-    .memorial-day-banner .banner-content a {
-      max-width: 194px;
-      padding: 8.5px 20px;
-      font-size: 18px;
-      line-height: 28px;
-    }
-    .memorial-day-banner .banner-content img {
-      display: none;
-    }
+  .collection-tabbing .tab button.active {
+    background: #c3c3c3;
+    border: 1px solid transparent;
   }
 {% endstyle %}
 
-<section class="memorial-day-banner">
+<section class="collection-tabbing">
   <div class="page-width">
-    <div class="banner-content">
-      {% if section.settings.star != blank %}
-        <img src="{{ section.settings.star | image_url }}" height="auto" width="auto" alt="Star">
-      {% endif %}
-      {% if section.settings.title != blank %}
-        {{ section.settings.title }}
-      {% endif %}
-      {% if section.settings.sub_title != blank %}
-        <h3>{{ section.settings.sub_title }}</h3>
-      {% endif %}
-      {% if section.settings.button_name != blank %}
-        <a href="{{ section.settings.button_url }}">{{ section.settings.button_name }}</a>
-      {% endif %}
-      {% if section.settings.bottom_text != blank %}
-        <h4>{{ section.settings.bottom_text }}</h4>
-      {% endif %}
+    <div class="collection-list">
+      <div class="tab">
+        {%- for block in section.blocks -%}
+          <button class="tablinks" onclick="openCity(event, '{{ block.id }}')" {% if forloop.first %}id="defaultOpen"{% endif %}>
+            {{ block.settings.tab_title | escape }}
+          </button>
+        {%- endfor -%}
+      </div>
+
+      {%- for block in section.blocks -%}
+        <div id="{{ block.id }}" class="tabcontent">
+          {%- assign collection = block.settings.collection -%}
+          {%- if collection.products.size > 0 -%}
+            <div class="product-list">
+              {%- for product in collection.products -%}
+                <div class="product">
+                  {% render 'card-product',
+                    card_product: product,
+                    media_aspect_ratio: section.settings.image_ratio,
+                    image_shape: section.settings.image_shape,
+                    show_secondary_image: section.settings.show_secondary_image,
+                    show_vendor: section.settings.show_vendor,
+                    show_rating: section.settings.show_rating,
+                    show_quick_add: section.settings.enable_quick_add,
+                    section_id: section.id
+                  %}
+                </div>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
     </div>
   </div>
 </section>
 
+<script>
+  function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+  document.getElementById("defaultOpen").click();
+</script>
+
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script type="text/javascript">
+  function customSlider() {
+    $('.collection-tabbing .product-list').slick({
+      infinite: true,
+      dots: false,
+      slidesToShow: 5,
+      slidesToScroll: 1
+    });
+  }
+
+  $(document).ready(function() {
+    customSlider();
+    document.querySelectorAll(".tablinks").forEach(item => {
+      item.addEventListener("click", function() {
+        if ($('.collection-tabbing .product-list').hasClass('slick-initialized')) {
+          $('.collection-tabbing .product-list').slick('unslick');
+        }
+        customSlider();
+      });
+    });
+  });
+</script>
+
 {% schema %}
   {
-    "name": "Memorial Day Banner",
+    "name": "Collection Tabbing",
     "settings": [
       {
-        "type": "image_picker",
-        "id": "star",
-        "label": "Star Icon" 
-      },
-      {
-        "type": "text",
-        "id": "title",
-        "label": "Heading"
-      },
-      {
-        "type": "text",
-        "id": "sub_title",
-        "label": "Sub Heading"
-      },
-      {
-        "type": "text",
-        "id": "button_name",
-        "label": "Button Name"
-      },
-      {
-        "type": "url",
-        "id": "button_url",
-        "label": "Button URL"
-      },
-      {
-        "type": "text",
-        "id": "bottom_text",
-        "label": "Bottom Text"
-      },
-      {
-        "type": "image_picker",
-        "id": "bg_image",
-        "label": "Desktop Background Image"
-      },
-      {
-        "type": "image_picker",
-        "id": "mobile_bg_image",
-        "label": "Mobile Background Image"
+        "type": "collection",
+        "id": "collection",
+        "label": "Collection"
       }
     ],
-    "presets": [
-      {
-        "name": "Memorial Day Banner"
-      }
-    ]
-  }
+    "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_title",
+          "label": "Tab Title",
+          "default": "Tab"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    }
+  ],
+  "presets" :[
+    {
+      "name":"Collection Tabbing"
+    }
+  ]
+}
 {% endschema %}
