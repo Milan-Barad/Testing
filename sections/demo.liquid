@@ -9,7 +9,10 @@
     display: block;
     width: 100%;
   }
-  
+  .test h5.active {
+    color: red;
+    font-weight: bold;
+  }
 {% endstyle %}
 
 <section class="collection-tabbing">
@@ -19,6 +22,12 @@
     </div>
   </div>
 </section>
+
+<script>
+  document.querySelector('.test h5').addEventListener('click', function() {
+    this.classList.add('active');
+  });
+</script>
 
 {% schema %}
   {
