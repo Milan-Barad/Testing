@@ -33,6 +33,12 @@
   document.querySelector('.test h5').addEventListener('click', function () {
     document.body.classList.toggle('tesrting');
   });
+  document.querySelector('.test h5').addEventListener('click', function () {
+    const demoElement = document.querySelector('.test .demo-class');
+    if (demoElement) {
+      demoElement.remove();
+    }
+  });
 </script>
 
 {% schema %}
