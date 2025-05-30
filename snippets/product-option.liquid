@@ -182,7 +182,7 @@
                   {%- endfor -%}
                 </div>
                 <div class="m-product-option-error"></div>
-                <div class="variant-option-description">
+<div class="variant-option-description">
     {% for variant in product.variants %}
       {% if variant.id == product.selected_or_first_available_variant.id %}
         {{ variant.metafields.custom.description.value }}
@@ -398,14 +398,20 @@
       firstElement.style.display = 'block';
       secondElement.style.display = 'none';
   });
+</script>
 
+                        <script>
   const variantDescriptions = {
-  {% for variant in product.variants %}
-    "{{ variant.id }}": "{{ variant.metafields.custom.description.value | escape }}",
-  {% endfor %}
-};
-document.querySelector('variant-color').addEventListener('change', (e) => {
-  const descriptionDiv = document.querySelector('.variant-option-description');
-  descriptionDiv.textContent = variantDescriptions[e.target.value] || '';
-});
+    {% for variant in product.variants %}
+      "{{ variant.id }}": "{{ variant.metafields.custom.description.value | escape }}",
+    {% endfor %}
+  };
+
+  document.querySelectorAll('variant-color input[type="radio"]').forEach(input => {
+    input.addEventListener('change', (event) => {
+      const selectedVariantId = event.target.value;
+      const descriptionDiv = document.querySelector('.variant-option-description');
+      descriptionDiv.textContent = variantDescriptions[selectedVariantId] || 'No description available';
+    });
+  });
 </script>
