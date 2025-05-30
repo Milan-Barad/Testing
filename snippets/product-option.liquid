@@ -398,4 +398,14 @@
       firstElement.style.display = 'block';
       secondElement.style.display = 'none';
   });
+
+  const variantDescriptions = {
+  {% for variant in product.variants %}
+    "{{ variant.id }}": "{{ variant.metafields.custom.description.value | escape }}",
+  {% endfor %}
+};
+document.querySelector('variant-color').addEventListener('change', (e) => {
+  const descriptionDiv = document.querySelector('.variant-option-description');
+  descriptionDiv.textContent = variantDescriptions[e.target.value] || '';
+});
 </script>
