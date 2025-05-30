@@ -401,17 +401,17 @@
 </script>
 
 <script>
-  // Store variant descriptions in a JavaScript object
   const variantDescriptions = {
     {% for variant in product.variants %}
       "{{ variant.id }}": "{{ variant.metafields.custom.description.value | escape }}",
     {% endfor %}
   };
+  console.log('Variant Descriptions:', variantDescriptions);
 
-  // Listen for changes in the variant-color radio inputs
   document.querySelectorAll('variant-color input[type="radio"]').forEach(input => {
     input.addEventListener('change', (event) => {
       const selectedVariantId = event.target.value;
+      console.log('Selected Variant ID:', selectedVariantId);
       const descriptionDiv = document.querySelector('.variant-option-description');
       descriptionDiv.textContent = variantDescriptions[selectedVariantId] || 'No description available';
     });
