@@ -182,11 +182,15 @@
                   {%- endfor -%}
                 </div>
                 <div class="m-product-option-error"></div>
-<div class="variant-option-description">
+<div class="variant-option-description" id="variant-description">
     {% for variant in product.variants %}
-      {% if variant.id == product.selected_or_first_available_variant.id %}
+      <div 
+        class="variant-description-item" 
+        data-variant-id="{{ variant.id }}" 
+        style="display: none;"
+      >
         {{ variant.metafields.custom.description.value }}
-      {% endif %}
+      </div>
     {% endfor %}
   </div>
               </variant-color>
@@ -401,19 +405,37 @@
 </script>
 
 <script>
-  const variantDescriptions = {
-    {% for variant in product.variants %}
-      "{{ variant.id }}": "{{ variant.metafields.custom.description.value | escape }}",
-    {% endfor %}
-  };
-  console.log('Variant Descriptions:', variantDescriptions);
+  document.addEventListener('DOMContentLoaded', function () {
+    const variantColor = document.querySelector('variant-color');
+    const descriptionContainer = document.getElementById('variant-description');
 
-  document.querySelectorAll('variant-color input[type="radio"]').forEach(input => {
-    input.addEventListener('change', (event) => {
-      const selectedVariantId = event.target.value;
-      console.log('Selected Variant ID:', selectedVariantId);
-      const descriptionDiv = document.querySelector('.variant-option-description');
-      descriptionDiv.textContent = variantDescriptions[selectedVariantId] || 'No description available';
+    function updateDescription(selectedVariantId) {
+      // Hide all descriptions
+      const allDescriptions = descriptionContainer.querySelectorAll('.variant-description-item');
+      allDescriptions.forEach(desc => desc.style.display = 'none');
+
+      // Show the one that matches the selected variant
+      const selectedDesc = descriptionContainer.querySelector(`[data-variant-id="${selectedVariantId}"]`);
+      if (selectedDesc) {
+        selectedDesc.style.display = 'block';
+      }
+    }
+
+    const observer = new MutationObserver(mutations => {
+      mutations.forEach(mutation => {
+        if (mutation.attributeName === 'data-selected-value') {
+          const newVariantId = variantColor.getAttribute('data-selected-value');
+          updateDescription(newVariantId);
+        }
+      });
     });
+
+    observer.observe(variantColor, {
+      attributes: true
+    });
+
+    // Initialize the description on page load
+    const initialVariantId = variantColor.getAttribute('data-selected-value');
+    updateDescription(initialVariantId);
   });
 </script>
