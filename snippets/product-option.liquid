@@ -186,8 +186,8 @@
     {% for variant in product.variants %}
       <div 
         class="variant-description-item" 
-        data-variant-id="{{ variant.id }}" 
-        style="display: none;"
+        data-variant-id="{{ variant.id }}"
+        style="display: {% if variant.id == product.selected_or_first_available_variant.id %}block{% else %}none{% endif %};"
       >
         {{ variant.metafields.custom.description.value }}
       </div>
@@ -410,11 +410,9 @@
     const descriptionContainer = document.getElementById('variant-description');
 
     function updateDescription(selectedVariantId) {
-      // Hide all descriptions
       const allDescriptions = descriptionContainer.querySelectorAll('.variant-description-item');
       allDescriptions.forEach(desc => desc.style.display = 'none');
 
-      // Show the one that matches the selected variant
       const selectedDesc = descriptionContainer.querySelector(`[data-variant-id="${selectedVariantId}"]`);
       if (selectedDesc) {
         selectedDesc.style.display = 'block';
@@ -434,7 +432,7 @@
       attributes: true
     });
 
-    // Initialize the description on page load
+    // Initial setup — show correct description based on initial value
     const initialVariantId = variantColor.getAttribute('data-selected-value');
     updateDescription(initialVariantId);
   });
