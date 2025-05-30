@@ -400,13 +400,15 @@
   });
 </script>
 
-                        <script>
+<script>
+  // Store variant descriptions in a JavaScript object
   const variantDescriptions = {
     {% for variant in product.variants %}
       "{{ variant.id }}": "{{ variant.metafields.custom.description.value | escape }}",
     {% endfor %}
   };
 
+  // Listen for changes in the variant-color radio inputs
   document.querySelectorAll('variant-color input[type="radio"]').forEach(input => {
     input.addEventListener('change', (event) => {
       const selectedVariantId = event.target.value;
