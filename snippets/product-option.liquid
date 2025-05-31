@@ -184,11 +184,7 @@
                 <div class="m-product-option-error"></div>
 <div class="variant-option-description" id="variant-description">
     {% for variant in product.variants %}
-      <div 
-        class="variant-description-item" 
-        data-variant-id="{{ variant.id }}"
-        style="display: {% if variant.id == product.selected_or_first_available_variant.id %}block{% else %}none{% endif %};"
-      >
+      <div class="variant-description-item" data-variant-id="{{ variant.id }}">
         {{ variant.metafields.custom.description.value }}
       </div>
     {% endfor %}
@@ -401,39 +397,5 @@
   singleRadio.addEventListener('click', function() {
       firstElement.style.display = 'block';
       secondElement.style.display = 'none';
-  });
-</script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const variantColor = document.querySelector('variant-color');
-    const descriptionContainer = document.getElementById('variant-description');
-
-    function updateDescription(selectedVariantId) {
-      const allDescriptions = descriptionContainer.querySelectorAll('.variant-description-item');
-      allDescriptions.forEach(desc => desc.style.display = 'none');
-
-      const selectedDesc = descriptionContainer.querySelector(`[data-variant-id="${selectedVariantId}"]`);
-      if (selectedDesc) {
-        selectedDesc.style.display = 'block';
-      }
-    }
-
-    const observer = new MutationObserver(mutations => {
-      mutations.forEach(mutation => {
-        if (mutation.attributeName === 'data-selected-value') {
-          const newVariantId = variantColor.getAttribute('data-selected-value');
-          updateDescription(newVariantId);
-        }
-      });
-    });
-
-    observer.observe(variantColor, {
-      attributes: true
-    });
-
-    // Initial setup — show correct description based on initial value
-    const initialVariantId = variantColor.getAttribute('data-selected-value');
-    updateDescription(initialVariantId);
   });
 </script>
