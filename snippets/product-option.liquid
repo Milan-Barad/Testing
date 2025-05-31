@@ -427,17 +427,16 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Initial state
   updateDescription(variantColor.getAttribute("data-selected-value"));
 
-  // Watch for data-selected-value changes
   const observer = new MutationObserver(mutations => {
-    for (const mutation of mutations) {
+    mutations.forEach(mutation => {
       if (mutation.type === "attributes" && mutation.attributeName === "data-selected-value") {
         const newValue = variantColor.getAttribute("data-selected-value");
+        console.log("New variant selected:", newValue);
         updateDescription(newValue);
       }
-    }
+    });
   });
 
   observer.observe(variantColor, { attributes: true });
