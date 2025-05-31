@@ -182,15 +182,30 @@
                   {%- endfor -%}
                 </div>
                 <div class="m-product-option-error"></div>
-<div class="variant-option-description" id="variant-description">
+<style>
+  .variant-description-item {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  transition: all 0.3s ease;
+}
+
+.variant-description-item.active {
+  opacity: 1;
+  visibility: visible;
+  position: relative;
+}
+
+</style>
+                          <div class="variant-option-description" id="variant-description">
   {% for variant in product.variants %}
-    <div class="variant-description-item" 
-         data-variant-id="{{ variant.id }}" 
-         style="display: none;">
+    <div class="variant-description-item{% if variant.id == selected_variant.id %} active{% endif %}" 
+         data-variant-id="{{ variant.id }}">
       {{ variant.metafields.custom.description.value }}
     </div>
   {% endfor %}
 </div>
+
               </variant-color>
             </div>
           {% when 'image' %}
@@ -402,27 +417,27 @@
   });
 </script>
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
   const variantColor = document.querySelector("variant-color");
   const descriptionItems = document.querySelectorAll(".variant-description-item");
 
-  const updateDescription = (selectedValue) => {
+  function updateDescription(selectedId) {
     descriptionItems.forEach(item => {
-      item.style.display = item.getAttribute("data-variant-id") === selectedValue ? "block" : "none";
+      item.classList.toggle("active", item.getAttribute("data-variant-id") === selectedId);
     });
-  };
+  }
 
-  // Initial load
+  // Initial state
   updateDescription(variantColor.getAttribute("data-selected-value"));
 
-  // Observer for attribute change
+  // Watch for data-selected-value changes
   const observer = new MutationObserver(mutations => {
-    mutations.forEach(mutation => {
+    for (const mutation of mutations) {
       if (mutation.type === "attributes" && mutation.attributeName === "data-selected-value") {
         const newValue = variantColor.getAttribute("data-selected-value");
         updateDescription(newValue);
       }
-    });
+    }
   });
 
   observer.observe(variantColor, { attributes: true });
