@@ -402,30 +402,3 @@
       secondElement.style.display = 'none';
   });
 </script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const variantColor = document.querySelector("variant-color");
-  const descriptionItems = document.querySelectorAll(".variant-description-item");
-
-  function updateDescription(selectedId) {
-    descriptionItems.forEach(item => {
-      item.classList.toggle("active", item.getAttribute("data-variant-id") === selectedId);
-    });
-  }
-
-  updateDescription(variantColor.getAttribute("data-selected-value"));
-
-  const observer = new MutationObserver(mutations => {
-    mutations.forEach(mutation => {
-      if (mutation.type === "attributes" && mutation.attributeName === "data-selected-value") {
-        const newValue = variantColor.getAttribute("data-selected-value");
-        console.log("New variant selected:", newValue);
-        updateDescription(newValue);
-      }
-    });
-  });
-
-  observer.observe(variantColor, { attributes: true });
-});
-
-</script>
