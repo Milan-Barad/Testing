@@ -163,7 +163,7 @@
                           name="{{ option.name }}"
                           value="{{ value | escape }}"
                           form="{{ product_form_id }}"
-                          data-variant-id="{{ variant.id }}"
+                          data-variant-id="{{ value.id }}"
                           class="vissu"
                           {% if option.selected_value == value %}
                             checked
