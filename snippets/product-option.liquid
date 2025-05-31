@@ -199,8 +199,7 @@
 </style>
                           <div class="variant-option-description" id="variant-description">
   {% for variant in product.variants %}
-    <div class="variant-description-item{% if variant.id == selected_variant.id %} active{% endif %}" 
-         data-variant-id="{{ variant.id }}">
+    <div class="variant-description-item" data-variant-id="{{ variant.id }}">
       {{ variant.metafields.custom.description.value }}
     </div>
   {% endfor %}
