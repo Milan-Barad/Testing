@@ -183,12 +183,14 @@
                 </div>
                 <div class="m-product-option-error"></div>
 <div class="variant-option-description" id="variant-description">
-    {% for variant in product.variants %}
-      <div class="variant-description-item" data-variant-id="{{ variant.id }}">
-        {{ variant.metafields.custom.description.value }}
-      </div>
-    {% endfor %}
-  </div>
+  {% for variant in product.variants %}
+    <div class="variant-description-item" 
+         data-variant-id="{{ variant.id }}" 
+         style="display: none;">
+      {{ variant.metafields.custom.description.value }}
+    </div>
+  {% endfor %}
+</div>
               </variant-color>
             </div>
           {% when 'image' %}
@@ -398,4 +400,32 @@
       firstElement.style.display = 'block';
       secondElement.style.display = 'none';
   });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+  const variantColor = document.querySelector("variant-color");
+  const descriptionItems = document.querySelectorAll(".variant-description-item");
+
+  const updateDescription = (selectedValue) => {
+    descriptionItems.forEach(item => {
+      item.style.display = item.getAttribute("data-variant-id") === selectedValue ? "block" : "none";
+    });
+  };
+
+  // Initial load
+  updateDescription(variantColor.getAttribute("data-selected-value"));
+
+  // Observer for attribute change
+  const observer = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+      if (mutation.type === "attributes" && mutation.attributeName === "data-selected-value") {
+        const newValue = variantColor.getAttribute("data-selected-value");
+        updateDescription(newValue);
+      }
+    });
+  });
+
+  observer.observe(variantColor, { attributes: true });
+});
+
 </script>
