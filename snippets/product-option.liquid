@@ -122,80 +122,76 @@
               </div>
             </variant-select>
           {% when 'color' %}
-            <div class="first">
-              <variant-color
-                data-picker-field="radio"
-                data-option-name="{{ option.name }}"
-                data-selected-value="{{ option.selected_value }}"
+  <div class="first">
+    <variant-color
+      data-picker-field="radio"
+      data-option-name="{{ option.name }}"
+      data-selected-value="{{ option.selected_value }}"
+    >
+      <div class="m-product-option--label">
+        <label class="option-label">
+          <span class="option-label--title">{{ option_label }}:</span>
+          <span class="option-label--selected">{{ option.selected_value }}</span>
+        </label>
+        {% if is_size %}
+          <button data-open-sizeguide class="foxkit-sizechart-button m:inline-flex m:items-center m:hidden">
+            <svg
+              class="m-svg-icon--large"
+              fill="currentColor"
+              stroke="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 640 512"
+            >
+              <path d="M608 128H32c-17.67 0-32 14.33-32 32v192c0 17.67 14.33 32 32 32h576c17.67 0 32-14.33 32-32V160c0-17.67-14.33-32-32-32zm0 224H32V160h80v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h64v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h64v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h64v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h64v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h80v192z"/>
+            </svg>
+            <span class="foxkit-sizechart-button--label">{{ 'products.product.size_guide' | t }}</span>
+          </button>
+        {% endif %}
+      </div>
+      <div class="m-product-option--content m:inline-flex m:flex-wrap">
+        {%- for value in option.values -%}
+          <div
+            class="m-product-option--node m-tooltip m-tooltip--top"
+            data-option-position="{{ option.position }}"
+            data-option-type="{{ picker_type }}"
+            data-value="{{- value | escape -}}"
+          >
+            <div class="m-product-option--swatch">
+              <input
+                type="radio"
+                id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                name="{{ option.name }}"
+                value="{{ value | escape }}"
+                form="{{ product_form_id }}"
+                class="vissu"
+                {% if option.selected_value == value %}
+                  checked
+                {% endif %}
               >
-                <div class="m-product-option--label">
-                  <label class="option-label">
-                    <span class="option-label--title">{{ option_label }}:</span>
-                    <span class="option-label--selected">{{ option.selected_value }}</span>
-                  </label>
-                  {% if is_size %}
-                    <button data-open-sizeguide class="foxkit-sizechart-button m:inline-flex m:items-center m:hidden">
-                      <svg
-                        class="m-svg-icon--large"
-                        fill="currentColor"
-                        stroke="currentColor"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 640 512"
-                      >
-                        <path d="M608 128H32c-17.67 0-32 14.33-32 32v192c0 17.67 14.33 32 32 32h576c17.67 0 32-14.33 32-32V160c0-17.67-14.33-32-32-32zm0 224H32V160h80v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h64v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h64v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h64v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h64v56c0 4.42 3.58 8 8 8h16c4.42 0 8-3.58 8-8v-56h80v192z"/>
-                      </svg>
-                      <span class="foxkit-sizechart-button--label">{{ 'products.product.size_guide' | t }}</span>
-                    </button>
-                  {% endif %}
-                </div>
-                <div class="m-product-option--content m:inline-flex m:flex-wrap">
-                  {%- for value in option.values -%}
-                    <div
-                      class="m-product-option--node m-tooltip m-tooltip--top"
-                      data-option-position="{{ option.position }}"
-                      data-option-type="{{ picker_type }}"
-                      data-value="{{- value | escape -}}"
-                    >
-                      <div class="m-product-option--swatch">
-                        <input
-                          type="radio"
-                          id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
-                          name="{{ option.name }}"
-                          value="{{ value | escape }}"
-                          form="{{ product_form_id }}"
-                          class="vissu"
-                          {% if option.selected_value == value %}
-                            checked
-                          {% endif %}
-                        >
-                        <label
-                          data-option-type="{{ picker_type }}"
-                          data-view="product"
-                          for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
-                          class="m-product-option--node__label option-loading"
-                        >
-                          {{- value -}}
-                        </label>
-                      </div>
-                      <span class="m-tooltip__content">{{- value -}}</span>
-                    </div>
-                  {%- endfor -%}
-                </div>
-                <div class="m-product-option-error"></div>
-
-
-<div class="variant-option-description" value="{{ value | escape }}">
-  {% for variant in product.variants %}
-    {% if variant.id == product.selected_or_first_available_variant.id %}
-      {{ variant.metafields.custom.description_new.value }}
-    {% endif %}
-  {% endfor %}
-</div>
-
-          
-          
-              </variant-color>
+              <label
+                data-option-type="{{ picker_type }}"
+                data-view="product"
+                for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                class="m-product-option--node__label option-loading"
+              >
+                {{- value -}}
+              </label>
             </div>
+            <span class="m-tooltip__content">{{- value -}}</span>
+            <!-- Add description for the current option value -->
+            <div class="variant-option-description" data-value="{{ value | escape }}">
+              {% for variant in product.variants %}
+                {% if variant.options[option.position - 1] == value %}
+                  {{ variant.metafields.custom.description_new.value | default: '' }}
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+      <div class="m-product-option-error"></div>
+    </variant-color>
+  </div>
           {% when 'image' %}
             <variant-image
               data-picker-field="radio"
