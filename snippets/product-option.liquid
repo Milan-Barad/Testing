@@ -380,44 +380,5 @@
 </variant-picker>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-  // Get all radio inputs for the variant options
-  const radioInputs = document.querySelectorAll('.m-product-option--node input[type="radio"]');
-  // Get the description container
-  const descriptionContainer = document.querySelector('.variant-option-description');
-
-  // Store variant data from Liquid
-  const variants = [
-    {% for variant in product.variants %}
-      {
-        id: {{ variant.id | json }},
-        description: {{ variant.metafields.custom.description_new.value | json }}
-      }{% unless forloop.last %},{% endunless %}
-    {% endfor %}
-  ];
-
-  // Add event listener to each radio input
-  radioInputs.forEach(input => {
-    input.addEventListener('change', function() {
-      // Get the selected value
-      const selectedValue = this.value;
-      // Get the option name from the input's name attribute
-      const optionName = this.name;
-      
-      // Find the selected variant by matching the option value
-      const selectedVariant = variants.find(variant => {
-        // Assuming the option name corresponds to a variant option (e.g., option1, option2)
-        return {{ product.options | json }}.some((option, index) => {
-          return option.name === optionName && variant[`option${index + 1}`] === selectedValue;
-        });
-      });
-
-      // Update the description if a matching variant is found
-      if (selectedVariant && descriptionContainer) {
-        descriptionContainer.textContent = selectedVariant.description || '';
-        descriptionContainer.setAttribute('data-selected-value', selectedValue);
-      }
-    });
-  });
-});
+  
 </script>
