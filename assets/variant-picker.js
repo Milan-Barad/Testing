@@ -20,7 +20,6 @@ if (!customElements.get("variant-picker")) {
         shareUrlInput: "[data-share-url]",
         stockCountdown: ".prod__stock-countdown",
         productWrapper: ".m-main-product--wrapper",
-        variantDescription: ".variant-option-description", // Added selector for description
       };
 
       this.productWrapper = this.closest(this.selectors.productWrapper);
@@ -82,7 +81,6 @@ if (!customElements.get("variant-picker")) {
         this.getDataImageVariant(currentVariant.id);
         this.hideSoldOutAndUnavailableOptions();
         this.updateButton(!currentVariant.available);
-        this.updateVariantDescription(); // Update description on initial variant selection
       }
     }
 
@@ -183,41 +181,47 @@ if (!customElements.get("variant-picker")) {
     }
 
     setProductAsUnavailable() {
-      this.updateButton(true);
+      this.updateButton(true); // Disable button, clear text, mark as unavailable
       this.setUnavailable();
-      this.updateVariantDescription(); // Update description when unavailable
     }
 
     updateProductDetailsForVariant() {
+      // Fetch additional data and update UI components to reflect the selected variant
       this.getDataImageVariant(this.currentVariant.id);
       this.updateMedia();
       this.updateBrowserHistory();
       this.updateVariantInput();
       this.updateProductMeta();
       this.updatePrice();
-      this.updateVariantDescription(); // Update description on variant change
 
+      // Update the button based on availability of the current variant
       const isSoldOut = !this.currentVariant.available;
       const buttonText = isSoldOut ? window.MinimogStrings.soldOut : "";
       this.updateButton(isSoldOut, buttonText);
 
+      // Hide options that are sold out or unavailable
       this.hideSoldOutAndUnavailableOptions();
     }
 
     onVariantChange() {
+      // Retrieve selected options and variant
       this.getSelectedOptions();
       this.getSelectedVariant();
 
+      // Always perform these updates on variant change
       this.updatePickupAvailability();
       this.removeErrorMessage();
 
+      // If there's no current variant, set the product as unavailable and return early
       if (!this.currentVariant) {
         this.setProductAsUnavailable();
         return;
       }
 
+      // Update the product details for the selected variant
       this.updateProductDetailsForVariant();
 
+      // Emit a custom event signaling a variant change
       const variantChangeEvent = new CustomEvent("variant:changed", {
         detail: { variant: this.currentVariant },
       });
@@ -241,7 +245,7 @@ if (!customElements.get("variant-picker")) {
         return JSON.parse(productDataElement.textContent);
       } catch (error) {
         console.error("Error loading fallback product data:", error);
-        return null;
+        return null; // Return null as a default value
       }
     }
 
@@ -249,334 +253,53 @@ if (!customElements.get("variant-picker")) {
       let variant;
       let options = [...this.options];
 
+      // Attempt to find a variant matching the current options, reducing options from the end if necessary
       for (let attempt = 0; attempt < this.options.length; attempt++) {
         variant = getVariantFromOptionArray(this.productData, options);
 
+        // If a variant is found, or no options are left, break out of the loop
         if (variant || options.length === 0) {
           break;
         }
 
+        // Remove the last option and try again
         options.pop();
       }
 
+      // If a variant is found, update the selected options and the current variant
       if (variant) {
-        this.options = [...variant.options];
+        this.options = [...variant.options]; // Update options to match found variant
         this.updateSelectedOptions();
       }
 
+      // Update the current variant, regardless of whether a match was found
       this.currentVariant = variant;
     }
 
     getSelectedOptions() {
+      // Convert NodeList to Array for easier manipulation
       const pickerFields = Array.from(this.querySelectorAll("[data-picker-field]"));
 
+      // Map each picker field to its corresponding value based on its type
       this.options = pickerFields
         .map((field) => {
           const type = field.dataset.pickerField;
 
+          // For radio button fields, find the checked radio and return its value
           if (type === "radio") {
             const checkedRadio = field.querySelector("input:checked");
             return checkedRadio ? checkedRadio.value : undefined;
           }
 
-          if (field.querySelector("select"))彼此
-
-System: You are Grok 3 built by xAI.
-
-It looks like your message was cut off. Based on your request, you want the `{{ variant.metafields.custom.description_new.value }}` content in the `variant-option-description` div to update dynamically when the variant changes in the provided `variant-picker` JavaScript and HTML code. The code you shared is a Shopify custom element (`variant-picker`) that manages product variant selection, and the HTML includes a `variant-color` component with a description that should update based on the selected variant's metafield.
-
-I’ve modified the `VariantPicker` class to include a new method, `updateVariantDescription`, and integrated it into the `selectInitialVariant`, `updateProductDetailsForVariant`, and `setProductAsUnavailable` methods to ensure the description updates whenever the variant changes or the product becomes unavailable. The changes assume that the `variantData` (from `getVariantData`) contains the `metafields.custom.description_new.value` for each variant, which is typical in Shopify's product data structure.
-
-Here’s the updated JavaScript code wrapped in an `<xaiArtifact>` tag, with the same `artifact_id` as the example you provided (since this is an update to the existing code). The HTML remains unchanged but is included for context. The key additions are:
-
-1. Added `variantDescription` to the `selectors` object to target the `.variant-option-description` element.
-2. Created a new `updateVariantDescription` method to update the description based on the current variant's metafield.
-3. Called `updateVariantDescription` in `selectInitialVariant`, `updateProductDetailsForVariant`, and `setProductAsUnavailable` to ensure the description updates appropriately.
-
-<xaiArtifact artifact_id="32078323-6620-4070-8442-3bf1d826240c" artifact_version_id="3b8c1e98-c2d9-4299-a1ba-5f8dddb77b45" title="variant-picker.js" contentType="text/javascript">
-if (!customElements.get("variant-picker")) {
-  class VariantPicker extends HTMLElement {
-    constructor() {
-      super();
-      if (Shopify.designMode) {
-        setTimeout(() => this.init(), 200);
-      } else {
-        this.init();
-      }
-    }
-
-    init() {
-      this.selectors = {
-        error: ".m-product-form-message",
-        variantIdInput: '[name="id"]',
-        pickerFields: ["[data-picker-field]"],
-        optionNodes: [".m-product-option--node"],
-        productSku: "[data-variant-sku]",
-        productAvailability: "[data-availability]",
-        shareUrlInput: "[data-share-url]",
-        stockCountdown: ".prod__stock-countdown",
-        productWrapper: ".m-main-product--wrapper",
-        variantDescription: ".variant-option-description", // Added selector for description
-      };
-
-      this.productWrapper = this.closest(this.selectors.productWrapper);
-      this.productForm = this.productWrapper.querySelector("product-form");
-      this.domNodes = queryDomNodes(this.selectors, this.productWrapper);
-
-      const themeProducts = window._themeProducts || {};
-      const { productId, sectionId, productUrl, hasOnlyDefaultVariant, showFeaturedMedia } = this.dataset;
-
-      Object.assign(this, {
-        productId,
-        sectionId,
-        productUrl,
-        hasOnlyDefaultVariant: hasOnlyDefaultVariant === "true",
-        showFeaturedMedia: showFeaturedMedia === "true",
-        variantData: this.getVariantData(),
-        productData: Object.assign(this.getProductJson(), themeProducts[productId]),
-      });
-
-      this.handleQueryString();
-      this.handleVariantGroupImages();
-      this.selectInitialVariant();
-      this.setupEventListeners();
-      this.initOptionSwatches();
-    }
-
-    handleQueryString() {
-      const hasQueryString = window.location.search.includes("?variant=");
-      const disableSelectedVariantDefault = this.dataset.disableSelectedVariantDefault === "true";
-      const hasMultipleVariants = this.productData && this.productData.variants && this.productData.variants.length > 1;
-
-      this.selectedVariantDefault = disableSelectedVariantDefault && hasMultipleVariants && !hasQueryString;
-
-      if (this.selectedVariantDefault) {
-        this.disableSelectedVariantDefault();
-      }
-    }
-
-    handleVariantGroupImages() {
-      if (this.dataset.enableVariantGroupImages === "true") {
-        this.enableVariantGroupImages = true;
-        this.variantGroupImages = this.getVariantGroupImageData();
-      } else {
-        this.enableVariantGroupImages = false;
-      }
-    }
-
-    selectInitialVariant() {
-      const variantIdInput = this.productWrapper.querySelector(this.selectors.variantIdInput);
-      const selectedVariantId = Number(variantIdInput.value);
-      const currentVariant = this.productData.variants.find((variant) => variant.id === selectedVariantId);
-
-      this.selectedVariant = variantIdInput;
-      this.currentVariant = currentVariant;
-      this.productData.current_variant_id = currentVariant ? currentVariant.id : null;
-      this.productData.initialVariant = currentVariant;
-
-      if (currentVariant) {
-        this.getDataImageVariant(currentVariant.id);
-        this.hideSoldOutAndUnavailableOptions();
-        this.updateButton(!currentVariant.available);
-        this.updateVariantDescription(); // Update description on initial variant selection
-      }
-    }
-
-    setupEventListeners() {
-      this.hasSetupMediaData = false;
-      const mediaGalleryHandler = this.getMediaGallery.bind(this);
-
-      mediaGalleryHandler();
-      ["matchMobile", "unmatchMobile"].forEach((event) => document.addEventListener(event, mediaGalleryHandler));
-
-      this.addEventListener("change", this.onVariantChange);
-    }
-
-    getMediaGallery() {
-      return this.waitForMediaGallery().then(this.setupMediaGallery.bind(this));
-    }
-
-    waitForMediaGallery() {
-      return new Promise((resolve) => {
-        const checkMediaGallery = () => {
-          this.mediaGallery = this.productWrapper.querySelector("media-gallery");
-          this.mediaGalleryMobile = this.productWrapper.querySelector("media-gallery-mobile");
-
-          const isMediaGalleryReady =
-            this.mediaGallery &&
-            (this.mediaGallery.view === "featured-product" || this.mediaGallery.view === "quick-view") &&
-            this.mediaGallery.mediaMode;
-
-          const isBothGalleriesReady =
-            this.mediaGallery &&
-            this.mediaGalleryMobile &&
-            this.mediaGallery.mediaMode &&
-            this.mediaGalleryMobile.mediaMode;
-
-          if (isMediaGalleryReady || isBothGalleriesReady) {
-            resolve();
-          } else {
-            setTimeout(checkMediaGallery, 100);
-          }
-        };
-
-        checkMediaGallery();
-      });
-    }
-
-    setupMediaGallery() {
-      const isMobile = MinimogTheme.config.mqlMobile;
-      const effectiveMediaGallery = isMobile ? this.mediaGalleryMobile || this.mediaGallery : this.mediaGallery;
-      this.media = effectiveMediaGallery;
-
-      if (!this.hasSetupMediaData) {
-        if (isMobile || effectiveMediaGallery.mediaMode === "slider") {
-          this.slides = effectiveMediaGallery.slider && effectiveMediaGallery.slider.slides;
-          this.slidesNav = effectiveMediaGallery.navSlider && effectiveMediaGallery.navSlider.slides;
-        } else {
-          this.mediaItems = effectiveMediaGallery.querySelectorAll(".m-product-media--item");
-        }
-
-        this.layout = !isMobile ? effectiveMediaGallery.layout : undefined;
-      }
-
-      if (!this.showFeaturedMedia || (this.enableVariantGroupImages && this.variantGroupImages.enable)) {
-        this.updateMedia();
-      }
-      this.hasSetupMediaData = true;
-    }
-
-    disableSelectedVariantDefault() {
-      this.querySelectorAll('input[type="radio"]').forEach((radioOption) => {
-        radioOption.checked = false;
-      });
-
-      this.querySelectorAll("[data-picker-field='radio']").forEach((radio) => {
-        radio.setAttribute("data-selected-value", "");
-      });
-
-      this.querySelectorAll("[data-picker-field='select']").forEach((pickerSelect) => {
-        const selectElm = pickerSelect.querySelector("select");
-        if (selectElm) selectElm.value = "";
-        pickerSelect.setAttribute("data-selected-value", "");
-      });
-
-      this.querySelectorAll(".option-label--selected").forEach((label) => {
-        label.textContent = "";
-      });
-
-      if (this.productForm) {
-        const variantIdEl = this.productForm.querySelector("[name='id']");
-        if (variantIdEl && !this.hasOnlyDefaultVariant) {
-          variantIdEl.value = "";
-        }
-      }
-    }
-
-    setProductAsUnavailable() {
-      this.updateButton(true);
-      this.setUnavailable();
-      this.updateVariantDescription(); // Update description when unavailable
-    }
-
-    updateProductDetailsForVariant() {
-      this.getDataImageVariant(this.currentVariant.id);
-      this.updateMedia();
-      this.updateBrowserHistory();
-      this.updateVariantInput();
-      this.updateProductMeta();
-      this.updatePrice();
-      this.updateVariantDescription(); // Update description on variant change
-
-      const isSoldOut = !this.currentVariant.available;
-      const buttonText = isSoldOut ? window.MinimogStrings.soldOut : "";
-      this.updateButton(isSoldOut, buttonText);
-
-      this.hideSoldOutAndUnavailableOptions();
-    }
-
-    onVariantChange() {
-      this.getSelectedOptions();
-      this.getSelectedVariant();
-
-      this.updatePickupAvailability();
-      this.removeErrorMessage();
-
-      if (!this.currentVariant) {
-        this.setProductAsUnavailable();
-        return;
-      }
-
-      this.updateProductDetailsForVariant();
-
-      const variantChangeEvent = new CustomEvent("variant:changed", {
-        detail: { variant: this.currentVariant },
-      });
-      window.MinimogEvents.emit(`${this.productId}__VARIANT_CHANGE`, this.currentVariant, this);
-      document.dispatchEvent(variantChangeEvent);
-    }
-
-    getDataImageVariant(variantId) {
-      if (!this.variantGroupImages || !this.variantGroupImages.enable) return;
-
-      const currentVariantMedia = this.variantGroupImages.mapping.find((variant) => Number(variant.id) === variantId);
-      if (currentVariantMedia) {
-        this.currentVariantMedia = currentVariantMedia.media;
-      }
-    }
-
-    getProductJson() {
-      try {
-        const productDataElement = this.productWrapper.querySelector("#productData[type='application/json']");
-        if (!productDataElement) throw new Error("Fallback product data element not found.");
-        return JSON.parse(productDataElement.textContent);
-      } catch (error) {
-        console.error("Error loading fallback product data:", error);
-        return null;
-      }
-    }
-
-    getSelectedVariant() {
-      let variant;
-      let options = [...this.options];
-
-      for (let attempt = 0; attempt < this.options.length; attempt++) {
-        variant = getVariantFromOptionArray(this.productData, options);
-
-        if (variant || options.length === 0) {
-          break;
-        }
-
-        options.pop();
-      }
-
-      if (variant) {
-        this.options = [...variant.options];
-        this.updateSelectedOptions();
-      }
-
-      this.currentVariant = variant;
-    }
-
-    getSelectedOptions() {
-      const pickerFields = Array.from(this.querySelectorAll("[data-picker-field]"));
-
-      this.options = pickerFields
-        .map((field) => {
-          const type = field.dataset.pickerField;
-
-          if (type === "radio") {
-            const checkedRadio = field.querySelector("input:checked");
-            return checkedRadio ? checkedRadio.value : undefined;
-          }
-
+          // For select fields, return the selected option's value
           if (field.querySelector("select")) {
             return field.querySelector("select").value;
           }
 
+          // Return undefined if no value is found (keeps the array's structure consistent)
           return undefined;
         })
-        .filter((option) => option !== undefined);
+        .filter((option) => option !== undefined); // Filter out undefined values to clean up the result
     }
 
     updateSelectedOptions() {
@@ -631,6 +354,7 @@ if (!customElements.get("variant-picker")) {
     updateMedia() {
       if (!this.currentVariant) return;
 
+      // Define main and navigation items arrays
       let mainItems = [],
         navItems = [];
 
@@ -670,6 +394,7 @@ if (!customElements.get("variant-picker")) {
         return reorderedItems;
       };
 
+      // Common function to process slides
       const processItems = (currentItems, items) => {
         currentItems.forEach((slide) => {
           const dataIdMedia = slide.querySelector("[data-media-id]").dataset.mediaId;
@@ -691,16 +416,20 @@ if (!customElements.get("variant-picker")) {
         });
       };
 
+      // Process based on media mode
       if (this.variantGroupImages && this.variantGroupImages.enable) {
         if (this.media.mediaMode === "slider" && this.slides) {
+          // Re-render main media
           processItems(this.slides, mainItems);
           const reorderedMainItems = reorderItems(this.currentVariantMedia, mainItems, false, true);
 
+          // Update slider with new slides
           this.media.slider.removeAllSlides();
           this.media.slider.appendSlide(reorderedMainItems);
           this.media.slider.slideToLoop(this.layout === "layout-7" ? 1 : 0);
           this.media.handleSlideChange();
 
+          // Re-render nav media if available
           if (this.slidesNav) {
             processItems(this.slidesNav, navItems);
             const reorderedNavItems = reorderItems(this.currentVariantMedia, navItems, true, true);
@@ -711,37 +440,45 @@ if (!customElements.get("variant-picker")) {
             }
           }
         } else {
+          // Ensure mediaWrapper is available before proceeding.
           const mediaWrapper = this.media.querySelector(".m-product-media--list");
           if (!mediaWrapper) return;
 
+          // Use a more functional approach to filter and process items.
           processItems(this.mediaItems, mainItems);
 
           const reorderedItems = reorderItems(this.currentVariantMedia, mainItems);
 
+          // Clear the mediaWrapper content once before appending new items.
           mediaWrapper.innerHTML = "";
 
+          // Process and append the main items to the mediaWrapper.
           reorderedItems.forEach((item, index) => {
+            // Additional layout-specific adjustments can be made here.
             if (this.layout === "layout-2") {
               item.classList.remove("m-col-span-2");
               if (index % 3 === 0) {
                 item.classList.add("m-col-span-2");
               }
             }
-            mediaWrapper.append(item);
+            mediaWrapper.append(item); // Append each item to the mediaWrapper.
           });
         }
       } else {
+        // Initialize mediaSize to 0 by default
         let mediaSize = 0;
 
+        // Check if this.media and this.media.dataset.mediaSize exist before parsing
         if (this.media && "mediaSize" in this.media.dataset) {
           mediaSize = parseInt(this.media.dataset.mediaSize, 10);
         }
 
+        // Proceed only if mediaSize is a positive number
         if (mediaSize > 0) {
           this.media.setActiveMedia(this.currentVariant);
         }
       }
-
+      // Common operations after media update
       this.removeLoading(this.media);
       this.handleImageZoom(mainItems, this.media);
     }
@@ -901,23 +638,11 @@ if (!customElements.get("variant-picker")) {
         productAvailability.classList.toggle("m-product-availability--outofstock", !available);
       }
 
+      // Emit a custom event for product meta update
       const metaUpdateEvent = new CustomEvent("product:meta-updated", {
         detail: { available, sku },
       });
       this.productWrapper.dispatchEvent(metaUpdateEvent);
-    }
-
-    updateVariantDescription() {
-      const descriptionElement = this.productWrapper.querySelector(this.selectors.variantDescription);
-      if (!descriptionElement) return;
-
-      let description = "";
-      if (this.currentVariant && this.currentVariant.metafields?.custom?.description_new?.value) {
-        description = this.currentVariant.metafields.custom.description_new.value;
-      }
-
-      descriptionElement.textContent = description;
-      descriptionElement.setAttribute("data-selected-value", description);
     }
 
     setUnavailable() {
@@ -1053,7 +778,6 @@ if (!customElements.get("variant-picker")) {
 
   customElements.define("variant-picker", VariantPicker);
 }
-
 if (!customElements.get("variant-button")) {
   class VariantButton extends HTMLElement {
     constructor() {
@@ -1092,7 +816,6 @@ if (!customElements.get("variant-button")) {
 
     customElements.define("variant-select", VariantSelect);
   }
-
   if (!customElements.get("variant-image")) {
     class VariantImage extends VariantButton {
       constructor() {
@@ -1102,7 +825,6 @@ if (!customElements.get("variant-button")) {
 
     customElements.define("variant-image", VariantImage);
   }
-
   if (!customElements.get("variant-color")) {
     class VariantColor extends VariantButton {
       constructor() {
