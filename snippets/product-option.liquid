@@ -183,7 +183,7 @@
                 </div>
                 <div class="m-product-option-error"></div>
                           {%- for value in option.values -%}
-                            {% if block.type != 'color'%}
+                            {% if block.type == 'color'%}
 <div class="variant-option-description" value="{{ value | escape }}">
   {% for variant in product.variants %}
     {% if variant.id == product.selected_or_first_available_variant.id %}
