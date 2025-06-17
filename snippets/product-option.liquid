@@ -182,7 +182,7 @@
                   {%- endfor -%}
                 </div>
                 <div class="m-product-option-error"></div>
-<div class="variant-option-description">
+<div class="variant-option-description" id="variant-description">
   {% for variant in product.variants %}
     {% if variant.id == product.selected_or_first_available_variant.id %}
       {{ variant.metafields.custom.description.value }}
@@ -380,32 +380,34 @@
 </variant-picker>
 
 <script>
-  const singleRadio = document.getElementById('Singles');
-    const buildRadio = document.getElementById('Build');
-    
-    const firstElement = document.querySelector('.first');
-    const secondElement = document.querySelector('.second');
-    
-    firstElement.style.display = 'block';
-    secondElement.style.display = 'none';
-    
-    buildRadio.addEventListener('click', function() {
-        firstElement.style.display = 'none';
-        secondElement.style.display = 'block';
-    });
-    
-    singleRadio.addEventListener('click', function() {
-        firstElement.style.display = 'block';
-        secondElement.style.display = 'none';
-    });
+  document.addEventListener('DOMContentLoaded', () => {
+    // Select all radio inputs within the variant-color component
+    const variantInputs = document.querySelectorAll('.m-product-option--node input[type="radio"]');
+    const descriptionElement = document.querySelector('.variant-option-description');
   
-    const variantDescriptions = {
-    {% for variant in product.variants %}
-      "{{ variant.id }}": "{{ variant.metafields.custom.description.value | escape }}",
-    {% endfor %}
-  };
-  document.querySelector('variant-color').addEventListener('change', (e) => {
-    const descriptionDiv = document.querySelector('.variant-option-description');
-    descriptionDiv.textContent = variantDescriptions[e.target.value] || '';
+    // Assuming product.variants is available as a JSON object
+    // You may need to expose product.variants in your Liquid template
+    const productVariants = {{ product.variants | json }};
+  
+    // Add change event listener to radio inputs
+    variantInputs.forEach(input => {
+      input.addEventListener('change', (event) => {
+        const selectedValue = event.target.value;
+        const optionName = event.target.name; // e.g., "Color" or "Size"
+  
+        // Find the variant that matches the selected option value
+        const selectedVariant = productVariants.find(variant => {
+          // Assuming the variant options are stored in variant.option1, variant.option2, etc.
+          return variant[optionName.toLowerCase()] === selectedValue;
+        });
+  
+        // Update the description if a variant is found
+        if (selectedVariant && selectedVariant.metafields?.custom?.description?.value) {
+          descriptionElement.textContent = selectedVariant.metafields.custom.description.value;
+        } else {
+          descriptionElement.textContent = ''; // Clear description if none exists
+        }
+      });
+    });
   });
 </script>
