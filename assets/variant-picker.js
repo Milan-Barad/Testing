@@ -143,6 +143,24 @@ if (!customElements.get("variant-picker")) {
       }
 
       if (!this.showFeaturedMedia || (this.enableVariantGroupImages && this.variantGroupImages.enable)) {
+        updateDescription(html) {
+  const newDescriptionContainer = html.querySelector('.variant__description');
+  const currentDescriptionContainer = this.querySelector('.variant__description');
+
+  if (newDescriptionContainer && currentDescriptionContainer) {
+    const newContent = newDescriptionContainer.innerHTML.trim();
+    
+    if (newContent === '') {
+      // Hide the container if there's no content
+      currentDescriptionContainer.classList.add('hidden');
+      currentDescriptionContainer.innerHTML = '';
+    } else {
+      // Show and update the container if there's content
+      currentDescriptionContainer.classList.remove('hidden');
+      currentDescriptionContainer.innerHTML = newContent;
+    }
+  }
+}
         this.updateMedia();
       }
       this.hasSetupMediaData = true;
