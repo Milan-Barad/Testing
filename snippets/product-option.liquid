@@ -381,31 +381,31 @@
 
 <script>
   const singleRadio = document.getElementById('Singles');
-  const buildRadio = document.getElementById('Build');
+    const buildRadio = document.getElementById('Build');
+    
+    const firstElement = document.querySelector('.first');
+    const secondElement = document.querySelector('.second');
+    
+    firstElement.style.display = 'block';
+    secondElement.style.display = 'none';
+    
+    buildRadio.addEventListener('click', function() {
+        firstElement.style.display = 'none';
+        secondElement.style.display = 'block';
+    });
+    
+    singleRadio.addEventListener('click', function() {
+        firstElement.style.display = 'block';
+        secondElement.style.display = 'none';
+    });
   
-  const firstElement = document.querySelector('.first');
-  const secondElement = document.querySelector('.second');
-  
-  firstElement.style.display = 'block';
-  secondElement.style.display = 'none';
-  
-  buildRadio.addEventListener('click', function() {
-      firstElement.style.display = 'none';
-      secondElement.style.display = 'block';
+    const variantDescriptions = {
+    {% for variant in product.variants %}
+      "{{ variant.id }}": "{{ variant.metafields.custom.description.value | escape }}",
+    {% endfor %}
+  };
+  document.querySelector('variant-color').addEventListener('change', (e) => {
+    const descriptionDiv = document.querySelector('.variant-option-description');
+    descriptionDiv.textContent = variantDescriptions[e.target.value] || '';
   });
-  
-  singleRadio.addEventListener('click', function() {
-      firstElement.style.display = 'block';
-      secondElement.style.display = 'none';
-  });
-
-  const variantDescriptions = {
-  {% for variant in product.variants %}
-    "{{ variant.id }}": "{{ variant.metafields.custom.description.value | escape }}",
-  {% endfor %}
-};
-document.querySelector('variant-color').addEventListener('change', (e) => {
-  const descriptionDiv = document.querySelector('.variant-option-description');
-  descriptionDiv.textContent = variantDescriptions[e.target.value] || '';
-});
 </script>
