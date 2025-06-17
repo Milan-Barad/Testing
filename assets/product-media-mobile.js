@@ -101,7 +101,7 @@ if (!customElements.get("media-gallery-mobile")) {
         configNav = {
           loop: false,
           initialSlide,
-          slidesPerView: 2,
+          slidesPerView: 5,
           freeMode: true,
           spaceBetween: 10,
           threshold: 2,
