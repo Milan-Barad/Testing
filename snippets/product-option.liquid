@@ -182,6 +182,7 @@
                   {%- endfor -%}
                 </div>
                 <div class="m-product-option-error"></div>
+                          {%- for value in option.values -%}
 <div class="variant-option-description" value="{{ value | escape }}">
   {% for variant in product.variants %}
     {% if variant.id == product.selected_or_first_available_variant.id %}
@@ -189,6 +190,7 @@
     {% endif %}
   {% endfor %}
 </div>
+                            {% endfor %}
               </variant-color>
             </div>
           {% when 'image' %}
