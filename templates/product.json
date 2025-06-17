@@ -113,12 +113,6 @@
         "sticky_atc_compare": false
       }
     },
-    "demo_GeXQ94": {
-      "type": "demo",
-      "settings": {
-        "collection": ""
-      }
-    },
     "product-details-tabs": {
       "type": "product-details-tabs",
       "blocks": {
@@ -441,7 +435,6 @@
     "zp-product-header-content",
     "breadcrumb",
     "main",
-    "demo_GeXQ94",
     "product-details-tabs",
     "scrolling_promotion_MVNN6Q",
     "icon_box_9UtNky",
