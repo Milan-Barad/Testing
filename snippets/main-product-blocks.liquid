@@ -201,34 +201,34 @@
           <div class="m-product-description">{{ product.metafields.descriptor.short_description }}</div>
         {% endif %}
       {%- when 'variant_description' -%}
-  <div class="product__description variant__description rte quick-add-hidden" {{ block.shopify_attributes }}>
-    {% assign namespace = 'custom' %}
-    {% assign key = 'variant_description' %}  <!-- Hardcoded value here -->
-    {% if namespace != blank and key != blank %}
-      {% assign variant_description_metafield = product.selected_or_first_available_variant.metafields[namespace][key] %}
-      {% if variant_description_metafield.type == 'rich_text_field' %}
-        {% assign variant_description_text = variant_description_metafield | metafield_tag %}
-      {% endif %}
-    {% endif %}
-    <div class="variant-description__content">
-      {%- if variant_description_text != blank -%}
-        {{ variant_description_text }}
-      {% else %}
-        {% case block.settings.default_description_type %}
-          {% when 'product_description' %}
-            {%- if product.description != blank -%}
-              {{ product.description }}
-            {%- endif -%}
-          {% when 'richtext_description' %}
-            {%- if block.settings.richtext_description != blank -%}
-              {{ block.settings.richtext_description }}
-            {%- endif -%}
-          {% when 'none' %}
-            <!-- Intentionally left empty -->
-        {% endcase %}
-      {% endif %}
-    </div>
-  </div>
+<div class="product__description variant__description rte quick-add-hidden" {{ block.shopify_attributes }}>
+{% assign namespace = 'custom' %}
+{% assign key = 'variant_description' %}  <!-- Hardcoded value here -->
+{% if namespace != blank and key != blank %}
+  {% assign variant_description_metafield = product.selected_or_first_available_variant.metafields[namespace][key] %}
+  {% if variant_description_metafield.type == 'rich_text_field' %}
+    {% assign variant_description_text = variant_description_metafield | metafield_tag %}
+  {% endif %}
+{% endif %}
+<div class="variant-description__content">
+  {%- if variant_description_text != blank -%}
+    {{ variant_description_text }}
+  {% else %}
+    {% case block.settings.default_description_type %}
+      {% when 'product_description' %}
+        {%- if product.description != blank -%}
+          {{ product.description }}
+        {%- endif -%}
+      {% when 'richtext_description' %}
+        {%- if block.settings.richtext_description != blank -%}
+          {{ block.settings.richtext_description }}
+        {%- endif -%}
+      {% when 'none' %}
+        <!-- Intentionally left empty -->
+    {% endcase %}
+  {% endif %}
+</div>
+</div>
       {%- when 'description' -%}
         <div class="m-product-description rte">
           {{ product.description }}
