@@ -1,5 +1,10 @@
 {% style %}
-  CSS_rules
+  .variant-option-description {
+    display: none;
+  }
+  .m-product-option--content .m-product-option--node:has(input[type="radio"]:checked) .variant-option-description {
+    display: block;
+  }
 {% endstyle %}
 
 {% liquid
