@@ -178,11 +178,7 @@
                         </label>
                       </div>
                       <span class="m-tooltip__content">{{- value -}}</span>
-<div
-        class="variant-option-description"
-        data-value="{{ value | escape }}"
-        style="{% unless option.selected_value == value %}display: none;{% endunless %}"
-      >
+<div class="variant-option-description" data-value="{{ value | escape }}" style="{% unless option.selected_value == value %}display: none;{% endunless %}">
   {% for variant in product.variants %}
     {% if variant.id == product.selected_or_first_available_variant.id %}
       {{ variant.metafields.custom.description_new.value }}
