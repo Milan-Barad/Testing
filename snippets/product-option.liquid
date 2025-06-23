@@ -183,7 +183,8 @@
                 </div>
 <div class="variant-option-description">
   {% for variant in product.variants %}
-    {% if variant.id == product.selected_or_first_available_variant.id %}
+    {% assign option_index = option.position | minus: 1 %}
+    {% if variant.options[option_index] == value %}
       {{ variant.metafields.custom.description_new.value }}
     {% endif %}
   {% endfor %}
