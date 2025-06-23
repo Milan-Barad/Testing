@@ -1,11 +1,3 @@
-<style>
-  .variant-option-description {
-    display: none;
-  }
-  .m-product-option--node:has(input[type="radio"]:checked) .variant-option-description {
-    display: block;
-  }
-</style>
 
 {% liquid
   assign is_size = false
@@ -196,6 +188,14 @@
   {% endfor %}
 </div>
 {% endcomment %}
+{% style %}
+  .variant-option-description {
+    display: none;
+  }
+  .m-product-option--node:has(input[type="radio"]:checked) .variant-option-description {
+    display: block;
+  }
+{% endstyle %}
 <div class="variant-option-description" data-value="{{ value | escape }}">
   {% for variant in product.variants %}
     {% assign option_index = option.position | minus: 1 %}
@@ -208,12 +208,6 @@
                   {%- endfor -%}
                 </div>
                 <div class="m-product-option-error"></div>
-
-
-
-
-          
-          
               </variant-color>
             </div>
           {% when 'image' %}
