@@ -1,21 +1,11 @@
 {% style %}
-  /* Hide variant-option-description by default */
-.variant-option-description {
-  display: none;
-}
-
-/* Show when a radio input is checked */
-.m-product-option--content input[type="radio"]:checked ~ .variant-option-description {
-  display: block;
-}
-
-/* Hide all variant descriptions */
+/* Hide all variant descriptions by default */
 .variant-description {
   display: none;
 }
 
-/* Show only the variant description matching the selected radio input */
-.variant-description[data-variant-value="{selected-value}"] {
+/* Show the variant description within the node where the radio input is checked */
+.m-product-option--node input[type="radio"]:checked + .m-product-option--swatch + .m-tooltip__content + .variant-description {
   display: block;
 }
 {% endstyle %}
