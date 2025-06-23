@@ -1,10 +1,5 @@
 {% style %}
-  .variant-description {
-  display: none;
-}
-.variant-description.active {
-  display: block;
-}
+  CSS_rules
 {% endstyle %}
 
 {% liquid
@@ -396,17 +391,5 @@
 </variant-picker>
 
 <script>
-  document.querySelectorAll('input[name="{{ option.name }}"]').forEach(input => {
-  input.addEventListener('change', function() {
-    const selectedValue = this.value;
-    const variantDescriptions = document.querySelectorAll('.variant-description');
-    variantDescriptions.forEach(desc => {
-      desc.classList.remove('active');
-      // Assuming you can map variant values to IDs; adjust logic as needed
-      if (desc.dataset.variantId === /* selected variant ID */) {
-        desc.classList.add('active');
-      }
-    });
-  });
-});
+  
 </script>
