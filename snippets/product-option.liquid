@@ -1,3 +1,11 @@
+{% style %}
+  .variant-option-description {
+    display: none;
+  }
+  .m-product-option--node:has(input[type="radio"]:checked) .variant-option-description {
+    display: block;
+  }
+{% endstyle %}
 
 {% liquid
   assign is_size = false
@@ -178,15 +186,7 @@
                           {{- value -}}
                         </label>
                       </div>
-{% style %}
-  .variant-option-description {
-    display: none;
-  }
-  .m-product-option--node:has(input[type="radio"]:checked) .variant-option-description {
-    display: block;
-  }
-{% endstyle %}
-                    
+
 <div class="variant-option-description">
   {% for variant in product.variants %}
     {% assign option_index = option.position | minus: 1 %}
