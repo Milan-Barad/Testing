@@ -390,22 +390,5 @@
 </variant-picker>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const variantInputs = document.querySelectorAll('.m-product-option--swatch input[type="radio"]');
-    const variantDescriptions = document.querySelectorAll('.variant-option-description');
-
-    function updateVariantDescription() {
-      const selectedValue = document.querySelector('.m-product-option--swatch input[type="radio"]:checked').value;
-
-      variantDescriptions.forEach((desc) => {
-        desc.style.display = desc.getAttribute('data-value') === selectedValue ? 'block' : 'none';
-      });
-    }
-
-    variantInputs.forEach((input) => {
-      input.addEventListener('change', updateVariantDescription);
-    });
-
-    updateVariantDescription();
-  });
+  
 </script>
