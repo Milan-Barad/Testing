@@ -188,7 +188,7 @@
 
                           <div class="variant-option-description">
   {% for variant in product.variants %}
-    <div class="variant-description" data-variant-id="{{ variant.id }}">
+    <div class="variant-description">
       {{ variant.metafields.custom.description_new.value }}
     </div>
   {% endfor %}
