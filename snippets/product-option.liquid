@@ -189,13 +189,13 @@
 
 <div class="variant-option-description">
   {% for variant in product.variants %}
-    {% if variant.options[option.position | minus: 1] == value and variant.metafields.custom.description_new.value != blank %}
-      <div class="variant-description" data-variant-value="{{ value | escape }}">
-        {{ variant.metafields.custom.description_new.value }}
-      </div>
+    {% assign option_index = option.position | minus: 1 %}
+    {% if variant.options[option_index] == value %}
+      {{ variant.metafields.custom.description_new.value }}
     {% endif %}
   {% endfor %}
 </div>
+                      
                       <span class="m-tooltip__content">{{- value -}}</span>
                     </div>
                   {%- endfor -%}
