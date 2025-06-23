@@ -186,22 +186,17 @@
                   {%- endfor -%}
                 </div>
 
-                          <div class="variant-option-description">
+<div class="variant-option-description">
   {% for variant in product.variants %}
     {% if variant.metafields.custom.description_new.value != blank %}
-    <div class="variant-description">
-      {{ variant.metafields.custom.description_new.value }}
-    </div>
+      <div class="variant-description">
+        {{ variant.metafields.custom.description_new.value }}
+      </div>
     {% endif %}
   {% endfor %}
 </div>
+
                 <div class="m-product-option-error"></div>
-
-
-
-
-          
-          
               </variant-color>
             </div>
           {% when 'image' %}
