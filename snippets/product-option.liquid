@@ -162,36 +162,44 @@
                 </div>
                 <div class="m-product-option--content m:inline-flex m:flex-wrap">
                   {%- for value in option.values -%}
-                    <div
-                      class="m-product-option--node m-tooltip m-tooltip--top"
-                      data-option-position="{{ option.position }}"
-                      data-option-type="{{ picker_type }}"
-                      data-value="{{- value | escape -}}"
-                    >
-                      <div class="m-product-option--swatch">
-                        <input
-                          type="radio"
-                          id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
-                          name="{{ option.name }}"
-                          value="{{ value | escape }}"
-                          form="{{ product_form_id }}"
-                          class="vissu"
-                          {% if option.selected_value == value %}
-                            checked
-                          {% endif %}
-                        >
-                        <label
-                          data-option-type="{{ picker_type }}"
-                          data-view="product"
-                          for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
-                          class="m-product-option--node__label option-loading"
-                        >
-                          {{- value -}}
-                        </label>
-                      </div>
-                      <span class="m-tooltip__content">{{- value -}}</span>
-                    </div>
-                  {%- endfor -%}
+  {% assign current_variant = product.variants[forloop.index0] %}
+  <div
+    class="m-product-option--node m-tooltip m-tooltip--top"
+    data-option-position="{{ option.position }}"
+    data-option-type="{{ picker_type }}"
+    data-value="{{- value | escape -}}"
+  >
+    <div class="m-product-option--swatch">
+      <input
+        type="radio"
+        id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+        name="{{ option.name }}"
+        value="{{ value | escape }}"
+        form="{{ product_form_id }}"
+        class="vissu"
+        {% if option.selected_value == value %}
+          checked
+        {% endif %}
+      >
+      <label
+        data-option-type="{{ picker_type }}"
+        data-view="product"
+        for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+        class="m-product-option--node__label option-loading"
+      >
+        {{- value -}}
+      </label>
+    </div>
+    <span class="m-tooltip__content">{{ value }}</span>
+
+    {% if current_variant.metafields.custom.description_new.value != blank %}
+      <div class="variant-option-description">
+        {{ current_variant.metafields.custom.description_new.value }}
+      </div>
+    {% endif %}
+  </div>
+{%- endfor -%}
+
                 </div>
 
 <div class="variant-option-description">
