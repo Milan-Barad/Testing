@@ -1,13 +1,10 @@
 {% style %}
-/* Hide all variant descriptions by default */
-.variant-description {
-  display: none;
-}
-
-/* Show the variant description within the node where the radio input is checked */
-.m-product-option--node input[type="radio"]:checked + .m-product-option--swatch + .m-tooltip__content + .variant-description {
-  display: block;
-}
+  .variant-option-description {
+    display: none;
+  }
+  .m-product-option--node:has(input[type="radio"]:checked) .variant-option-description {
+    display: block;
+  }
 {% endstyle %}
 
 {% liquid
