@@ -179,16 +179,9 @@
                         </label>
                       </div>
                       <span class="m-tooltip__content">{{- value -}}</span>
-{% comment %}
-<div class="variant-option-description">
-  {% for variant in product.variants %}
-    {% if variant.id == product.selected_or_first_available_variant.id %}
-      {{ variant.metafields.custom.description_new.value }}
-    {% endif %}
-  {% endfor %}
-</div>
-{% endcomment %}
-{% style %}
+
+                    </div>
+                  {% style %}
   .variant-option-description {
     display: none;
   }
@@ -204,7 +197,6 @@
     {% endif %}
   {% endfor %}
 </div>
-                    </div>
                   {%- endfor -%}
                 </div>
                 <div class="m-product-option-error"></div>
