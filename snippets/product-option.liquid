@@ -182,7 +182,14 @@
                     </div>
                   {%- endfor -%}
                 </div>
-
+{% style %}
+  .variant-option-description {
+    display: none;
+  }
+  variant-color[data-selected-value="{{ option.selected_value }}"]:has(input[type="radio"]:checked) .variant-option-description {
+    display: block;
+  }
+{% endstyle %}
 <div class="variant-option-description">
   {% for variant in product.variants %}
     {% if variant.metafields.custom.description_new.value != blank %}
