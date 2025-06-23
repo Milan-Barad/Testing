@@ -178,9 +178,7 @@
                           {{- value -}}
                         </label>
                       </div>
-                      <span class="m-tooltip__content">{{- value -}}</span>
-                    </div>
-                    {% style %}
+                      {% style %}
   .variant-option-description {
     display: none;
   }
@@ -196,6 +194,8 @@
     {% endif %}
   {% endfor %}
 </div>
+                      <span class="m-tooltip__content">{{- value -}}</span>
+                    </div>
                   {%- endfor -%}
                 </div>
                 <div class="m-product-option-error"></div>
