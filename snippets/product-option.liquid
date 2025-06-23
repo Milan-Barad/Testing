@@ -178,7 +178,7 @@
                         </label>
                       </div>
                       <span class="m-tooltip__content">{{- value -}}</span>
-                  <div class="variant-option-description" value="{{ value | escape }}">
+<div class="variant-option-description" value="{{ value | escape }}">
   {% for variant in product.variants %}
     {% if variant.id == product.selected_or_first_available_variant.id %}
       {{ variant.metafields.custom.description_new.value }}
@@ -186,7 +186,6 @@
   {% endfor %}
 </div>
                     </div>
-                      
                   {%- endfor -%}
                 </div>
                 <div class="m-product-option-error"></div>
