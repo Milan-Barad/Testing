@@ -181,16 +181,17 @@
                     </div>
                   {%- endfor -%}
                 </div>
-                <div class="m-product-option-error"></div>
-
-
-<div class="variant-option-description">
+                          <div class="variant-option-description">
   {% for variant in product.variants %}
     {% if variant.id == product.selected_or_first_available_variant.id %}
       {{ variant.metafields.custom.description_new.value }}
     {% endif %}
   {% endfor %}
 </div>
+                <div class="m-product-option-error"></div>
+
+
+
 
           
           
