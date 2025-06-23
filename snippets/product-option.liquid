@@ -1,10 +1,23 @@
 {% style %}
-  .variant-option-description {
-    display: none;
-  }
-  .m-product-option--node:has(input[type="radio"]:checked) .variant-option-description {
-    display: block;
-  }
+  /* Hide variant-option-description by default */
+.variant-option-description {
+  display: none;
+}
+
+/* Show when a radio input is checked */
+.m-product-option--content input[type="radio"]:checked ~ .variant-option-description {
+  display: block;
+}
+
+/* Hide all variant descriptions */
+.variant-description {
+  display: none;
+}
+
+/* Show only the variant description matching the selected radio input */
+.variant-description[data-variant-value="{selected-value}"] {
+  display: block;
+}
 {% endstyle %}
 
 {% liquid
