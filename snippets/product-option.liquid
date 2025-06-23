@@ -1,3 +1,12 @@
+<style>
+  .variant-option-description {
+    display: none;
+  }
+  input[type="radio"]:checked + label + .variant-option-description {
+    display: block;
+  }
+</style>
+
 {% liquid
   assign is_size = false
   assign size_title_downcase = size_title | downcase
@@ -396,22 +405,22 @@
 </variant-picker>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const variantInputs = document.querySelectorAll('.m-product-option--swatch input[type="radio"]');
-    const variantDescriptions = document.querySelectorAll('.variant-option-description');
+  // document.addEventListener('DOMContentLoaded', function () {
+  //   const variantInputs = document.querySelectorAll('.m-product-option--swatch input[type="radio"]');
+  //   const variantDescriptions = document.querySelectorAll('.variant-option-description');
 
-    function updateVariantDescription() {
-      const selectedValue = document.querySelector('.m-product-option--swatch input[type="radio"]:checked').value;
+  //   function updateVariantDescription() {
+  //     const selectedValue = document.querySelector('.m-product-option--swatch input[type="radio"]:checked').value;
 
-      variantDescriptions.forEach((desc) => {
-        desc.style.display = desc.getAttribute('data-value') === selectedValue ? 'block' : 'none';
-      });
-    }
+  //     variantDescriptions.forEach((desc) => {
+  //       desc.style.display = desc.getAttribute('data-value') === selectedValue ? 'block' : 'none';
+  //     });
+  //   }
 
-    variantInputs.forEach((input) => {
-      input.addEventListener('change', updateVariantDescription);
-    });
+  //   variantInputs.forEach((input) => {
+  //     input.addEventListener('change', updateVariantDescription);
+  //   });
 
-    updateVariantDescription();
-  });
+  //   updateVariantDescription();
+  // });
 </script>
