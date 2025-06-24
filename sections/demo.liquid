@@ -1,83 +1,128 @@
 {% style %}
-  .collection-tabbing {
-    padding: 100px 0;
+  .infinit-scrolling {
+    padding: 10px 0;
   }
-  .collection-tabbing .page-width {
-    max-width: 1400px;
-    padding: 0 15px;
-    margin: 0 auto;
-    display: block;
-    width: 100%;
+  .infinit-scrolling .page-width {
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
   }
-  .test h5.active {
-    color: red;
-    font-weight: bold;
+  .infinit-scrolling .logos-slide {
+    display: inline-flex;
+    animation: 35s slider infinite linear;
+  }
+  .infinit-scrolling .logos {
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 50px 0;
+  }
+  .infinit-scrolling .logos-slide img {
+    margin: 0 40px;
+  }
+  .infinit-scrolling .icon-text img {
+    margin: 0;
+  }
+  .infinit-scrolling .icon-text {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: 50px;
+  }
+
+  @keyframes slider {
+    form {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
+    }
   }
 {% endstyle %}
 
-<section class="collection-tabbing">
+<section class="infinit-scrolling">
   <div class="page-width">
-    <div class="test">
-      <h5>TESTING</h5>
-      <div class="demo-class">
-        <h6>demo</h6>
+    <div class="logos">
+      <div class="logos-slide">
+        <div class="icon-text">
+          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358">
+          <h4>Lorem Ipsum is simply dummy</h4>
+        </div>
+        <div class="icon-text">
+          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358">
+          <h4>Lorem Ipsum is simply dummy</h4>
+        </div>
+        <div class="icon-text">
+          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358">
+          <h4>Lorem Ipsum is simply dummy</h4>
+        </div>
+        <div class="icon-text">
+          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358">
+          <h4>Lorem Ipsum is simply dummy</h4>
+        </div>
+        <div class="icon-text">
+          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358">
+          <h4>Lorem Ipsum is simply dummy</h4>
+        </div>
+        <div class="icon-text">
+          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358">
+          <h4>Lorem Ipsum is simply dummy</h4>
+        </div>
+        <div class="icon-text">
+          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358">
+          <h4>Lorem Ipsum is simply dummy</h4>
+        </div>
+        <div class="icon-text">
+          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358">
+          <h4>Lorem Ipsum is simply dummy</h4>
+        </div>
+      </div>
+      <div class="logos-slide">
+        <div class="icon-text">
+          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358">
+          <h4>Lorem Ipsum is simply dummy</h4>
+        </div>
+        <div class="icon-text">
+          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358">
+          <h4>Lorem Ipsum is simply dummy</h4>
+        </div>
+        <div class="icon-text">
+          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358">
+          <h4>Lorem Ipsum is simply dummy</h4>
+        </div>
+        <div class="icon-text">
+          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358">
+          <h4>Lorem Ipsum is simply dummy</h4>
+        </div>
+        <div class="icon-text">
+          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358">
+          <h4>Lorem Ipsum is simply dummy</h4>
+        </div>
+        <div class="icon-text">
+          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358">
+          <h4>Lorem Ipsum is simply dummy</h4>
+        </div>
+        <div class="icon-text">
+          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358">
+          <h4>Lorem Ipsum is simply dummy</h4>
+        </div>
+        <div class="icon-text">
+          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358">
+          <h4>Lorem Ipsum is simply dummy</h4>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<script>
-  // ADD ACTIVE CLASS
-  document.querySelector('.test h5').addEventListener('click', function () {
-    this.classList.toggle('active');
-  });
-  
-  // ADD CLASS IN BODY TAG
-  document.querySelector('.test h5').addEventListener('click', function () {
-    document.body.classList.toggle('testing');
-  });
-  
-  // REMOVE CLASS
-  document.querySelector('.test h5').addEventListener('click', function () {
-    const demoElement = document.querySelector('.test .demo-class');
-    if (demoElement) {
-      demoElement.remove();
-    }
-  });
-</script>
-
 {% schema %}
-  {
-    "name": "Collection Tabbing",
-    "settings": [
-      {
-        "type": "collection",
-        "id": "collection",
-        "label": "Collection"
-      }
-    ],
-    "blocks": [
-    {
-      "type": "collection",
-      "name": "Collection",
-      "settings": [
-        {
-          "type": "text",
-          "id": "tab_title",
-          "label": "Tab Title",
-          "default": "Tab"
-        },
-        {
-          "type": "collection",
-          "id": "collection",
-          "label": "Collection"
-        }
-      ]
-    }
+{
+  "name": "Infinite marquee",
+  "settings": [
+    
   ],
-  "presets" :[
+  "presets": [
     {
-      "name":"Collection Tabbing"
+      "name": "Infinite marquee",
     }
   ]
 }
