@@ -47,38 +47,42 @@
     }
 </style>
 
-<div class="tab-container">
-    <div class="tab-buttons">
-        <button class="tab-button active" onclick="openTab('tab1')">Store Setup & Build</button>
-        <button class="tab-button" onclick="openTab('tab2')">Design & UX</button>
-        <button class="tab-button" onclick="openTab('tab3')">Performance & Optimization</button>
-        <button class="tab-button" onclick="openTab('tab4')">Integrations & Tech</button>
-        <button class="tab-button" onclick="openTab('tab5')">Ongoing Services & Support</button>
+<section class="tabbing-section">
+  <div class="page-width">
+    <div class="tab-container">
+        <div class="tab-buttons">
+            <button class="tab-button active" onclick="openTab('tab1')">Store Setup & Build</button>
+            <button class="tab-button" onclick="openTab('tab2')">Design & UX</button>
+            <button class="tab-button" onclick="openTab('tab3')">Performance & Optimization</button>
+            <button class="tab-button" onclick="openTab('tab4')">Integrations & Tech</button>
+            <button class="tab-button" onclick="openTab('tab5')">Ongoing Services & Support</button>
+        </div>
+    
+        <div class="tab-content">
+            <div id="tab1" class="tab-pane active">
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                <ul>
+                    <li>Store Setup</li>
+                    <li>Custom Features Development</li>
+                    <li>Theme Building and Customization</li>
+                </ul>
+            </div>
+            <div id="tab2" class="tab-pane" style="display: none;">
+                <p>Content for Design & UX goes here.</p>
+            </div>
+            <div id="tab3" class="tab-pane" style="display: none;">
+                <p>Content for Performance & Optimization goes here.</p>
+            </div>
+            <div id="tab4" class="tab-pane" style="display: none;">
+                <p>Content for Integrations & Tech goes here.</p>
+            </div>
+            <div id="tab5" class="tab-pane" style="display: none;">
+                <p>Content for Ongoing Services & Support goes here.</p>
+            </div>
+        </div>
     </div>
-
-    <div class="tab-content">
-        <div id="tab1" class="tab-pane active">
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-            <ul>
-                <li>Store Setup</li>
-                <li>Custom Features Development</li>
-                <li>Theme Building and Customization</li>
-            </ul>
-        </div>
-        <div id="tab2" class="tab-pane" style="display: none;">
-            <p>Content for Design & UX goes here.</p>
-        </div>
-        <div id="tab3" class="tab-pane" style="display: none;">
-            <p>Content for Performance & Optimization goes here.</p>
-        </div>
-        <div id="tab4" class="tab-pane" style="display: none;">
-            <p>Content for Integrations & Tech goes here.</p>
-        </div>
-        <div id="tab5" class="tab-pane" style="display: none;">
-            <p>Content for Ongoing Services & Support goes here.</p>
-        </div>
-    </div>
-</div>
+  </div>
+</section>
 
 <script>
     function openTab(tabName) {
