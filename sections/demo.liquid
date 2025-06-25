@@ -1,119 +1,108 @@
-{% style %}
-  .infinit-scrolling {
-    padding: 10px 0;
-  }
-  .infinit-scrolling .page-width {
-    max-width: 100%;
-    padding: 0;
-    margin: 0;
-  }
-  .infinit-scrolling .logos-slide {
-    display: inline-flex;
-    animation: 35s slider infinite linear;
-  }
-  .infinit-scrolling .logos {
-    overflow: hidden;
-    white-space: nowrap;
-    margin: 50px 0;
-  }
-  .infinit-scrolling .logos-slide img {
-    margin: 0 40px;
-  }
-  .infinit-scrolling .icon-text img {
-    margin: 0;
-  }
-  .infinit-scrolling .icon-text {
-    display: flex;
-    align-items: center;
-    gap: 50px;
-    margin-right: 50px;
-    width: max-content;
-  }
-
-  @keyframes slider {
-    form {
-      transform: translateX(0);
+<style>
+    .tab-container {
+        max-width: 600px;
+        margin: 20px auto;
+        font-family: Arial, sans-serif;
     }
-    to {
-      transform: translateX(-100%);
-    }
-  }
-{% endstyle %}
 
-<section class="infinit-scrolling">
-  <div class="page-width">
-    <div class="logos">
-      <div class="logos-slide">
-        <div class="icon-text">
-          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358" height="auto" width="auto">
-          <h4>Lorem Ipsum is simply dummy</h4>
-        </div>
-        <div class="icon-text">
-          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358" height="auto" width="auto">
-          <h4>Lorem Ipsum is simply dummy</h4>
-        </div>
-        <div class="icon-text">
-          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358" height="auto" width="auto">
-          <h4>Lorem Ipsum is simply dummy</h4>
-        </div>
-        <div class="icon-text">
-          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358" height="auto" width="auto">
-          <h4>Lorem Ipsum is simply dummy</h4>
-        </div>
-        <div class="icon-text">
-          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358" height="auto" width="auto">
-          <h4>Lorem Ipsum is simply dummy</h4>
-        </div>
-        <div class="icon-text">
-          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358" height="auto" width="auto">
-          <h4>Lorem Ipsum is simply dummy</h4>
-        </div>
-        <div class="icon-text">
-          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358" height="auto" width="auto">
-          <h4>Lorem Ipsum is simply dummy</h4>
-        </div>
-        <div class="icon-text">
-          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358" height="auto" width="auto">
-          <h4>Lorem Ipsum is simply dummy</h4>
-        </div>
-      </div>
-      <div class="logos-slide">
-        <div class="icon-text">
-          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358" height="auto" width="auto">
-          <h4>Lorem Ipsum is simply dummy</h4>
-        </div>
-        <div class="icon-text">
-          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358" height="auto" width="auto">
-          <h4>Lorem Ipsum is simply dummy</h4>
-        </div>
-        <div class="icon-text">
-          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358" height="auto" width="auto">
-          <h4>Lorem Ipsum is simply dummy</h4>
-        </div>
-        <div class="icon-text">
-          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358" height="auto" width="auto">
-          <h4>Lorem Ipsum is simply dummy</h4>
-        </div>
-        <div class="icon-text">
-          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358" height="auto" width="auto">
-          <h4>Lorem Ipsum is simply dummy</h4>
-        </div>
-        <div class="icon-text">
-          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358" height="auto" width="auto">
-          <h4>Lorem Ipsum is simply dummy</h4>
-        </div>
-        <div class="icon-text">
-          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358" height="auto" width="auto">
-          <h4>Lorem Ipsum is simply dummy</h4>
-        </div>
-        <div class="icon-text">
-          <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/Group_314128.svg?v=1721045358" height="auto" width="auto">
-          <h4>Lorem Ipsum is simply dummy</h4>
-        </div>
-      </div>
+    .tab-buttons {
+        display: flex;
+        background: #000;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .tab-button {
+        flex: 1;
+        padding: 15px;
+        background: #000;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        text-align: left;
+        font-size: 16px;
+        transition: background 0.3s;
+    }
+
+    .tab-button.active {
+        background: #ffc107;
+        color: #000;
+    }
+
+    .tab-content {
+        background: #fff;
+        padding: 20px;
+        border-radius: 0 0 10px 10px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .tab-content p {
+        margin: 0 0 15px;
+        color: #666;
+    }
+
+    .tab-content ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .tab-content ul li {
+        margin: 10px 0;
+        color: #f60;
+    }
+
+    .tab-button:hover {
+        background: #333;
+    }
+</style>
+
+<div class="tab-container">
+    <div class="tab-buttons">
+        <button class="tab-button active" onclick="openTab('tab1')">Store Setup & Build</button>
+        <button class="tab-button" onclick="openTab('tab2')">Design & UX</button>
+        <button class="tab-button" onclick="openTab('tab3')">Performance & Optimization</button>
+        <button class="tab-button" onclick="openTab('tab4')">Integrations & Tech</button>
+        <button class="tab-button" onclick="openTab('tab5')">Ongoing Services & Support</button>
     </div>
-  </div>
-</section>
+
+    <div class="tab-content">
+        <div id="tab1" class="tab-pane active">
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+            <ul>
+                <li>Store Setup</li>
+                <li>Custom Features Development</li>
+                <li>Theme Building and Customization</li>
+            </ul>
+        </div>
+        <div id="tab2" class="tab-pane" style="display: none;">
+            <p>Content for Design & UX goes here.</p>
+        </div>
+        <div id="tab3" class="tab-pane" style="display: none;">
+            <p>Content for Performance & Optimization goes here.</p>
+        </div>
+        <div id="tab4" class="tab-pane" style="display: none;">
+            <p>Content for Integrations & Tech goes here.</p>
+        </div>
+        <div id="tab5" class="tab-pane" style="display: none;">
+            <p>Content for Ongoing Services & Support goes here.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openTab(tabName) {
+        var i, tabpanes, tabbuttons;
+        tabpanes = document.getElementsByClassName("tab-pane");
+        for (i = 0; i < tabpanes.length; i++) {
+            tabpanes[i].style.display = "none";
+        }
+        tabbuttons = document.getElementsByClassName("tab-button");
+        for (i = 0; i < tabbuttons.length; i++) {
+            tabbuttons[i].classList.remove("active");
+        }
+        document.getElementById(tabName).style.display = "block";
+        event.currentTarget.classList.add("active");
+    }
+</script>
 
 {% schema %}
 {
