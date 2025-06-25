@@ -57,16 +57,24 @@
   </style>
 
 <div class="video-container">
-    <video>
-      <source src="https://cdn.shopify.com/videos/c/o/v/fad9c0a1cef84cc6b4645acab82b9de4.mp4" type="video/mp4">
+    <video id="myVideo">
+      <source src="sample-video.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
-    <div class="play-button" onclick="this.parentElement.querySelector('video').play()"></div>
+    <div class="play-button" onclick="playVideo()"></div>
     <div class="video-info">
-      <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/image_28.png?v=1743151042" alt="Profile">
+      <img src="profile-pic.jpg" alt="Profile">
       <a href="https://www.biddabee.com">Website Username</a>
     </div>
   </div>
+  <script>
+    function playVideo() {
+      var video = document.getElementById("myVideo");
+      video.play().catch(function(error) {
+        console.log("Autoplay prevented: ", error);
+      });
+    }
+  </script>
 
 {% schema %}
 {
