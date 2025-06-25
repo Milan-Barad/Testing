@@ -279,21 +279,6 @@
                 event.currentTarget.classList.add("active");
             }
         }
-
-        // Initial load adjustment
-        window.addEventListener('load', function() {
-            if (window.innerWidth <= 767) {
-                document.querySelector('.tabbed-interface').style.display = 'none';
-                document.querySelector('.accordion-interface').style.display = 'block';
-                document.getElementById('acc1').style.display = 'block';
-                document.querySelector('.accordion-button.active').classList.add('active');
-            } else {
-                document.querySelector('.accordion-interface').style.display = 'none';
-                document.querySelector('.tabbed-interface').style.display = 'flex';
-                document.getElementById('tab1').style.display = 'block';
-                document.querySelector('.tab-button.active').classList.add('active');
-            }
-        });
     </script>
 
 {% schema %}
