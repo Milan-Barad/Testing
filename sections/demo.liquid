@@ -1,5 +1,4 @@
-<style>
-        .tabbing-section {
+.tabbing-section {
             padding: 100px 0;
         }
 
@@ -48,13 +47,6 @@
             color: #000;
             margin-right: -50px;
             z-index: 1;
-        }
-
-        .tabbing-section .tab-button:after {
-            content: '+';
-            position: absolute;
-            right: 15px;
-            font-size: 20px;
         }
 
         .tabbing-section .tab-content {
@@ -108,20 +100,41 @@
             }
 
             .tabbing-section .tab-button {
-                padding: 10px;
+                padding: 15px;
                 margin-bottom: 5px;
                 text-align: left;
+                border-bottom: 1px solid #333;
             }
 
             .tabbing-section .tab-button.active {
                 margin-right: 0;
-                border-radius: 10px;
+                border-radius: 0;
+                background: #000;
+                color: #fff;
+            }
+
+            .tabbing-section .tab-button:after {
+                content: '+';
+                position: absolute;
+                right: 15px;
+                font-size: 20px;
+                transition: transform 0.3s;
+            }
+
+            .tabbing-section .tab-button.active:after {
+                content: '-';
+                transform: rotate(0deg);
             }
 
             .tabbing-section .tab-content {
-                padding: 20px;
+                padding: 0 15px 20px;
                 border-radius: 0 0 40px 40px;
                 margin-top: -10px;
+                display: none;
+            }
+
+            .tabbing-section .tab-content.active {
+                display: block;
             }
         }
     </style>
@@ -130,11 +143,11 @@
         <div class="page-width">
             <div class="tab-container">
                 <div class="tab-buttons">
-                    <button class="tab-button active" onclick="openTab('tab1')">Store Setup & Build</button>
-                    <button class="tab-button" onclick="openTab('tab2')">Design & UX</button>
-                    <button class="tab-button" onclick="openTab('tab3')">Performance & Optimization</button>
-                    <button class="tab-button" onclick="openTab('tab4')">Integrations & Tech</button>
-                    <button class="tab-button" onclick="openTab('tab5')">Ongoing Services & Support</button>
+                    <button class="tab-button active" onclick="toggleAccordion('tab1')">Store Setup & Build</button>
+                    <button class="tab-button" onclick="toggleAccordion('tab2')">Design & UX</button>
+                    <button class="tab-button" onclick="toggleAccordion('tab3')">Performance & Optimization</button>
+                    <button class="tab-button" onclick="toggleAccordion('tab4')">Integrations & Tech</button>
+                    <button class="tab-button" onclick="toggleAccordion('tab5')">Ongoing Services & Support</button>
                 </div>
             
                 <div class="tab-content">
@@ -164,19 +177,50 @@
     </section>
 
     <script>
-        function openTab(tabName) {
+        function toggleAccordion(tabName) {
             var i, tabpanes, tabbuttons;
             tabpanes = document.getElementsByClassName("tab-pane");
-            for (i = 0; i < tabpanes.length; i++) {
-                tabpanes[i].style.display = "none";
-            }
             tabbuttons = document.getElementsByClassName("tab-button");
-            for (i = 0; i < tabbuttons.length; i++) {
-                tabbuttons[i].classList.remove("active");
+
+            // Handle desktop tab behavior
+            if (window.innerWidth > 767) {
+                for (i = 0; i < tabpanes.length; i++) {
+                    tabpanes[i].style.display = "none";
+                }
+                for (i = 0; i < tabbuttons.length; i++) {
+                    tabbuttons[i].classList.remove("active");
+                }
+                document.getElementById(tabName).style.display = "block";
+                event.currentTarget.classList.add("active");
+            } 
+            // Handle mobile accordion behavior
+            else {
+                var content = document.getElementById(tabName);
+                var isActive = content.classList.contains("active");
+                for (i = 0; i < tabpanes.length; i++) {
+                    tabpanes[i].classList.remove("active");
+                }
+                for (i = 0; i < tabbuttons.length; i++) {
+                    tabbuttons[i].classList.remove("active");
+                }
+                if (!isActive) {
+                    content.classList.add("active");
+                    event.currentTarget.classList.add("active");
+                }
             }
-            document.getElementById(tabName).style.display = "block";
-            event.currentTarget.classList.add("active");
         }
+
+        // Initial load adjustment for mobile
+        window.addEventListener('resize', function() {
+            if (window.innerWidth <= 767) {
+                var tabpanes = document.getElementsByClassName("tab-pane");
+                for (var i = 0; i < tabpanes.length; i++) {
+                    tabpanes[i].style.display = "none";
+                }
+                document.getElementById("tab1").classList.add("active");
+                document.querySelector(".tab-button.active").classList.add("active");
+            }
+        });
     </script>
 
 {% schema %}
