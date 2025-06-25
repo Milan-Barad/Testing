@@ -1,144 +1,183 @@
 <style>
-  .tabbing-section {
-      padding: 100px 0;
-  }
-  .tabbing-section .page-width {
-      max-width: 1430px;
-      margin: 0 auto;
-      padding: 0 15px;
-      width: 100%;
-      display: block;
-  }
-  .tabbing-section .tab-buttons {
-      display: flex;
-      background: #000;
-      flex-direction: column;
-      width: 100%;
-      max-width: 480px;
-      padding: 50px 0 100px 50px;
-      border-radius: 40px 0 0 40px;
-      margin: -2px;
-  }
-  .tabbing-section .tab-button {
-      flex: 1;
-      padding: 15px;
-      background: #000;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      text-align: left;
-      font-size: 16px;
-      transition: background 0.3s;
-  }
-  .tabbing-section .tab-button.active {
-      background: #ffc107;
-      color: #000;
-      margin-right: -50px;
-      z-index: 1;
-  }
-  .tabbing-section .tab-content {
-      background: #fff;
-      padding: 20px 20px 20px 80px;
-      width: 100%;
-      border-radius: 0 40px 40px 0;
-  }
-  .tabbing-section .tab-content p {
-      margin: 0 0 15px;
-      color: #666;
-  }
-  .tabbing-section .tab-content ul {
-      list-style: none;
-      padding: 0;
-  }
-  .tabbing-section .tab-content ul li {
-      margin: 10px 0;
-      color: #f60;
-      position: relative;
-      padding-left: 40px;
-  }
-  .tabbing-section .tab-content ul li:after {
-      position: absolute;
-      content: '';
-      background: #F97316;
-      height: 10px;
-      width: 20px;
-      border-radius: 50px;
-      left: 0px;
-      top: 7px;
-  }
-  .tabbing-section .tab-container {
-      display: flex;
-      border-radius: 40px;
-      border: 2px dashed #BCBBBB;
-      width: 100%;
-  }
-  .tabbing-section .tab-content ul {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-  }
+        .tabbing-section {
+            padding: 100px 0;
+        }
 
-  @media screen and (max-width: 767px) {
-    .tabbing-section .tab-container {
-      flex-direction: column;
-    }
-    .tabbing-section .tab-button.active {
-      margin-right: 0;
-    }
-  }
-</style>
+        .tabbing-section .page-width {
+            max-width: 1430px;
+            margin: 0 auto;
+            padding: 0 15px;
+            width: 100%;
+            display: block;
+        }
+
+        .tabbing-section .tab-container {
+            display: flex;
+            border-radius: 40px;
+            border: 2px dashed #BCBBBB;
+            width: 100%;
+        }
+
+        .tabbing-section .tab-buttons {
+            display: flex;
+            background: #000;
+            flex-direction: column;
+            width: 100%;
+            max-width: 480px;
+            padding: 50px 0 100px 50px;
+            border-radius: 40px 0 0 40px;
+            margin: -2px;
+        }
+
+        .tabbing-section .tab-button {
+            flex: 1;
+            padding: 15px;
+            background: #000;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            font-size: 16px;
+            transition: background 0.3s;
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .tabbing-section .tab-button.active {
+            background: #ffc107;
+            color: #000;
+            margin-right: -50px;
+            z-index: 1;
+        }
+
+        .tabbing-section .tab-button:after {
+            content: '+';
+            position: absolute;
+            right: 15px;
+            font-size: 20px;
+        }
+
+        .tabbing-section .tab-content {
+            background: #fff;
+            padding: 20px 20px 20px 80px;
+            width: 100%;
+            border-radius: 0 40px 40px 0;
+        }
+
+        .tabbing-section .tab-content p {
+            margin: 0 0 15px;
+            color: #666;
+        }
+
+        .tabbing-section .tab-content ul {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .tabbing-section .tab-content ul li {
+            margin: 10px 0;
+            color: #f60;
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .tabbing-section .tab-content ul li:after {
+            position: absolute;
+            content: '';
+            background: #F97316;
+            height: 10px;
+            width: 20px;
+            border-radius: 50px;
+            left: 0px;
+            top: 7px;
+        }
+
+        @media screen and (max-width: 767px) {
+            .tabbing-section .tab-container {
+                flex-direction: column;
+                border-radius: 40px;
+            }
+
+            .tabbing-section .tab-buttons {
+                max-width: 100%;
+                padding: 20px 15px;
+                border-radius: 40px 40px 0 0;
+                margin: 0;
+            }
+
+            .tabbing-section .tab-button {
+                padding: 10px;
+                margin-bottom: 5px;
+                text-align: left;
+            }
+
+            .tabbing-section .tab-button.active {
+                margin-right: 0;
+                border-radius: 10px;
+            }
+
+            .tabbing-section .tab-content {
+                padding: 20px;
+                border-radius: 0 0 40px 40px;
+                margin-top: -10px;
+            }
+        }
+    </style>
 
 <section class="tabbing-section">
-  <div class="page-width">
-    <div class="tab-container">
-        <div class="tab-buttons">
-            <button class="tab-button active" onclick="openTab('tab1')">Store Setup & Build</button>
-            <button class="tab-button" onclick="openTab('tab2')">Design & UX</button>
-            <button class="tab-button" onclick="openTab('tab3')">Performance & Optimization</button>
-            <button class="tab-button" onclick="openTab('tab4')">Integrations & Tech</button>
-            <button class="tab-button" onclick="openTab('tab5')">Ongoing Services & Support</button>
+        <div class="page-width">
+            <div class="tab-container">
+                <div class="tab-buttons">
+                    <button class="tab-button active" onclick="openTab('tab1')">Store Setup & Build</button>
+                    <button class="tab-button" onclick="openTab('tab2')">Design & UX</button>
+                    <button class="tab-button" onclick="openTab('tab3')">Performance & Optimization</button>
+                    <button class="tab-button" onclick="openTab('tab4')">Integrations & Tech</button>
+                    <button class="tab-button" onclick="openTab('tab5')">Ongoing Services & Support</button>
+                </div>
+            
+                <div class="tab-content">
+                    <div id="tab1" class="tab-pane active">
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                        <ul>
+                            <li>Store Setup</li>
+                            <li>Custom Features Development</li>
+                            <li>Theme Building and Customization</li>
+                        </ul>
+                    </div>
+                    <div id="tab2" class="tab-pane" style="display: none;">
+                        <p>Content for Design & UX goes here.</p>
+                    </div>
+                    <div id="tab3" class="tab-pane" style="display: none;">
+                        <p>Content for Performance & Optimization goes here.</p>
+                    </div>
+                    <div id="tab4" class="tab-pane" style="display: none;">
+                        <p>Content for Integrations & Tech goes here.</p>
+                    </div>
+                    <div id="tab5" class="tab-pane" style="display: none;">
+                        <p>Content for Ongoing Services & Support goes here.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-    
-        <div class="tab-content">
-            <div id="tab1" class="tab-pane active">
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                <ul>
-                    <li>Store Setup</li>
-                    <li>Custom Features Development</li>
-                    <li>Theme Building and Customization</li>
-                </ul>
-            </div>
-            <div id="tab2" class="tab-pane" style="display: none;">
-                <p>Content for Design & UX goes here.</p>
-            </div>
-            <div id="tab3" class="tab-pane" style="display: none;">
-                <p>Content for Performance & Optimization goes here.</p>
-            </div>
-            <div id="tab4" class="tab-pane" style="display: none;">
-                <p>Content for Integrations & Tech goes here.</p>
-            </div>
-            <div id="tab5" class="tab-pane" style="display: none;">
-                <p>Content for Ongoing Services & Support goes here.</p>
-            </div>
-        </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<script>
-    function openTab(tabName) {
-        var i, tabpanes, tabbuttons;
-        tabpanes = document.getElementsByClassName("tab-pane");
-        for (i = 0; i < tabpanes.length; i++) {
-            tabpanes[i].style.display = "none";
+    <script>
+        function openTab(tabName) {
+            var i, tabpanes, tabbuttons;
+            tabpanes = document.getElementsByClassName("tab-pane");
+            for (i = 0; i < tabpanes.length; i++) {
+                tabpanes[i].style.display = "none";
+            }
+            tabbuttons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].classList.remove("active");
+            }
+            document.getElementById(tabName).style.display = "block";
+            event.currentTarget.classList.add("active");
         }
-        tabbuttons = document.getElementsByClassName("tab-button");
-        for (i = 0; i < tabbuttons.length; i++) {
-            tabbuttons[i].classList.remove("active");
-        }
-        document.getElementById(tabName).style.display = "block";
-        event.currentTarget.classList.add("active");
-    }
-</script>
+    </script>
 
 {% schema %}
 {
