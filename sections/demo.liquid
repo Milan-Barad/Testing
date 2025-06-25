@@ -199,12 +199,14 @@
                 var content = document.getElementById(tabName);
                 var isActive = content.classList.contains("active");
                 for (i = 0; i < tabpanes.length; i++) {
+                    tabpanes[i].style.display = "none";
                     tabpanes[i].classList.remove("active");
                 }
                 for (i = 0; i < tabbuttons.length; i++) {
                     tabbuttons[i].classList.remove("active");
                 }
                 if (!isActive) {
+                    content.style.display = "block";
                     content.classList.add("active");
                     event.currentTarget.classList.add("active");
                 }
@@ -212,12 +214,13 @@
         }
 
         // Initial load adjustment for mobile
-        window.addEventListener('resize', function() {
+        window.addEventListener('load', function() {
             if (window.innerWidth <= 767) {
                 var tabpanes = document.getElementsByClassName("tab-pane");
                 for (var i = 0; i < tabpanes.length; i++) {
                     tabpanes[i].style.display = "none";
                 }
+                document.getElementById("tab1").style.display = "block";
                 document.getElementById("tab1").classList.add("active");
                 document.querySelector(".tab-button.active").classList.add("active");
             }
