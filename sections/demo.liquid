@@ -1,5 +1,4 @@
-<style>
-    .video-container {
+.video-container {
       position: relative;
       width: 300px;
       height: 400px;
@@ -29,7 +28,16 @@
       justify-content: center;
       cursor: pointer;
     }
-    .play-button::before {
+    .play-button.playing::before {
+      content: '';
+      width: 0;
+      height: 0;
+      border-left: 0;
+      border-right: 20px solid white;
+      border-top: 15px solid transparent;
+      border-bottom: 15px solid transparent;
+    }
+    .play-button:not(.playing)::before {
       content: '';
       width: 0;
       height: 0;
@@ -56,12 +64,12 @@
     }
   </style>
 
-<div class="video-container">
+  <div class="video-container">
     <video id="myVideo">
       <source src="https://cdn.shopify.com/videos/c/o/v/fad9c0a1cef84cc6b4645acab82b9de4.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
-    <div class="play-button" onclick="toggleVideo()"></div>
+    <div class="play-button" id="playButton" onclick="toggleVideo()"></div>
     <div class="video-info">
       <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/image_28.png?v=1743151042" alt="Profile">
       <a href="https://www.biddabee.com">Website Username</a>
@@ -70,12 +78,15 @@
   <script>
     function toggleVideo() {
       var video = document.getElementById("myVideo");
+      var playButton = document.getElementById("playButton");
       if (video.paused) {
         video.play().catch(function(error) {
           console.log("Autoplay prevented: ", error);
         });
+        playButton.classList.add("playing");
       } else {
         video.pause();
+        playButton.classList.remove("playing");
       }
     }
   </script>
