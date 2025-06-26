@@ -1,98 +1,258 @@
 <style>
-    .video-container {
-      position: relative;
-      width: 300px;
-      height: 400px;
-      background: #f5f5f5;
-      border-radius: 15px;
-      overflow: hidden;
-    }
-    .video-container video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .video-container video::-webkit-media-controls {
-      display: none;
-    }
-    .play-button {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 60px;
-      height: 60px;
-      background: rgba(0, 0, 0, 0.5);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
-    .play-button.playing::before {
-      content: '';
-      width: 0;
-      height: 0;
-      border-left: 0;
-      border-right: 20px solid white;
-      border-top: 15px solid transparent;
-      border-bottom: 15px solid transparent;
-    }
-    .play-button:not(.playing)::before {
-      content: '';
-      width: 0;
-      height: 0;
-      border-left: 20px solid white;
-      border-top: 15px solid transparent;
-      border-bottom: 15px solid transparent;
-    }
-    .video-info {
-      position: absolute;
-      bottom: 10px;
-      left: 10px;
-      color: white;
-      font-family: Arial, sans-serif;
-    }
-    .video-info img {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      margin-right: 10px;
-    }
-    .video-info a {
-      color: white;
-      text-decoration: none;
-    }
-  </style>
-
-  <div class="video-container">
-    <video id="myVideo">
-      <source src="https://cdn.shopify.com/videos/c/o/v/fad9c0a1cef84cc6b4645acab82b9de4.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-    <div class="play-button" id="playButton" onclick="toggleVideo()"></div>
-    <div class="video-info">
-      <img src="https://cdn.shopify.com/s/files/1/0776/6156/9336/files/image_28.png?v=1743151042" alt="Profile">
-      <a href="https://www.biddabee.com">Website Username</a>
-    </div>
-  </div>
-  <script>
-    function toggleVideo() {
-      var video = document.getElementById("myVideo");
-      var playButton = document.getElementById("playButton");
-      if (video.paused) {
-        video.play().catch(function(error) {
-          console.log("Autoplay prevented: ", error);
-        });
-        playButton.classList.add("playing");
-      } else {
-        video.pause();
-        playButton.classList.remove("playing");
-      }
-    }
-  </script>
-
-
+        .tabbing-section {
+            padding: 100px 0;
+        }
+        .tabbing-section .page-width {
+            max-width: 1430px;
+            margin: 0 auto;
+            padding: 0 15px;
+            width: 100%;
+            display: block;
+        }
+        .tab-container {
+            border: 2px dashed #BCBBBB;
+            border-radius: 40px;
+            overflow: hidden;
+        }
+        /* Tabbed Interface Styles */
+        .tabbed-interface {
+            display: flex;
+        }
+        .tab-buttons {
+            display: flex;
+            background: #000;
+            flex-direction: column;
+            width: 100%;
+            max-width: 480px;
+            padding: 50px 0 100px 50px;
+            border-radius: 40px 0 0 40px;
+            margin: -2px;
+        }
+        .tab-button {
+            flex: 1;
+            padding: 15px;
+            background: #000;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            font-size: 16px;
+            transition: background 0.3s;
+            position: relative;
+            margin-bottom: 10px;
+        }
+        .tab-button.active {
+            background: #ffc107;
+            color: #000;
+            margin-right: -50px;
+            z-index: 1;
+        }
+        .tab-content {
+            background: #fff;
+            padding: 20px 20px 20px 80px;
+            width: 100%;
+            border-radius: 0 40px 40px 0;
+        }
+        .tab-content p {
+            margin: 0 0 15px;
+            color: #666;
+        }
+        .tab-content ul {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .tab-content ul li {
+            margin: 10px 0;
+            color: #f60;
+            position: relative;
+            padding-left: 40px;
+        }
+        .tab-content ul li:after {
+            position: absolute;
+            content: '';
+            background: #F97316;
+            height: 10px;
+            width: 20px;
+            border-radius: 50px;
+            left: 0px;
+            top: 7px;
+        }
+        /* Accordion Styles */
+        .accordion-interface {
+            display: none;
+        }
+        .accordion-button {
+            padding: 15px;
+            background: #000;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            font-size: 16px;
+            width: 100%;
+            border-bottom: 1px solid #333;
+            position: relative;
+        }
+        .accordion-button:after {
+            content: '+';
+            position: absolute;
+            right: 15px;
+            font-size: 20px;
+            transition: transform 0.3s;
+        }
+        .accordion-button.active:after {
+            content: '-';
+        }
+        .accordion-content {
+            padding: 0 15px 20px;
+            background: #fff;
+            display: none;
+            border-radius: 0 0 40px 40px;
+        }
+        .accordion-content.active {
+            display: block;
+        }
+        .accordion-content p {
+            margin: 0 0 15px;
+            color: #666;
+        }
+        .accordion-content ul {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .accordion-content ul li {
+            margin: 10px 0;
+            color: #f60;
+            position: relative;
+            padding-left: 40px;
+        }
+        .accordion-content ul li:after {
+            position: absolute;
+            content: '';
+            background: #F97316;
+            height: 10px;
+            width: 20px;
+            border-radius: 50px;
+            left: 0px;
+            top: 7px;
+        }
+        /* Media Query for Mobile */
+        @media screen and (max-width: 767px) {
+            .tabbed-interface {
+                display: none;
+            }
+            .accordion-interface {
+                display: block;
+            }
+            .tab-container {
+                border-radius: 40px;
+            }
+        }
+    </style>
+<section class="tabbing-section">
+        <div class="page-width">
+            <div class="tab-container">
+                <!-- Tabbed Interface (Desktop) -->
+                <div class="tabbed-interface">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" onclick="openTab('tab1')">Store Setup & Build</button>
+                        <button class="tab-button" onclick="openTab('tab2')">Design & UX</button>
+                        <button class="tab-button" onclick="openTab('tab3')">Performance & Optimization</button>
+                        <button class="tab-button" onclick="openTab('tab4')">Integrations & Tech</button>
+                        <button class="tab-button" onclick="openTab('tab5')">Ongoing Services & Support</button>
+                    </div>
+                    <div class="tab-content">
+                        <div id="tab1" class="tab-pane active">
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                            <ul>
+                                <li>Store Setup</li>
+                                <li>Custom Features Development</li>
+                                <li>Theme Building and Customization</li>
+                            </ul>
+                        </div>
+                        <div id="tab2" class="tab-pane" style="display: none;">
+                            <p>Content for Design & UX goes here.</p>
+                        </div>
+                        <div id="tab3" class="tab-pane" style="display: none;">
+                            <p>Content for Performance & Optimization goes here.</p>
+                        </div>
+                        <div id="tab4" class="tab-pane" style="display: none;">
+                            <p>Content for Integrations & Tech goes here.</p>
+                        </div>
+                        <div id="tab5" class="tab-pane" style="display: none;">
+                            <p>Content for Ongoing Services & Support goes here.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Accordion Interface (Mobile) -->
+                <div class="accordion-interface">
+                    <button class="accordion-button active" onclick="toggleAccordion('acc1')">Store Setup & Build</button>
+                    <div id="acc1" class="accordion-content active">
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                        <ul>
+                            <li>Store Setup</li>
+                            <li>Custom Features Development</li>
+                            <li>Theme Building and Customization</li>
+                        </ul>
+                    </div>
+                    <button class="accordion-button" onclick="toggleAccordion('acc2')">Design & UX</button>
+                    <div id="acc2" class="accordion-content">
+                        <p>Content for Design & UX goes here.</p>
+                    </div>
+                    <button class="accordion-button" onclick="toggleAccordion('acc3')">Performance & Optimization</button>
+                    <div id="acc3" class="accordion-content">
+                        <p>Content for Performance & Optimization goes here.</p>
+                    </div>
+                    <button class="accordion-button" onclick="toggleAccordion('acc4')">Integrations & Tech</button>
+                    <div id="acc4" class="accordion-content">
+                        <p>Content for Integrations & Tech goes here.</p>
+                    </div>
+                    <button class="accordion-button" onclick="toggleAccordion('acc5')">Ongoing Services & Support</button>
+                    <div id="acc5" class="accordion-content">
+                        <p>Content for Ongoing Services & Support goes here.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        function openTab(tabName) {
+            var i, tabpanes, tabbuttons;
+            tabpanes = document.getElementsByClassName("tab-pane");
+            tabbuttons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabpanes.length; i++) {
+                tabpanes[i].style.display = "none";
+            }
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].classList.remove("active");
+            }
+            document.getElementById(tabName).style.display = "block";
+            event.currentTarget.classList.add("active");
+        }
+        function toggleAccordion(accName) {
+            var i, accContents, accButtons;
+            accContents = document.getElementsByClassName("accordion-content");
+            accButtons = document.getElementsByClassName("accordion-button");
+            var content = document.getElementById(accName);
+            var isActive = content.classList.contains("active");
+            for (i = 0; i < accContents.length; i++) {
+                accContents[i].style.display = "none";
+                accContents[i].classList.remove("active");
+            }
+            for (i = 0; i < accButtons.length; i++) {
+                accButtons[i].classList.remove("active");
+            }
+            if (!isActive) {
+                content.style.display = "block";
+                content.classList.add("active");
+                event.currentTarget.classList.add("active");
+            }
+        }
+    </script>
 {% schema %}
 {
   "name": "Infinite marquee",
