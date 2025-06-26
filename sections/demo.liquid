@@ -1,256 +1,77 @@
 <style>
-        .tabbing-section {
-            padding: 100px 0;
-        }
-        .tabbing-section .page-width {
-            max-width: 1430px;
-            margin: 0 auto;
-            padding: 0 15px;
-            width: 100%;
-            display: block;
-        }
-        .tab-container {
-            border: 2px dashed #BCBBBB;
-            border-radius: 40px;
+        .container {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
             overflow: hidden;
-        }
-        /* Tabbed Interface Styles */
-        .tabbed-interface {
-            display: flex;
-        }
-        .tab-buttons {
-            display: flex;
-            background: #000;
-            flex-direction: column;
-            width: 100%;
-            max-width: 480px;
-            padding: 50px 0 100px 50px;
-            border-radius: 40px 0 0 40px;
-            margin: -2px;
-        }
-        .tab-button {
-            flex: 1;
-            padding: 15px;
-            background: #000;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            text-align: left;
-            font-size: 16px;
-            transition: background 0.3s;
             position: relative;
-            margin-bottom: 10px;
         }
-        .tab-button.active {
-            background: #ffc107;
+        .header {
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        .header h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+        .content p {
+            font-size: 14px;
+            color: #666;
+            margin: 10px 0;
+        }
+        .image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 20px auto;
+            background-color: #333; /* Placeholder for image */
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-yellow {
+            background-color: #ffcc00;
             color: #000;
-            margin-right: -50px;
-            z-index: 1;
         }
-        .tab-content {
-            background: #fff;
-            padding: 20px 20px 20px 80px;
-            width: 100%;
-            border-radius: 0 40px 40px 0;
-        }
-        .tab-content p {
-            margin: 0 0 15px;
-            color: #666;
-        }
-        .tab-content ul {
-            list-style: none;
-            padding: 0;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-        }
-        .tab-content ul li {
-            margin: 10px 0;
-            color: #f60;
-            position: relative;
-            padding-left: 40px;
-        }
-        .tab-content ul li:after {
-            position: absolute;
-            content: '';
-            background: #F97316;
-            height: 10px;
-            width: 20px;
-            border-radius: 50px;
-            left: 0px;
-            top: 7px;
-        }
-        /* Accordion Styles */
-        .accordion-interface {
-            display: none;
-        }
-        .accordion-button {
-            padding: 15px;
-            background: #000;
+        .btn-orange {
+            background-color: #ff6600;
             color: #fff;
-            border: none;
-            cursor: pointer;
-            text-align: left;
-            font-size: 16px;
-            width: 100%;
-            border-bottom: 1px solid #333;
-            position: relative;
-        }
-        .accordion-button:after {
-            content: '+';
-            position: absolute;
-            right: 15px;
-            font-size: 20px;
-            transition: transform 0.3s;
-        }
-        .accordion-button.active:after {
-            content: '-';
-        }
-        .accordion-content {
-            padding: 0 15px 20px;
-            background: #fff;
-            display: none;
-            border-radius: 0 0 40px 40px;
-        }
-        .accordion-content.active {
-            display: block;
-        }
-        .accordion-content p {
-            margin: 0 0 15px;
-            color: #666;
-        }
-        .accordion-content ul {
-            list-style: none;
-            padding: 0;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-        }
-        .accordion-content ul li {
-            margin: 10px 0;
-            color: #f60;
-            position: relative;
-            padding-left: 40px;
-        }
-        .accordion-content ul li:after {
-            position: absolute;
-            content: '';
-            background: #F97316;
-            height: 10px;
-            width: 20px;
-            border-radius: 50px;
-            left: 0px;
-            top: 7px;
-        }
-        /* Media Query for Mobile */
-        @media screen and (max-width: 767px) {
-            .tabbed-interface {
-                display: none;
-            }
-            .accordion-interface {
-                display: block;
-            }
-            .tab-container {
-                border-radius: 40px;
-            }
         }
     </style>
-<section class="tabbing-section">
-        <div class="page-width">
-            <div class="tab-container">
-                <div class="tabbed-interface">
-                    <div class="tab-buttons">
-                        <button class="tab-button active" onclick="openTab('tab1')">Store Setup & Build</button>
-                        <button class="tab-button" onclick="openTab('tab2')">Design & UX</button>
-                        <button class="tab-button" onclick="openTab('tab3')">Performance & Optimization</button>
-                        <button class="tab-button" onclick="openTab('tab4')">Integrations & Tech</button>
-                        <button class="tab-button" onclick="openTab('tab5')">Ongoing Services & Support</button>
-                    </div>
-                    <div class="tab-content">
-                        <div id="tab1" class="tab-pane active">
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                            <ul>
-                                <li>Store Setup</li>
-                                <li>Custom Features Development</li>
-                                <li>Theme Building and Customization</li>
-                            </ul>
-                        </div>
-                        <div id="tab2" class="tab-pane" style="display: none;">
-                            <p>Content for Design & UX goes here.</p>
-                        </div>
-                        <div id="tab3" class="tab-pane" style="display: none;">
-                            <p>Content for Performance & Optimization goes here.</p>
-                        </div>
-                        <div id="tab4" class="tab-pane" style="display: none;">
-                            <p>Content for Integrations & Tech goes here.</p>
-                        </div>
-                        <div id="tab5" class="tab-pane" style="display: none;">
-                            <p>Content for Ongoing Services & Support goes here.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-interface">
-                    <button class="accordion-button active" onclick="toggleAccordion('acc1')">Store Setup & Build</button>
-                    <div id="acc1" class="accordion-content active">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                        <ul>
-                            <li>Store Setup</li>
-                            <li>Custom Features Development</li>
-                            <li>Theme Building and Customization</li>
-                        </ul>
-                    </div>
-                    <button class="accordion-button" onclick="toggleAccordion('acc2')">Design & UX</button>
-                    <div id="acc2" class="accordion-content">
-                        <p>Content for Design & UX goes here.</p>
-                    </div>
-                    <button class="accordion-button" onclick="toggleAccordion('acc3')">Performance & Optimization</button>
-                    <div id="acc3" class="accordion-content">
-                        <p>Content for Performance & Optimization goes here.</p>
-                    </div>
-                    <button class="accordion-button" onclick="toggleAccordion('acc4')">Integrations & Tech</button>
-                    <div id="acc4" class="accordion-content">
-                        <p>Content for Integrations & Tech goes here.</p>
-                    </div>
-                    <button class="accordion-button" onclick="toggleAccordion('acc5')">Ongoing Services & Support</button>
-                    <div id="acc5" class="accordion-content">
-                        <p>Content for Ongoing Services & Support goes here.</p>
-                    </div>
-                </div>
+<div class="container">
+        <div class="header">
+            <h2>DISCOVER MY SHOPIFY<br>Development Journey</h2>
+        </div>
+        <div class="content">
+            <p>Welcome! I'm Bhavin, a senior Shopify developer with a passion for creating outstanding e-commerce stores. With over 6 years of Shopify development experience, I have successfully collaborated with over 100+ clients, transforming their online presence with tailored solutions.</p>
+            <p>With a rich portfolio of 150+ Shopify projects that demonstrate my expertise in theme customization, design, and development.</p>
+            <p>As an experienced Shopify developer, I pride myself on delivering tailored e-commerce solutions. You can view Bhavin Domadiya's Shopify development portfolio for a detailed look at my projects, showcasing my skills in Shopify optimization and customization.</p>
+            <p>Let's work together to bring your e-commerce vision to life.</p>
+            <div class="image"></div> <!-- Placeholder for image -->
+            <div class="buttons">
+                <button class="btn btn-yellow">View My Work</button>
+                <button class="btn btn-orange">Hire Me</button>
             </div>
         </div>
-    </section>
-    <script>
-        function openTab(tabName) {
-            var i, tabpanes, tabbuttons;
-            tabpanes = document.getElementsByClassName("tab-pane");
-            tabbuttons = document.getElementsByClassName("tab-button");
-            for (i = 0; i < tabpanes.length; i++) {
-                tabpanes[i].style.display = "none";
-            }
-            for (i = 0; i < tabbuttons.length; i++) {
-                tabbuttons[i].classList.remove("active");
-            }
-            document.getElementById(tabName).style.display = "block";
-            event.currentTarget.classList.add("active");
-        }
-        function toggleAccordion(accName) {
-            var i, accContents, accButtons;
-            accContents = document.getElementsByClassName("accordion-content");
-            accButtons = document.getElementsByClassName("accordion-button");
-            var content = document.getElementById(accName);
-            var isActive = content.classList.contains("active");
-            for (i = 0; i < accContents.length; i++) {
-                accContents[i].style.display = "none";
-                accContents[i].classList.remove("active");
-            }
-            for (i = 0; i < accButtons.length; i++) {
-                accButtons[i].classList.remove("active");
-            }
-            if (!isActive) {
-                content.style.display = "block";
-                content.classList.add("active");
-                event.currentTarget.classList.add("active");
-            }
-        }
-    </script>
+    </div>
 {% schema %}
 {
   "name": "Infinite marquee",
