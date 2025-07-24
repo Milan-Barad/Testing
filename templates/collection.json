@@ -30,28 +30,6 @@
     },
     "main": {
       "type": "main-collection-product-grid",
-      "blocks": {
-        "banner_promotion_KppNc9": {
-          "type": "banner_promotion",
-          "settings": {
-            "color_scheme": "dark",
-            "text_size": "medium",
-            "text_color": "white",
-            "link": "",
-            "content_position": "bottom_center",
-            "content_alignment": "center",
-            "title": "SALE UP TO 25% OFF",
-            "subtitle": "Online Exclusive",
-            "button_label": "Shop The Sale",
-            "button_style": "m-button--primary",
-            "button_size": "",
-            "button_fixed": false
-          }
-        }
-      },
-      "block_order": [
-        "banner_promotion_KppNc9"
-      ],
       "custom_css": [
         ".m-banner-promotion {order: 3 !important; margin-top: 30px; margin-bottom: 0;}",
         ".m-collection-filters-form {margin-bottom: 0;}"
