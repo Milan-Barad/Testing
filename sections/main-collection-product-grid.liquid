@@ -81,7 +81,7 @@
               data-product-container
             >
               {%- for product in collection.products -%}
-                <div class="m-product-item m:w-6/12 md:m:w-4/12">
+                <div class="m-product-item m:w-6/12 md:m:w-4/12" style="order: {{ forloop.index }};">
                   {% liquid
                     case settings.pcard_layout
                       when '1'
