@@ -103,7 +103,7 @@
 {%- assign collection_banner = collection.metafields.custom.collection_banner.value -%}
   <div class="m-product-item m:w-6/12 md:m:w-4/12" style="order: 2;">
     <div class="collection-banner">
-      <img src="{{ collection_banner.image | image_url }}" height="auto" width="auto" alt="Image" loading="lazy">
+      <img src="{{ collection_banner.collection_image | image_url }}" height="auto" width="auto" alt="Image" loading="lazy">
     </div>
   </div>
 
