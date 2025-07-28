@@ -101,12 +101,13 @@
 
 
 {%- assign collection_banner = collection.metafields.custom.test.value -%}
+{% if collection_banner.image != blank %}
   <div class="m-product-item m:w-6/12 md:m:w-4/12" style="order: {{ collection_banner.order }};">
     <div class="collection-banner">
       <img src="{{ collection_banner.image | image_url }}" height="auto" width="auto" alt="Image" loading="lazy">
     </div>
   </div>
-
+{% endif %}
 
             </div>
             {% if paginate.pages > 1 %}
