@@ -101,13 +101,11 @@
 
 
 {%- assign collection_banner = collection.metafields.custom.collection_banner.value -%}
-{% if collection_banner.banner_image != blank %}
   <li class="m-product-item m:w-6/12 md:m:w-4/12" style="order: 4;">
     <div class="collection-banner">
       <img src="{{ collection_banner.banner_image | image_url }}" height="auto" width="auto" alt="Image" loading="lazy">
     </div>
   </li>
-{% endif %}
 
 
             </div>
