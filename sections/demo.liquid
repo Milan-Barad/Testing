@@ -274,12 +274,6 @@
         {% endif %}
       {% endfor %}
     </div>
-    
-    {% if section.settings.button_name != blank %}
-      <div class="section-button" style="text-align: {{ section.settings.button_text_align }};">
-        <a {% if section.settings.button_url != blank %}href="{{ section.settings.button_url }}"{% endif %}>{{ section.settings.button_name }}</a>
-      </div>
-    {% endif %}
   </div>
 </section>
 
@@ -383,45 +377,6 @@
           }
         ],
         "default": "center"
-      },
-      {
-        "type": "header",
-        "content": "Button Settings"
-      },
-      {
-        "type": "text",
-        "id": "button_name",
-        "label": "Button Name",
-        "default": "Shop Now"
-      },
-      {
-        "type": "url",
-        "id": "button_url",
-        "label": "Button URL"
-      },
-      {
-        "type": "color",
-        "id": "btn_bg_color",
-        "label": "Button BG Color",
-        "default": "#000"
-      },
-      {
-        "type": "color",
-        "id": "btn_color",
-        "label": "Button Color",
-        "default": "#FFF"
-      },
-      {
-        "type": "color",
-        "id": "hov_bg_color",
-        "label": "Button BG Hover Color",
-        "default": "#cbcbcb"
-      },
-      {
-        "type": "color",
-        "id": "hov_btn_color",
-        "label": "Button Hover Color",
-        "default": "#000"
       },
       {
         "type": "select",
