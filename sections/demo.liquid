@@ -170,6 +170,9 @@
   width: 40px;
   height: 40px;
 }
+body.popup-open {
+  overflow: hidden;
+}
 {% endstyle %}
 
 <section id="{{ section.id }}" class="video-section {{ section.settings.custome_class }}">
@@ -269,6 +272,7 @@ document.addEventListener("DOMContentLoaded", function () {
         v.muted = true;
       });
 
+      document.body.classList.add("popup-open");
       popup.style.display = "flex";
       $(popupSlider).slick({
         dots: true,
@@ -350,6 +354,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     $(popupSlider).slick('unslick');
     popup.style.display = "none";
+    document.body.classList.remove("popup-open");
   }
 
   popupClose.addEventListener("click", closePopup);
