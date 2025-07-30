@@ -18,7 +18,31 @@
             "video_url": "shopify://files/videos/-7fb2-463e-8b83-b11d0295c72f.mp4"
           }
         },
+        "video_FgAyXG": {
+          "type": "video",
+          "settings": {
+            "video_url": "shopify://files/videos/-0ee8-45b1-a690-8d3c83ea9a33.mp4"
+          }
+        },
+        "video_migBdV": {
+          "type": "video",
+          "settings": {
+            "video_url": "shopify://files/videos/-7fb2-463e-8b83-b11d0295c72f.mp4"
+          }
+        },
         "video_4DRGTz": {
+          "type": "video",
+          "settings": {
+            "video_url": "shopify://files/videos/-0ee8-45b1-a690-8d3c83ea9a33.mp4"
+          }
+        },
+        "video_J7zX7X": {
+          "type": "video",
+          "settings": {
+            "video_url": "shopify://files/videos/-7fb2-463e-8b83-b11d0295c72f.mp4"
+          }
+        },
+        "video_6zBWyY": {
           "type": "video",
           "settings": {
             "video_url": "shopify://files/videos/-0ee8-45b1-a690-8d3c83ea9a33.mp4"
@@ -27,7 +51,11 @@
       },
       "block_order": [
         "video_QDrVfn",
-        "video_4DRGTz"
+        "video_FgAyXG",
+        "video_migBdV",
+        "video_4DRGTz",
+        "video_J7zX7X",
+        "video_6zBWyY"
       ],
       "settings": {
         "title": "What is Lorem Ipsum?",
