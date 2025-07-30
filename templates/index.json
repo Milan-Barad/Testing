@@ -12,35 +12,42 @@
     "demo_J3R7PF": {
       "type": "demo",
       "blocks": {
-        "collection_3PHEbB": {
-          "type": "collection",
+        "video_QDrVfn": {
+          "type": "video",
           "settings": {
-            "tab_title": "Tab 1",
-            "collection": "frontpage"
+            "video_url": "shopify://files/videos/-7fb2-463e-8b83-b11d0295c72f.mp4"
           }
         },
-        "collection_3ncCeW": {
-          "type": "collection",
+        "video_4DRGTz": {
+          "type": "video",
           "settings": {
-            "tab_title": "Tab 2",
-            "collection": "clothes"
-          }
-        },
-        "collection_NRahKV": {
-          "type": "collection",
-          "settings": {
-            "tab_title": "Tab 3",
-            "collection": "frontpage"
+            "video_url": "shopify://files/videos/-0ee8-45b1-a690-8d3c83ea9a33.mp4"
           }
         }
       },
       "block_order": [
-        "collection_3PHEbB",
-        "collection_3ncCeW",
-        "collection_NRahKV"
+        "video_QDrVfn",
+        "video_4DRGTz"
       ],
       "settings": {
-        "collection": ""
+        "title": "What is Lorem Ipsum?",
+        "content": "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>",
+        "text_align": "center",
+        "button_name": "Shop Now",
+        "button_url": "",
+        "btn_bg_color": "#000000",
+        "btn_color": "#ffffff",
+        "hov_bg_color": "#cbcbcb",
+        "hov_btn_color": "#000000",
+        "button_text_align": "center",
+        "background_color": "",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "tablet_padding_top": 36,
+        "tablet_padding_bottom": 36,
+        "mobile_padding_top": 36,
+        "mobile_padding_bottom": 36,
+        "custome_class": ""
       }
     },
     "1621243260e1af0c20": {
