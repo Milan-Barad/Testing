@@ -1,50 +1,580 @@
-
-<style>
-.button-style a {
+{% style %}
+  #{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    {% if section.settings.background_color != blank %}
+      background-color:{{ section.settings.background_color }};
+    {% endif %}
+    {% if section.settings.bg_image != blank %}
+      background-image: url({{ section.settings.bg_image | image_url }});
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    {% endif %}
+    overflow: hidden;
+  }
+  #{{ section.id }} .page-width {
+    max-width: 1260px;
+    padding: 0 15px;
+    margin: 0 auto;
+    width: 100%;
+    display: block;
+  }
+  .video-section .section-title h2 {
+    font-size: 46px;
+    line-height: 56px;
+    font-weight: 700;
+    margin: 0;
+  }
+  .video-section .section-title p {
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: 400;
+  }
+  .video-section .section-button {
+    margin-top: 50px;
+  }
+  .video-section .section-button a {
+    display: inline-block;
+    font-size: 18px;
+    line-height: 18px;
+    font-weight: 700;
+    letter-spacing: normal;
+    text-decoration: none;
+    border-radius: 50px;
+    margin: 0;
+    text-transform: uppercase;
+    padding: 20px 60px;
+    text-align: center;
     -webkit-transition: all .3s ease-in-out;
     -moz-transition: all .3s ease-in-out;
     -ms-transition: all .3s ease-in-out;
     -o-transition: all .3s ease-in-out;
     transition: all .3s ease-in-out;
+    background: {{ section.settings.btn_bg_color }};
+    color: {{ section.settings.btn_color }};
+  }
+  .video-section .section-button a:hover {
+    background: {{ section.settings.hov_bg_color }};
+    color: {{ section.settings.hov_btn_color }};
+  }
+  .video-section .video-wrapper .slide-video {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding-top: 133.5%;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+  }
+  .video-section .video-wrapper .video-list {
+    padding: 35px 7px;
+    opacity: .3;
+    pointer-events: none;
+    transition: all .4s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+  }
+  .video-section .video-wrapper .slick-active {
+    opacity: 1;
+    pointer-events: all;
+    padding-top: 22px;
+    padding-bottom: 22px;
+  }
+  .video-section .video-wrapper .slick-active.slick-current {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .video-section .video-wrapper .slick-active.slick-current .slide-video {
+    padding-top: 152.3%;
+  }
+  .video-section .video-wrapper .slick-active .slide-video {
+    padding-top: 140.2%;
+  }
+  .video-section .video-wrapper .swiper-wrapper {
+    align-items: center;
+    padding-bottom: 60px;
+  }
+  .video-section .video-wrapper .slide-video video {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
     display: block;
-    padding: 10px 30px;
-    font-size: 20px;
-    line-height: 24px;
-    font-weight: 900;
-    letter-spacing: 0;
-    background: #d5c1c1d6;
-    color: #000;
-    border-radius: 6px;
-    :hover {
-      background: #c79d9d;
-    }
-}
-.button-style {
-    height: 355px;
-    display: flex;
+    border-radius: 30px;
+  }
+  .video-section .video-wrapper {
+    margin: 50px 0;
+    position: relative;
+  }
+  .video-section .video-wrapper ul.slick-dots {
+    display: flex !important;
     align-items: center;
     justify-content: center;
-    border: 3px solid #000;
-    max-width: 1230px;
-    margin: 100px auto;
-}
-</style>
+    padding: 0;
+    margin: 60px 0 0 0;
+    gap: 12px;
+  }
+  .video-section .video-wrapper ul.slick-dots li {
+    list-style: none;
+    line-height: 0;
+    display: flex;
+    padding: 0;
+  }
+  .video-section .video-wrapper ul.slick-dots li button {
+    margin: 0;
+    background: #e7e7e7;
+    width: 19px;
+    height: 7px;
+    border-radius: 30px;
+    opacity: 1;
+    font-size: 0;
+    border: 0;
+    cursor: pointer;
+  }
+  .video-section .video-wrapper ul.slick-dots li.slick-active button {
+    background: #000;
+    width: 60px;
+  }
+  .video-section .video-toggle {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    z-index: 10;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  .video-section .video-toggle img {
+    width: 70px;
+    height: 70px;
+  }
+  .video-section .video-wrapper .slick-list.draggable {
+    overflow: visible;
+    margin: 0;
+    padding: 0 !important;
+  }
+  .video-section .video-wrapper .slick-prev.slick-arrow {
+    background: url(https://cdn.shopify.com/s/files/1/0680/6195/4281/files/Frame.svg?v=1745596825);
+    left: 0;
+  }
+  .video-section .video-wrapper .slick-next.slick-arrow {
+    background: url(https://cdn.shopify.com/s/files/1/0680/6195/4281/files/Frame_1.svg?v=1745596825);
+    right: 0;
+  }
+  .video-section .video-wrapper .slick-next.slick-arrow,
+  .video-section .video-wrapper .slick-prev.slick-arrow {
+    background-size: contain;
+    height: 40px;
+    width: 40px;
+    border: 0;
+    font-size: 0;
+    padding: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    background-color: transparent;
+    cursor: pointer;
+  }
+  
+  @media screen and (max-width: 1024px) {
+    #{{ section.id }} {
+      padding-top: {{ section.settings.tablet_padding_top }}px;
+      padding-bottom: {{ section.settings.tablet_padding_bottom }}px;
+    }
+    .video-section .video-toggle img {
+      width: 43px;
+      height: 43px;
+    }
+  }
+  
+  @media screen and (max-width: 767px) {
+    #{{ section.id }} {
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+      {% if section.settings.mobile_bg_image != blank %}
+        background-image: url({{ section.settings.mobile_bg_image | image_url }});
+      {% endif %}
+    }
+    .video-section .video-wrapper {
+      margin: 40px 0;
+    }
+    .video-section .section-button {
+      margin-top: 40px;
+    }
+    .video-section .section-title h2 {
+      font-size: 32px;
+      line-height: 42px;
+    }
+    .video-section .section-title p {
+      font-size: 18px;
+      line-height: 28px;
+    }
+    .video-section .video-wrapper ul.slick-dots {
+      margin: 24px 0 0 0;
+    }
+    .video-section .video-wrapper .slick-active.slick-current .slide-video {
+      padding-top: 132.3%;
+    }
+    .video-section .video-wrapper .slide-video {
+      padding-top: 121.7%;
+    }
+    .video-section .video-wrapper .slide-video video {
+      border-radius: 18px;
+    }
+    .video-section .video-wrapper .video-list {
+      padding: 14px 5px;
+    }
+    .video-section .video-wrapper .slick-list.draggable {
+      padding: 0px 60px !important;
+    }
+    .video-section .video-toggle {
+      bottom: 10px;
+      left: 10px;
+    }
+    .video-section .video-wrapper .slick-next.slick-arrow {
+      right: 10px;
+    }
+    .video-section .video-wrapper .slick-prev.slick-arrow {
+      left: 10px;
+    }
+  }
+{% endstyle %}
 
+<section id="{{ section.id }}" class="video-section {{ section.settings.custome_class }}">
+  <div class="page-width">
+    <div class="section-title" style="text-align: {{ section.settings.text_align }};">
+      {% if section.settings.title != blank %}
+        <h2>{{ section.settings.title }}</h2>
+      {% endif %}
+      {% if section.settings.content != blank %}
+        {{ section.settings.content }}
+      {% endif %}
+    </div>
 
-<div class="button-style">
-  <a href="#">Shop Now</a>
-</div>
+    <div class="video-wrapper">
+      {% for block in section.blocks %}
+        {% assign video_url = block.settings.video_url.sources[1].url %}
+        {% if block.settings.video_url != blank %}
+          <div class="video-list">
+            <div class="slide-video">
+              <video class="video" width="100%" type="video/mp4?v=1665479160" src="{{ video_url }}" loop="" playsinline="" autoplay="" preload="auto" controlslist="nodownload"></video>
+              <button class="video-toggle">
+                <img class="icon-play" src="//spoild.us/cdn/shop/files/cw-icon-pause.png?v=1154489187608159760" alt="Play">
+                <img class="icon-pause" src="//spoild.us/cdn/shop/files/cw-icon-play.png?v=14329357438766858479" alt="Pause" style="display: none;">
+              </button>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    
+    {% if section.settings.button_name != blank %}
+      <div class="section-button" style="text-align: {{ section.settings.button_text_align }};">
+        <a {% if section.settings.button_url != blank %}href="{{ section.settings.button_url }}"{% endif %}>{{ section.settings.button_name }}</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
 
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var videoContainers = document.querySelectorAll(".slide-video");
+
+    videoContainers.forEach(function (container) {
+      var video = container.querySelector(".video");
+      var button = container.querySelector(".video-toggle");
+      var iconPlay = button.querySelector(".icon-play");
+      var iconPause = button.querySelector(".icon-pause");
+
+      button.addEventListener("click", function () {
+        if (video.paused) {
+          document.querySelectorAll(".video").forEach(function (v) {
+            if (v !== video) {
+              v.pause();
+              v.muted = true;
+              var otherBtn = v.closest(".slide-video").querySelector(".video-toggle");
+              otherBtn.querySelector(".icon-play").style.display = "inline";
+              otherBtn.querySelector(".icon-pause").style.display = "none";
+            }
+          });
+          video.muted = false;
+          video.play();
+          iconPlay.style.display = "none";
+          iconPause.style.display = "inline";
+        } else {
+          video.pause();
+          iconPlay.style.display = "inline";
+          iconPause.style.display = "none";
+        }
+      });
+    });
+
+    $('.video-section .video-wrapper').slick({
+      dots: true,
+      arrows: true,
+      infinite: true,
+      speed: 300,
+      centerMode: true,
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 1
+          }
+        },
+        {
+          breakpoint: 767,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            centerPadding: '60px',
+          }
+        }
+      ]
+    });
+  });
+</script>
 
 {% schema %}
-{
-  "name": "Infinite marquee",
-  "settings": [
-    
+  {
+    "name": "PDP Video Section",
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    },
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "What is Lorem Ipsum?"
+      },
+      {
+        "type": "richtext",
+        "id": "content",
+        "label": "Content",
+        "default": "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>"
+      },
+      {
+        "type": "select",
+        "id": "text_align",
+        "label": "Alignment",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "center"
+      },
+      {
+        "type": "header",
+        "content": "Button Settings"
+      },
+      {
+        "type": "text",
+        "id": "button_name",
+        "label": "Button Name",
+        "default": "Shop Now"
+      },
+      {
+        "type": "url",
+        "id": "button_url",
+        "label": "Button URL"
+      },
+      {
+        "type": "color",
+        "id": "btn_bg_color",
+        "label": "Button BG Color",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "btn_color",
+        "label": "Button Color",
+        "default": "#FFF"
+      },
+      {
+        "type": "color",
+        "id": "hov_bg_color",
+        "label": "Button BG Hover Color",
+        "default": "#cbcbcb"
+      },
+      {
+        "type": "color",
+        "id": "hov_btn_color",
+        "label": "Button Hover Color",
+        "default": "#000"
+      },
+      {
+        "type": "select",
+        "id": "button_text_align",
+        "label": "Button Alignment",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "center"
+      },
+      {
+        "type": "header",
+        "content": "Section Settings"
+      },
+      {
+        "type": "header",
+        "content": "General Settings"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Section Background Color"
+      },
+      {
+        "type": "image_picker",
+        "id": "bg_image",
+        "label": "Desktop Background Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "mobile_bg_image",
+        "label": "Mobile Background Image"
+      },
+      {
+        "type" : "header",
+        "content" : "Desktop Section Padding"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Top Padding",
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Bottom Padding",
+        "default": 36
+      },
+      {
+        "type" : "header",
+        "content" : "Tablet Section Padding"
+      },
+      {
+        "type": "range",
+        "id": "tablet_padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Top Padding",
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "tablet_padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Bottom Padding",
+        "default": 36
+      },
+      {
+        "type" : "header",
+        "content" : "Mobile Section Padding"
+      },
+      {
+        "type": "range",
+        "id": "mobile_padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Top Padding",
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "mobile_padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Bottom Padding",
+        "default": 36 
+      },
+      {
+        "type" : "header",
+        "content" : "Custome Attributes" 
+      },
+      {
+        "type": "text",
+        "id": "custome_class",
+        "label": "Custome Classes"
+      }
+    ],
+    "blocks": [
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video_url",
+          "label": "Select Video",
+        }
+      ]
+    }
   ],
   "presets": [
     {
-      "name": "Infinite marquee",
+      "name":"PDP Video Section",
+      "blocks": [
+        {
+          "type": "video"
+        },
+        {
+          "type": "video"
+        },
+        {
+          "type": "video"
+        }
+      ]
     }
   ]
 }
