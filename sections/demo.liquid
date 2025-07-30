@@ -234,7 +234,6 @@ document.addEventListener("DOMContentLoaded", function () {
   var popupClose = document.querySelector(".popup-close");
   var popupOverlay = document.querySelector(".popup-overlay");
 
-  // Initialize main carousel
   $('.video-section .video-wrapper').slick({
     dots: false,
     arrows: true,
@@ -262,17 +261,14 @@ document.addEventListener("DOMContentLoaded", function () {
     ]
   });
 
-  // Click video to open popup
   videoContainers.forEach(function (container, index) {
     var video = container.querySelector(".video");
     video.addEventListener("click", function () {
-      // Stop all carousel videos
       document.querySelectorAll(".video").forEach(function (v) {
         v.pause();
         v.muted = true;
       });
 
-      // Open popup and initialize slider
       popup.style.display = "flex";
       $(popupSlider).slick({
         dots: true,
@@ -284,7 +280,6 @@ document.addEventListener("DOMContentLoaded", function () {
         initialSlide: index
       });
 
-      // Play the video in the active slide
       var activeVideo = popupSlider.querySelector(".slick-current .popup-video");
       activeVideo.play();
       activeVideo.muted = false;
@@ -294,7 +289,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Handle toggle buttons in popup
   popupSlider.addEventListener("click", function (e) {
     if (e.target.closest(".popup-video-toggle")) {
       var toggle = e.target.closest(".popup-video-toggle");
@@ -303,7 +297,6 @@ document.addEventListener("DOMContentLoaded", function () {
       var iconPause = toggle.querySelector(".icon-pause");
 
       if (video.paused) {
-        // Pause all other videos
         popupSlider.querySelectorAll(".popup-video").forEach(function (v) {
           if (v !== video) {
             v.pause();
@@ -325,7 +318,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Handle slide change
   $(popupSlider).on('beforeChange', function(event, slick, currentSlide, nextSlide) {
     var currentVideo = popupSlider.querySelector(`.slick-slide[data-slick-index="${currentSlide}"] .popup-video`);
     var currentToggle = popupSlider.querySelector(`.slick-slide[data-slick-index="${currentSlide}"] .popup-video-toggle`);
@@ -348,7 +340,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Close popup
   function closePopup() {
     popupSlider.querySelectorAll(".popup-video").forEach(function (v) {
       v.pause();
