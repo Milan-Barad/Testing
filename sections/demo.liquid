@@ -111,7 +111,7 @@
       {% endif %}
     }
   }
-  .video-popup {
+.video-popup {
   position: fixed;
   top: 0;
   left: 0;
@@ -135,6 +135,12 @@
   max-width: 80%;
   max-height: 80%;
   background: #000;
+}
+.popup-video-slider {
+  width: 100%;
+}
+.popup-video-item {
+  position: relative;
 }
 .popup-video {
   display: block;
@@ -180,8 +186,8 @@
         {% if block.settings.video_url != blank %}
           <div class="video-list">
             <div class="slide-video">
-              <video class="video" width="100%" type="video/mp4?v=1665479160" src="{{ video_url }}" loop="" playsinline="" preload="auto" controlslist="nodownload"></video>
-              <button class="video-toggle" data-video-url="{{ video_url }}">
+              <video class="video" width="100%" type="video/mp4?v=1665479160" src="{{ video_url }}" loop="" playsinline="" autoplay="" preload="auto" controlslist="nodownload"></video>
+              <button class="video-toggle" style="display: none;">
                 <img class="icon-play" src="//spoild.us/cdn/shop/files/cw-icon-pause.png?v=1154489187608159760" alt="Play">
                 <img class="icon-pause" src="//spoild.us/cdn/shop/files/cw-icon-play.png?v=14329357438766858479" alt="Pause" style="display: none;">
               </button>
@@ -192,16 +198,25 @@
     </div>
   </div>
 
-  <!-- Popup Structure -->
+  <!-- Popup Structure with Slider -->
   <div class="video-popup" style="display: none;">
     <div class="popup-overlay"></div>
     <div class="popup-content">
       <button class="popup-close">&times;</button>
-      <video class="popup-video" width="100%" type="video/mp4?v=1665479160" loop="" playsinline="" preload="auto" controlslist="nodownload"></video>
-      <button class="video-toggle popup-video-toggle">
-        <img class="icon-play" src="//spoild.us/cdn/shop/files/cw-icon-pause.png?v=1154489187608159760" alt="Play">
-        <img class="icon-pause" src="//spoild.us/cdn/shop/files/cw-icon-play.png?v=14329357438766858479" alt="Pause" style="display: none;">
-      </button>
+      <div class="popup-video-slider">
+        {% for block in section.blocks %}
+          {% assign video_url = block.settings.video_url.sources[1].url %}
+          {% if block.settings.video_url != blank %}
+            <div class="popup-video-item">
+              <video class="popup-video" width="100%" type="video/mp4?v=1665479160" src="{{ video_url }}" loop="" playsinline="" preload="auto" controlslist="nodownload"></video>
+              <button class="video-toggle popup-video-toggle">
+                <img class="icon-play" src="//spoild.us/cdn/shop/files/cw-icon-pause.png?v=1154489187608159760" alt="Play">
+                <img class="icon-pause" src="//spoild.us/cdn/shop/files/cw-icon-play.png?v=14329357438766858479" alt="Pause" style="display: none;">
+              </button>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
     </div>
   </div>
 </section>
@@ -215,65 +230,11 @@
 document.addEventListener("DOMContentLoaded", function () {
   var videoContainers = document.querySelectorAll(".slide-video");
   var popup = document.querySelector(".video-popup");
-  var popupVideo = document.querySelector(".popup-video");
-  var popupToggle = document.querySelector(".popup-video-toggle");
+  var popupSlider = document.querySelector(".popup-video-slider");
   var popupClose = document.querySelector(".popup-close");
   var popupOverlay = document.querySelector(".popup-overlay");
-  var iconPlayPopup = popupToggle.querySelector(".icon-play");
-  var iconPausePopup = popupToggle.querySelector(".icon-pause");
 
-  videoContainers.forEach(function (container) {
-    var video = container.querySelector(".video");
-    var button = container.querySelector(".video-toggle");
-    var iconPlay = button.querySelector(".icon-play");
-    var iconPause = button.querySelector(".icon-pause");
-
-    button.addEventListener("click", function () {
-      // Stop all carousel videos
-      document.querySelectorAll(".video").forEach(function (v) {
-        v.pause();
-        v.muted = true;
-        var otherBtn = v.closest(".slide-video").querySelector(".video-toggle");
-        otherBtn.querySelector(".icon-play").style.display = "inline";
-        otherBtn.querySelector(".icon-pause").style.display = "none";
-      });
-
-      // Open popup with video
-      popup.style.display = "flex";
-      popupVideo.src = button.getAttribute("data-video-url");
-      popupVideo.play();
-      popupVideo.muted = false;
-      iconPlayPopup.style.display = "none";
-      iconPausePopup.style.display = "inline";
-    });
-  });
-
-  // Popup toggle play/pause
-  popupToggle.addEventListener("click", function () {
-    if (popupVideo.paused) {
-      popupVideo.play();
-      iconPlayPopup.style.display = "none";
-      iconPausePopup.style.display = "inline";
-    } else {
-      popupVideo.pause();
-      iconPlayPopup.style.display = "inline";
-      iconPausePopup.style.display = "none";
-    }
-  });
-
-  // Close popup
-  popupClose.addEventListener("click", closePopup);
-  popupOverlay.addEventListener("click", closePopup);
-
-  function closePopup() {
-    popupVideo.pause();
-    popupVideo.src = "";
-    popup.style.display = "none";
-    iconPlayPopup.style.display = "inline";
-    iconPausePopup.style.display = "none";
-  }
-
-  // Initialize slick carousel
+  // Initialize main carousel
   $('.video-section .video-wrapper').slick({
     dots: false,
     arrows: true,
@@ -300,6 +261,108 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     ]
   });
+
+  // Click video to open popup
+  videoContainers.forEach(function (container, index) {
+    var video = container.querySelector(".video");
+    video.addEventListener("click", function () {
+      // Stop all carousel videos
+      document.querySelectorAll(".video").forEach(function (v) {
+        v.pause();
+        v.muted = true;
+      });
+
+      // Open popup and initialize slider
+      popup.style.display = "flex";
+      $(popupSlider).slick({
+        dots: true,
+        arrows: true,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        initialSlide: index
+      });
+
+      // Play the video in the active slide
+      var activeVideo = popupSlider.querySelector(".slick-current .popup-video");
+      activeVideo.play();
+      activeVideo.muted = false;
+      var activeToggle = popupSlider.querySelector(".slick-current .popup-video-toggle");
+      activeToggle.querySelector(".icon-play").style.display = "none";
+      activeToggle.querySelector(".icon-pause").style.display = "inline";
+    });
+  });
+
+  // Handle toggle buttons in popup
+  popupSlider.addEventListener("click", function (e) {
+    if (e.target.closest(".popup-video-toggle")) {
+      var toggle = e.target.closest(".popup-video-toggle");
+      var video = toggle.closest(".popup-video-item").querySelector(".popup-video");
+      var iconPlay = toggle.querySelector(".icon-play");
+      var iconPause = toggle.querySelector(".icon-pause");
+
+      if (video.paused) {
+        // Pause all other videos
+        popupSlider.querySelectorAll(".popup-video").forEach(function (v) {
+          if (v !== video) {
+            v.pause();
+            v.muted = true;
+            var otherToggle = v.closest(".popup-video-item").querySelector(".popup-video-toggle");
+            otherToggle.querySelector(".icon-play").style.display = "inline";
+            otherToggle.querySelector(".icon-pause").style.display = "none";
+          }
+        });
+        video.play();
+        video.muted = false;
+        iconPlay.style.display = "none";
+        iconPause.style.display = "inline";
+      } else {
+        video.pause();
+        iconPlay.style.display = "inline";
+        iconPause.style.display = "none";
+      }
+    }
+  });
+
+  // Handle slide change
+  $(popupSlider).on('beforeChange', function(event, slick, currentSlide, nextSlide) {
+    var currentVideo = popupSlider.querySelector(`.slick-slide[data-slick-index="${currentSlide}"] .popup-video`);
+    var currentToggle = popupSlider.querySelector(`.slick-slide[data-slick-index="${currentSlide}"] .popup-video-toggle`);
+    if (currentVideo) {
+      currentVideo.pause();
+      currentVideo.muted = true;
+      currentToggle.querySelector(".icon-play").style.display = "inline";
+      currentToggle.querySelector(".icon-pause").style.display = "none";
+    }
+  });
+
+  $(popupSlider).on('afterChange', function(event, slick, currentSlide) {
+    var activeVideo = popupSlider.querySelector(`.slick-slide[data-slick-index="${currentSlide}"] .popup-video`);
+    var activeToggle = popupSlider.querySelector(`.slick-slide[data-slick-index="${currentSlide}"] .popup-video-toggle`);
+    if (activeVideo) {
+      activeVideo.play();
+      activeVideo.muted = false;
+      activeToggle.querySelector(".icon-play").style.display = "none";
+      activeToggle.querySelector(".icon-pause").style.display = "inline";
+    }
+  });
+
+  // Close popup
+  function closePopup() {
+    popupSlider.querySelectorAll(".popup-video").forEach(function (v) {
+      v.pause();
+      v.muted = true;
+      var toggle = v.closest(".popup-video-item").querySelector(".popup-video-toggle");
+      toggle.querySelector(".icon-play").style.display = "inline";
+      toggle.querySelector(".icon-pause").style.display = "none";
+    });
+    $(popupSlider).slick('unslick');
+    popup.style.display = "none";
+  }
+
+  popupClose.addEventListener("click", closePopup);
+  popupOverlay.addEventListener("click", closePopup);
 });
 </script>
 
