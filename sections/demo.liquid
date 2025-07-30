@@ -253,9 +253,6 @@
       {% if section.settings.title != blank %}
         <h2>{{ section.settings.title }}</h2>
       {% endif %}
-      {% if section.settings.content != blank %}
-        {{ section.settings.content }}
-      {% endif %}
     </div>
 
     <div class="video-wrapper">
@@ -351,12 +348,6 @@
         "id": "title",
         "label": "Title",
         "default": "What is Lorem Ipsum?"
-      },
-      {
-        "type": "richtext",
-        "id": "content",
-        "label": "Content",
-        "default": "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>"
       },
       {
         "type": "select",
