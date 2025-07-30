@@ -49,35 +49,6 @@
     margin: 50px 0;
     position: relative;
   }
-  .video-section .video-wrapper ul.slick-dots {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    margin: 60px 0 0 0;
-    gap: 12px;
-  }
-  .video-section .video-wrapper ul.slick-dots li {
-    list-style: none;
-    line-height: 0;
-    display: flex;
-    padding: 0;
-  }
-  .video-section .video-wrapper ul.slick-dots li button {
-    margin: 0;
-    background: #e7e7e7;
-    width: 19px;
-    height: 7px;
-    border-radius: 30px;
-    opacity: 1;
-    font-size: 0;
-    border: 0;
-    cursor: pointer;
-  }
-  .video-section .video-wrapper ul.slick-dots li.slick-active button {
-    background: #000;
-    width: 60px;
-  }
   .video-section .video-toggle {
     position: absolute;
     bottom: 20px;
@@ -204,7 +175,7 @@
     });
 
     $('.video-section .video-wrapper').slick({
-      dots: true,
+      dots: false,
       arrows: true,
       infinite: true,
       speed: 300,
