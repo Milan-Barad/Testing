@@ -127,8 +127,8 @@
         {% if block.settings.video_url != blank %}
           <div class="video-list">
             <div class="slide-video">
-              <video class="video" width="100%" type="video/mp4?v=1665479160" src="{{ video_url }}" loop="" playsinline="" autoplay="" preload="auto" controlslist="nodownload"></video>
-              <button class="video-toggle">
+              <video class="video" width="100%" type="video/mp4?v=1665479160" src="{{ video_url }}" loop="" playsinline="" preload="auto" controlslist="nodownload"></video>
+              <button class="video-toggle" data-video-url="{{ video_url }}">
                 <img class="icon-play" src="//spoild.us/cdn/shop/files/cw-icon-pause.png?v=1154489187608159760" alt="Play">
                 <img class="icon-pause" src="//spoild.us/cdn/shop/files/cw-icon-play.png?v=14329357438766858479" alt="Pause" style="display: none;">
               </button>
@@ -136,6 +136,19 @@
           </div>
         {% endif %}
       {% endfor %}
+    </div>
+  </div>
+
+  <!-- Popup Structure -->
+  <div class="video-popup" style="display: none;">
+    <div class="popup-overlay"></div>
+    <div class="popup-content">
+      <button class="popup-close">&times;</button>
+      <video class="popup-video" width="100%" type="video/mp4?v=1665479160" loop="" playsinline="" preload="auto" controlslist="nodownload"></video>
+      <button class="video-toggle popup-video-toggle">
+        <img class="icon-play" src="//spoild.us/cdn/shop/files/cw-icon-pause.png?v=1154489187608159760" alt="Play">
+        <img class="icon-pause" src="//spoild.us/cdn/shop/files/cw-icon-play.png?v=14329357438766858479" alt="Pause" style="display: none;">
+      </button>
     </div>
   </div>
 </section>
@@ -146,65 +159,95 @@
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    var videoContainers = document.querySelectorAll(".slide-video");
+document.addEventListener("DOMContentLoaded", function () {
+  var videoContainers = document.querySelectorAll(".slide-video");
+  var popup = document.querySelector(".video-popup");
+  var popupVideo = document.querySelector(".popup-video");
+  var popupToggle = document.querySelector(".popup-video-toggle");
+  var popupClose = document.querySelector(".popup-close");
+  var popupOverlay = document.querySelector(".popup-overlay");
+  var iconPlayPopup = popupToggle.querySelector(".icon-play");
+  var iconPausePopup = popupToggle.querySelector(".icon-pause");
 
-    videoContainers.forEach(function (container) {
-      var video = container.querySelector(".video");
-      var button = container.querySelector(".video-toggle");
-      var iconPlay = button.querySelector(".icon-play");
-      var iconPause = button.querySelector(".icon-pause");
+  videoContainers.forEach(function (container) {
+    var video = container.querySelector(".video");
+    var button = container.querySelector(".video-toggle");
+    var iconPlay = button.querySelector(".icon-play");
+    var iconPause = button.querySelector(".icon-pause");
 
-      button.addEventListener("click", function () {
-        if (video.paused) {
-          document.querySelectorAll(".video").forEach(function (v) {
-            if (v !== video) {
-              v.pause();
-              v.muted = true;
-              var otherBtn = v.closest(".slide-video").querySelector(".video-toggle");
-              otherBtn.querySelector(".icon-play").style.display = "inline";
-              otherBtn.querySelector(".icon-pause").style.display = "none";
-            }
-          });
-          video.muted = false;
-          video.play();
-          iconPlay.style.display = "none";
-          iconPause.style.display = "inline";
-        } else {
-          video.pause();
-          iconPlay.style.display = "inline";
-          iconPause.style.display = "none";
-        }
+    button.addEventListener("click", function () {
+      // Stop all carousel videos
+      document.querySelectorAll(".video").forEach(function (v) {
+        v.pause();
+        v.muted = true;
+        var otherBtn = v.closest(".slide-video").querySelector(".video-toggle");
+        otherBtn.querySelector(".icon-play").style.display = "inline";
+        otherBtn.querySelector(".icon-pause").style.display = "none";
       });
-    });
 
-    $('.video-section .video-wrapper').slick({
-      dots: false,
-      arrows: true,
-      infinite: true,
-      speed: 300,
-      centerMode: true,
-      slidesToShow: 4,
-      slidesToScroll: 1,
-      responsive: [
-        {
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 1
-          }
-        },
-        {
-          breakpoint: 767,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            centerPadding: '60px',
-          }
-        }
-      ]
+      // Open popup with video
+      popup.style.display = "flex";
+      popupVideo.src = button.getAttribute("data-video-url");
+      popupVideo.play();
+      popupVideo.muted = false;
+      iconPlayPopup.style.display = "none";
+      iconPausePopup.style.display = "inline";
     });
   });
+
+  // Popup toggle play/pause
+  popupToggle.addEventListener("click", function () {
+    if (popupVideo.paused) {
+      popupVideo.play();
+      iconPlayPopup.style.display = "none";
+      iconPausePopup.style.display = "inline";
+    } else {
+      popupVideo.pause();
+      iconPlayPopup.style.display = "inline";
+      iconPausePopup.style.display = "none";
+    }
+  });
+
+  // Close popup
+  popupClose.addEventListener("click", closePopup);
+  popupOverlay.addEventListener("click", closePopup);
+
+  function closePopup() {
+    popupVideo.pause();
+    popupVideo.src = "";
+    popup.style.display = "none";
+    iconPlayPopup.style.display = "inline";
+    iconPausePopup.style.display = "none";
+  }
+
+  // Initialize slick carousel
+  $('.video-section .video-wrapper').slick({
+    dots: false,
+    arrows: true,
+    infinite: true,
+    speed: 300,
+    centerMode: true,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1
+        }
+      },
+      {
+        breakpoint: 767,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          centerPadding: '60px',
+        }
+      }
+    ]
+  });
+});
 </script>
 
 {% schema %}
