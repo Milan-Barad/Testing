@@ -1,59 +1,59 @@
 {% style %}
 .tab-container {
-    max-width: 600px;
-    margin: 20px auto;
-    border: 1px solid #ccc;
-}
-.tab-buttons {
-    display: flex;
-    border-bottom: 1px solid #ccc;
-}
-.tab-button {
-    flex: 1;
-    padding: 10px;
-    cursor: pointer;
-    background: #f4f4f4;
-    border: none;
-    outline: none;
-}
-.tab-button:hover {
-    background: #ddd;
-}
-.tab-content {
-    display: none;
-    padding: 20px;
-}
-.tab-content.active {
-    display: block;
-}
-.accordion {
-    width: 100%;
-    margin: 10px 0;
-}
-.accordion-item {
-    border: 1px solid #ddd;
-    margin-bottom: 5px;
-}
-.accordion-header {
-    padding: 10px;
-    cursor: pointer;
-    background: #f4f4f4;
-}
-.accordion-header:hover {
-    background: #ddd;
-}
-.accordion-panel {
-    padding: 10px;
-    display: none;
-}
-.accordion-panel.active {
-    display: block;
-}
+      max-width: 600px;
+      margin: 20px auto;
+      border: 1px solid #ccc;
+  }
+  .tab-buttons {
+      display: flex;
+      border-bottom: 1px solid #ccc;
+  }
+  .tab-button {
+      flex: 1;
+      padding: 10px;
+      cursor: pointer;
+      background: #f4f4f4;
+      border: none;
+      outline: none;
+  }
+  .tab-button:hover {
+      background: #ddd;
+  }
+  .tab-content {
+      display: none;
+      padding: 20px;
+  }
+  .tab-content.active {
+      display: block;
+  }
+  .accordion {
+      width: 100%;
+      margin: 10px 0;
+  }
+  .accordion-item {
+      border: 1px solid #ddd;
+      margin-bottom: 5px;
+  }
+  .accordion-header {
+      padding: 10px;
+      cursor: pointer;
+      background: #f4f4f4;
+  }
+  .accordion-header:hover {
+      background: #ddd;
+  }
+  .accordion-panel {
+      padding: 10px;
+      display: none;
+  }
+  .accordion-panel.active {
+      display: block;
+  }
 {% endstyle %}
 
 <div class="tab-container">
         <div class="tab-buttons">
-            {% for block in section.blocks %}
+            {% for collection in collections %}
                 <button class="tab-button" onclick="openTab('{{ collection.handle }}')">{{ collection.title }}</button>
             {% endfor %}
         </div>
@@ -61,7 +61,7 @@
         {% for collection in collections %}
             <div id="{{ collection.handle }}" class="tab-content" style="display:none;">
                 <div class="accordion">
-                    {% for block in section.blocks %}
+                    {% for product in collection.products %}
                         <div class="accordion-item">
                             <div class="accordion-header" onclick="toggleAccordion('{{ product.handle }}')">{{ product.title }}</div>
                             <div id="{{ product.handle }}" class="accordion-panel">
