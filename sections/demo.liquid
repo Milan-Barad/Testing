@@ -53,7 +53,7 @@
 
 <div class="tab-container">
         <div class="tab-buttons">
-            {% for collection in collections %}
+            {% for block in section.blocks %}
                 <button class="tab-button" onclick="openTab('{{ collection.handle }}')">{{ collection.title }}</button>
             {% endfor %}
         </div>
@@ -61,7 +61,7 @@
         {% for collection in collections %}
             <div id="{{ collection.handle }}" class="tab-content" style="display:none;">
                 <div class="accordion">
-                    {% for product in collection.products %}
+                    {% for block in section.blocks %}
                         <div class="accordion-item">
                             <div class="accordion-header" onclick="toggleAccordion('{{ product.handle }}')">{{ product.title }}</div>
                             <div id="{{ product.handle }}" class="accordion-panel">
