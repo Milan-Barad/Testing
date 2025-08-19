@@ -51,56 +51,56 @@
 }
 {% endstyle %}
 
-<section id="{{ section.id }}" class="video-section {{ section.settings.custome_class }}">
-  <div class="page-width">
-    <div class="section-title" style="text-align: {{ section.settings.text_align }};">
-      {% if section.settings.title != blank %}
-        <h2>{{ section.settings.title }}</h2>
-      {% endif %}
-    </div>
+<div class="tab-container">
+        <div class="tab-buttons">
+            {% for collection in collections %}
+                <button class="tab-button" onclick="openTab('{{ collection.handle }}')">{{ collection.title }}</button>
+            {% endfor %}
+        </div>
 
-    <div class="video-wrapper">
-      {% for block in section.blocks %}
-        {% assign video_url = block.settings.video_url.sources[1].url %}
-        {% if block.settings.video_url != blank %}
-          <div class="video-list">
-            <div class="slide-video">
-              <video class="video" width="100%" type="video/mp4?v=1665479160" src="{{ video_url }}" loop="" playsinline="" autoplay="" preload="auto" controlslist="nodownload"></video>
-              <button class="video-toggle" style="display: none;">
-                <img class="icon-play" src="//spoild.us/cdn/shop/files/cw-icon-pause.png?v=1154489187608159760" alt="Play">
-                <img class="icon-pause" src="//spoild.us/cdn/shop/files/cw-icon-play.png?v=14329357438766858479" alt="Pause" style="display: none;">
-              </button>
+        {% for collection in collections %}
+            <div id="{{ collection.handle }}" class="tab-content" style="display:none;">
+                <div class="accordion">
+                    {% for product in collection.products %}
+                        <div class="accordion-item">
+                            <div class="accordion-header" onclick="toggleAccordion('{{ product.handle }}')">{{ product.title }}</div>
+                            <div id="{{ product.handle }}" class="accordion-panel">
+                                <p>{{ product.description | strip_html | truncate: 100 }}</p>
+                                <a href="{{ product.url | within: collection }}">View Product</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
-          </div>
-        {% endif %}
-      {% endfor %}
-    </div>
-  </div>
-
-  <!-- Popup Structure with Slider -->
-  <div class="video-popup" style="display: none;">
-    <div class="popup-overlay"></div>
-    <div class="popup-content">
-      <button class="popup-close">&times;</button>
-      <div class="popup-video-slider">
-        {% for block in section.blocks %}
-          {% assign video_url = block.settings.video_url.sources[1].url %}
-          {% if block.settings.video_url != blank %}
-            <div class="popup-video-item">
-              <video class="popup-video" width="100%" type="video/mp4?v=1665479160" src="{{ video_url }}" loop="" playsinline="" preload="auto" controlslist="nodownload"></video>
-              <button class="video-toggle popup-video-toggle">
-                <img class="icon-play" src="//spoild.us/cdn/shop/files/cw-icon-pause.png?v=1154489187608159760" alt="Play">
-                <img class="icon-pause" src="//spoild.us/cdn/shop/files/cw-icon-play.png?v=14329357438766858479" alt="Pause" style="display: none;">
-              </button>
-            </div>
-          {% endif %}
         {% endfor %}
-      </div>
     </div>
-  </div>
-</section>
 
+<script>
+      function openTab(tabName) {
+          var i, tabContent, tabButtons;
+          tabContent = document.getElementsByClassName("tab-content");
+          for (i = 0; i < tabContent.length; i++) {
+              tabContent[i].style.display = "none";
+          }
+          tabButtons = document.getElementsByClassName("tab-button");
+          for (i = 0; i < tabButtons.length; i++) {
+              tabButtons[i].className = tabButtons[i].className.replace(" active", "");
+          }
+          document.getElementById(tabName).style.display = "block";
+          event.currentTarget.className += " active";
+      }
 
+      function toggleAccordion(panelId) {
+          var panel = document.getElementById(panelId);
+          if (panel.className.indexOf("active") == -1) {
+              panel.className += " active";
+          } else {
+              panel.className = panel.className.replace(" active", "");
+          }
+      }
+
+      document.getElementsByClassName("tab-button")[0].click();
+  </script>
 
 {% schema %}
   {
