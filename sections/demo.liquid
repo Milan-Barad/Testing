@@ -63,9 +63,9 @@
             <div class="accordion">
                 {% for item in block.settings.accordion_items %}
                     <div class="accordion-item">
-                        <div class="accordion-header" onclick="toggleAccordion('{{ block.id }}-{{ forloop.index0 }}')">{{ item.header }}</div>
+                        <div class="accordion-header" onclick="toggleAccordion('{{ block.id }}-{{ forloop.index0 }}')">{{ block.settings.accordion_title }}</div>
                         <div id="{{ block.id }}-{{ forloop.index0 }}" class="accordion-panel">
-                            <p>{{ item.content }}</p>
+                            <p>{{ block.settings.content }}</p>
                         </div>
                     </div>
                 {% endfor %}
@@ -121,9 +121,9 @@
       "name": "Video",
       "settings": [
         {
-          "type": "video",
-          "id": "video_url",
-          "label": "Select Video",
+          "type": "text",
+          "id": "tab_title",
+          "label": "tab_title",
         }
       ]
     }
