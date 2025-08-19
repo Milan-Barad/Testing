@@ -12,15 +12,15 @@
     "demo_J3R7PF": {
       "type": "demo",
       "blocks": {
-        "video_6zBWyY": {
-          "type": "video",
+        "text_Jpj9dg": {
+          "type": "text",
           "settings": {
             "tab_title": ""
           }
         }
       },
       "block_order": [
-        "video_6zBWyY"
+        "text_Jpj9dg"
       ],
       "settings": {
         "title": "What is Lorem Ipsum?"
