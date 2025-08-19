@@ -52,55 +52,54 @@
 {% endstyle %}
 
 <div class="tab-container">
-        <div class="tab-buttons">
-            {% for collection in collections %}
-                <button class="tab-button" onclick="openTab('{{ collection.handle }}')">{{ collection.title }}</button>
-            {% endfor %}
-        </div>
-
-        {% for collection in collections %}
-            <div id="{{ collection.handle }}" class="tab-content" style="display:none;">
-                <div class="accordion">
-                    {% for product in collection.products %}
-                        <div class="accordion-item">
-                            <div class="accordion-header" onclick="toggleAccordion('{{ product.handle }}')">{{ product.title }}</div>
-                            <div id="{{ product.handle }}" class="accordion-panel">
-                                <p>{{ product.description | strip_html | truncate: 100 }}</p>
-                                <a href="{{ product.url | within: collection }}">View Product</a>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
+    <div class="tab-buttons">
+        {% for block in section.blocks %}
+            <button class="tab-button" onclick="openTab('{{ block.id }}')">{{ block.settings.tab_title }}</button>
         {% endfor %}
     </div>
 
+    {% for block in section.blocks %}
+        <div id="{{ block.id }}" class="tab-content" style="display:none;">
+            <div class="accordion">
+                {% for item in block.settings.accordion_items %}
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion('{{ block.id }}-{{ forloop.index0 }}')">{{ item.header }}</div>
+                        <div id="{{ block.id }}-{{ forloop.index0 }}" class="accordion-panel">
+                            <p>{{ item.content }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
 <script>
-      function openTab(tabName) {
-          var i, tabContent, tabButtons;
-          tabContent = document.getElementsByClassName("tab-content");
-          for (i = 0; i < tabContent.length; i++) {
-              tabContent[i].style.display = "none";
-          }
-          tabButtons = document.getElementsByClassName("tab-button");
-          for (i = 0; i < tabButtons.length; i++) {
-              tabButtons[i].className = tabButtons[i].className.replace(" active", "");
-          }
-          document.getElementById(tabName).style.display = "block";
-          event.currentTarget.className += " active";
-      }
+    function openTab(tabName) {
+        var i, tabContent, tabButtons;
+        tabContent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabContent.length; i++) {
+            tabContent[i].style.display = "none";
+        }
+        tabButtons = document.getElementsByClassName("tab-button");
+        for (i = 0; i < tabButtons.length; i++) {
+            tabButtons[i].className = tabButtons[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        event.currentTarget.className += " active";
+    }
 
-      function toggleAccordion(panelId) {
-          var panel = document.getElementById(panelId);
-          if (panel.className.indexOf("active") == -1) {
-              panel.className += " active";
-          } else {
-              panel.className = panel.className.replace(" active", "");
-          }
-      }
+    function toggleAccordion(panelId) {
+        var panel = document.getElementById(panelId);
+        if (panel.className.indexOf("active") == -1) {
+            panel.className += " active";
+        } else {
+            panel.className = panel.className.replace(" active", "");
+        }
+    }
 
-      document.getElementsByClassName("tab-button")[0].click();
-  </script>
+    document.getElementsByClassName("tab-button")[0].click();
+</script>
 
 {% schema %}
   {
