@@ -12,70 +12,18 @@
     "demo_J3R7PF": {
       "type": "demo",
       "blocks": {
-        "video_QDrVfn": {
-          "type": "video",
-          "settings": {
-            "video_url": "shopify://files/videos/-7fb2-463e-8b83-b11d0295c72f.mp4"
-          }
-        },
-        "video_FgAyXG": {
-          "type": "video",
-          "settings": {
-            "video_url": "shopify://files/videos/-0ee8-45b1-a690-8d3c83ea9a33.mp4"
-          }
-        },
-        "video_migBdV": {
-          "type": "video",
-          "settings": {
-            "video_url": "shopify://files/videos/-7fb2-463e-8b83-b11d0295c72f.mp4"
-          }
-        },
-        "video_4DRGTz": {
-          "type": "video",
-          "settings": {
-            "video_url": "shopify://files/videos/-0ee8-45b1-a690-8d3c83ea9a33.mp4"
-          }
-        },
-        "video_J7zX7X": {
-          "type": "video",
-          "settings": {
-            "video_url": "shopify://files/videos/-7fb2-463e-8b83-b11d0295c72f.mp4"
-          }
-        },
         "video_6zBWyY": {
           "type": "video",
           "settings": {
-            "video_url": "shopify://files/videos/-0ee8-45b1-a690-8d3c83ea9a33.mp4"
+            "tab_title": ""
           }
         }
       },
       "block_order": [
-        "video_QDrVfn",
-        "video_FgAyXG",
-        "video_migBdV",
-        "video_4DRGTz",
-        "video_J7zX7X",
         "video_6zBWyY"
       ],
       "settings": {
-        "title": "What is Lorem Ipsum?",
-        "content": "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>",
-        "text_align": "center",
-        "button_name": "Shop Now",
-        "button_url": "",
-        "btn_bg_color": "#000000",
-        "btn_color": "#ffffff",
-        "hov_bg_color": "#cbcbcb",
-        "hov_btn_color": "#000000",
-        "button_text_align": "center",
-        "background_color": "",
-        "padding_top": 36,
-        "padding_bottom": 36,
-        "tablet_padding_top": 36,
-        "tablet_padding_bottom": 36,
-        "mobile_padding_top": 36,
-        "mobile_padding_bottom": 36,
-        "custome_class": ""
+        "title": "What is Lorem Ipsum?"
       }
     },
     "1621243260e1af0c20": {
