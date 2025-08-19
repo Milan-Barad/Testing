@@ -64,10 +64,11 @@
     <div id="{{ tab_id }}" class="tab-content" style="display: {% if forloop.first %}block{% else %}none{% endif %};">
       <div class="accordion">
         {% for accordion_block in block.settings.accordion_items %}
+          {% assign accordion_id = accordion_block.accordion_title | handleize %}
           <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion('{{ accordion_id }}')">{{ block.settings.accordion_title }}</div>
+            <div class="accordion-header" onclick="toggleAccordion('{{ accordion_id }}')">{{ accordion_block.accordion_title }}</div>
             <div id="{{ accordion_id }}" class="accordion-panel">
-              {{ block.settings.content }}
+              {{ accordion_block.content }}
             </div>
           </div>
         {% endfor %}
