@@ -101,37 +101,55 @@
     }
   }
 
-  // Open first tab by default
   document.getElementsByClassName("tab-button")[0].click();
 </script>
 
 {% schema %}
-{
-  "name": "Tabs with Accordion",
-  "settings": [],
-  "blocks": [
+  {
+    "name": "PDP Video Section",
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    },
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title",
+        "default": "What is Lorem Ipsum?"
+      },
+    ],
+    "blocks": [
     {
-      "type": "tab",
-      "name": "Tab",
+      "type": "text",
+      "name": "Video",
       "settings": [
         {
           "type": "text",
           "id": "tab_title",
-          "label": "Tab Title"
+          "label": "tab_title",
+        }
+      ]
+    },
+    {
+      "type": "accordion",
+      "name": "Accordion",
+      "settings": [
+        {
+          "type": "text",
+          "id": "accordion_title",
+          "label": "accordion_title",
         },
         {
-          "type": "textarea",
-          "id": "accordion_items",
-          "label": "Accordion Items",
-          "info": "Enter JSON-like structure for accordion items, e.g., [{title: 'Item 1', content: 'Details'}, {title: 'Item 2', content: 'Details'}]"
+          "type": "text",
+          "id": "content",
+          "label": "content",
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Tabs with Accordion",
-      "category": "Custom"
+      "name":"PDP Video Section"
     }
   ]
 }
