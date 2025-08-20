@@ -94,11 +94,6 @@
   {% for block in section.blocks %}
     
     {% if block.type == 'tab' %}
-      {% if current_tab != '' %}
-        </div>
-      </div>
-      {% endif %}
-      
       <div id="tab-{{ block.settings.tab_id }}" class="tab-content">
         <div class="accordion">
         {% assign current_tab = block.settings.tab_id %}
@@ -112,14 +107,10 @@
               {{ block.settings.accordion_content }}
             </div>
           </div>
-        {% endif %}
-  
-  {% endfor %}
-  
-  {% if current_tab != '' %}
         </div>
       </div>
-  {% endif %}
+        {% endif %}
+  {% endfor %}
 </div>
 
 <script>
