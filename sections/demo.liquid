@@ -162,9 +162,13 @@
       <h2>{{ section.settings.main_title }}</h2>
     </div>
     <ul class="tab">
-      <li class="tablinks active_tab" data-tab="order-questions" id="defaultOpen">Order Questions</li>
-      <li class="tablinks" data-tab="miscellaneous-questions">Miscellaneous Questions</li>
-      <li class="tablinks" data-tab="jewelry-questions">Jewelry Questions</li>
+      {% for block in section.blocks %}
+        {% if block.type == 'tab_settings' %}
+          <li class="tablinks {% if forloop.first %}active_tab{% endif %}" data-tab="{{ block.settings.data_tab }}" {% if forloop.first %}id="defaultOpen"{% endif %}>
+            {{ block.settings.title }}
+          </li>
+        {% endif %}
+      {% endfor %}
     </ul>
     <div class="faq-sections"style="display:none;">
       {% for block in section.blocks %}
@@ -292,6 +296,23 @@
     }
     ],
     "blocks": [
+      {
+      "type": "tab_settings",
+      "name": "Tab Settings",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Tab Title"
+        },
+        {
+          "type": "text",
+          "id": "data_tab",
+          "label": "Data Tab ID",
+          "info": "Must match the class name of the corresponding FAQ section (e.g., order-questions)"
+        }
+      ]
+    },
     {
       "type": "order_questions",
       "name": "Order Questions",
