@@ -39,14 +39,14 @@
         {% if block.settings.question != blank %}
           <div class="accordion-box">
               <h6 class="accordion-header">
-                How Can I Help You?
+                {{ block.settings.question }}
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none">
                   <path class="vertical-line" d="M8 14.3734C7.46055 14.3734 7.02344 13.9363 7.02344 13.3969V0.976562C7.02344 0.437109 7.46055 0 8 0C8.53945 0 8.97656 0.437109 8.97656 0.976562V13.3969C8.97656 13.9363 8.53945 14.3734 8 14.3734Z" fill="black"/>
                   <path d="M14.2094 8.16309H1.78906C1.24961 8.16309 0.8125 7.72598 0.8125 7.18652C0.8125 6.64707 1.24961 6.20996 1.78906 6.20996H14.2094C14.7488 6.20996 15.1859 6.64707 15.1859 7.18652C15.1859 7.72598 14.7488 8.16309 14.2094 8.16309Z" fill="black"/>
                 </svg>
               </h6>
               <div class="accordion-content">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                {{ block.settings.answer }}
               </div>
             </div>
         {% endif %}
