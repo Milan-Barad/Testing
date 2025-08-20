@@ -11,50 +11,6 @@
   "sections": {
     "demo_J3R7PF": {
       "type": "demo",
-      "blocks": {
-        "tab_fnJtCP": {
-          "type": "tab",
-          "settings": {
-            "tab_id": "tab_1",
-            "tab_title": "tab 1"
-          }
-        },
-        "accordion_nD6zRk": {
-          "type": "accordion",
-          "settings": {
-            "accordion_title": "asd",
-            "accordion_content": "ad"
-          }
-        },
-        "accordion_JacAnR": {
-          "type": "accordion",
-          "settings": {
-            "accordion_title": "asdas",
-            "accordion_content": "asdasd"
-          }
-        },
-        "tab_kdi9dr": {
-          "type": "tab",
-          "settings": {
-            "tab_id": "tab_2",
-            "tab_title": "tab 2"
-          }
-        },
-        "accordion_w49gyq": {
-          "type": "accordion",
-          "settings": {
-            "accordion_title": "Accordion Title",
-            "accordion_content": "Accordion Title Accordion Title Accordion Title"
-          }
-        }
-      },
-      "block_order": [
-        "tab_fnJtCP",
-        "accordion_nD6zRk",
-        "accordion_JacAnR",
-        "tab_kdi9dr",
-        "accordion_w49gyq"
-      ],
       "settings": {}
     },
     "1621243260e1af0c20": {
