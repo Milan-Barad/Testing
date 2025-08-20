@@ -1,7 +1,6 @@
 <style>
-        *{box-sizing:border-box;margin:0;padding:0}
-        body{font-family:{{ section.settings.font_family }};color:{{ section.settings.text_color }};background:{{ section.settings.background_color }};padding:20px}
-        .container{max-width:1200px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,0.1);overflow:hidden}
+       
+        .containerr{max-width:1200px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,0.1);overflow:hidden}
         .tabs-header{display:flex;background:{{ section.settings.tab_header_bg }};border-bottom:1px solid {{ section.settings.tab_border_color }}}
         .tab-btn{padding:15px 25px;cursor:pointer;border:none;background:none;font-weight:600;color:{{ section.settings.tab_text_color }};transition:all 0.3s;border-bottom:3px solid transparent}
         .tab-btn:hover{background:{{ section.settings.tab_hover_bg }};color:{{ section.settings.tab_hover_text_color }}}
@@ -37,7 +36,7 @@
         @media (min-width:769px){.mobile-accordion{display:none}}
     </style>
 
-<div class="container">
+<div class="containerr">
         <div class="tabs-header">
             {% for block in section.blocks %}
                 {% if block.type == 'tab' %}
