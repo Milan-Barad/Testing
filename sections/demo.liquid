@@ -1,376 +1,163 @@
 <style>
-.containerr {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-        
-        .tabs-header {
-            display: flex;
-            background: {{ section.settings.tab_header_bg }};
-            border-bottom: 1px solid {{ section.settings.tab_border_color }};
-        }
-        
-        .tab-btn {
-            padding: 15px 25px;
-            cursor: pointer;
-            border: none;
-            background: none;
-            font-weight: 600;
-            color: {{ section.settings.tab_text_color }};
-            transition: all 0.3s ease;
-            border-bottom: 3px solid transparent;
-        }
-        
-        .tab-btn:hover {
-            background: {{ section.settings.tab_hover_bg }};
-            color: {{ section.settings.tab_hover_text_color }};
-        }
-        
-        .tab-btn.active {
-            color: {{ section.settings.active_tab_color }};
-            border-bottom: 3px solid {{ section.settings.active_tab_color }};
-            background: white;
-        }
-        
-        .tab-content {
-            display: none;
-            padding: 20px;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        .accordion {
-            margin-bottom: 15px;
-            border: 1px solid {{ section.settings.accordion_border_color }};
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        
-        .accordion-header {
-            padding: 15px 20px;
-            background: {{ section.settings.accordion_header_bg }};
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-            transition: background 0.3s ease;
-        }
-        
-        .accordion-header:hover {
-            background: {{ section.settings.accordion_hover_bg }};
-        }
-        
-        .accordion-header::after {
-            content: '+';
-            font-size: 18px;
-            font-weight: bold;
-        }
-        
-        .accordion-header.active::after {
-            content: '-';
-        }
-        
-        .accordion-content {
-            padding: 0;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease, padding 0.3s ease;
-            background: white;
-        }
-        
-        .accordion-content.active {
-            padding: 20px;
-            max-height: 1000px;
-        }
-        
-        .lab-result {
-            margin-bottom: 10px;
-            padding: 10px 15px;
-            background: {{ section.settings.lab_result_bg }};
-            border-radius: 6px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .lab-result a {
-            color: {{ section.settings.link_color }};
-            text-decoration: none;
-            font-weight: 500;
-            padding: 5px 10px;
-            border-radius: 4px;
-            transition: background 0.2s ease;
-        }
-        
-        .lab-result a:hover {
-            background: {{ section.settings.link_hover_bg }};
-        }
-        
-        /* Mobile Accordion Styles */
-        .mobile-accordion {
-            display: none;
-        }
-        
-        .mobile-accordion-header {
-            padding: 15px 20px;
-            background: {{ section.settings.mobile_header_bg }};
-            color: {{ section.settings.mobile_header_text_color }};
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-        
-        .mobile-accordion-header::after {
-            content: '+';
-            font-size: 18px;
-            font-weight: bold;
-        }
-        
-        .mobile-accordion-header.active {
-            background: {{ section.settings.mobile_active_header_bg }};
-            border-radius: 8px 8px 0 0;
-            margin-bottom: 0;
-        }
-        
-        .mobile-accordion-header.active::after {
-            content: '-';
-        }
-        
-        .mobile-accordion-content {
-            padding: 0;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            background: white;
-            border-radius: 0 0 8px 8px;
-        }
-        
-        .mobile-accordion-content.active {
-            padding: 20px;
-            max-height: 1000px;
-            border: 1px solid {{ section.settings.accordion_border_color }};
-            border-top: none;
-        }
-        
-        /* Responsive Styles */
-        @media (max-width: 768px) {
-            .tabs-header {
-                display: none;
-            }
-            
-            .mobile-accordion {
-                display: block;
-            }
-            
-            .tab-content {
-                padding: 0;
-                display: block;
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.3s ease;
-            }
-            
-            .tab-content.active {
-                max-height: 1000px;
-                padding: 0;
-            }
-            
-            .tab-content .accordion {
-                border: none;
-                margin-bottom: 0;
-            }
-            
-            .tab-content .accordion-header {
-                border-radius: 0;
-                background: {{ section.settings.accordion_header_bg }};
-            }
-            
-            .tab-content .accordion-content {
-                border-top: 1px solid {{ section.settings.accordion_border_color }};
-            }
-            
-            .tab-content .accordion-content.active {
-                padding: 15px;
-            }
-        }
-        
-        @media (min-width: 769px) {
-            .mobile-accordion {
-                display: none;
-            }
-        }
-  </style>
+  .faq-section {
+    padding: 40px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .container {
+    padding: 0 20px;
+  }
+  .faq-details {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .faq-details h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  .tab {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #eee;
+  }
+  .tablinks {
+    padding: 15px 25px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: #333;
+    transition: all 0.3s ease;
+  }
+  .tablinks:hover {
+    color: #007bff;
+  }
+  .tablinks.active_tab {
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+  }
+  .faq-tabs-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .faq-sections {
+    display: none;
+  }
+  .faq-sections.active {
+    display: block;
+  }
+  .question {
+    background: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+  }
+  .question p {
+    margin: 0;
+    font-weight: 500;
+  }
+  .arrow {
+    border: solid #333;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+    transition: transform 0.3s ease;
+  }
+  .question.active .arrow {
+    transform: rotate(-135deg);
+  }
+  .answer {
+    display: none;
+    padding: 15px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  .answer.active {
+    display: block;
+  }
+</style>
 
-<div class="containerr">
-        <!-- Desktop Tabs -->
-        <div class="tabs-header">
-            {% for block in section.blocks %}
-                {% if block.type == 'tab' %}
-                    <button class="tab-btn {% if forloop.first %}active{% endif %}" data-tab="{{ block.settings.tab_id }}">
-                        {{ block.settings.tab_title }}
-                    </button>
-                {% endif %}
-            {% endfor %}
-        </div>
-        
-        <!-- Mobile Accordion Tabs -->
-        <div class="mobile-accordion">
-            {% for block in section.blocks %}
-                {% if block.type == 'tab' %}
-                    <div class="mobile-accordion-header {% if forloop.first %}active{% endif %}" data-tab="{{ block.settings.tab_id }}">
-                        {{ block.settings.tab_title }}
-                    </div>
-                    <div class="mobile-accordion-content" id="mobile-{{ block.settings.tab_id }}">
-                        <!-- Content will be moved here via JavaScript -->
-                    </div>
-                {% endif %}
-            {% endfor %}
-        </div>
-        
-        <!-- Tab Contents -->
-        {% for block in section.blocks %}
-            {% if block.type == 'tab' %}
-                <div class="tab-content {% if forloop.first %}active{% endif %}" id="{{ block.settings.tab_id }}">
-                    {% for inner_block in section.blocks %}
-                        {% if inner_block.type == 'accordion' and inner_block.settings.parent_tab == block.settings.tab_id %}
-                            <div class="accordion">
-                                <div class="accordion-header">{{ inner_block.settings.accordion_title }}</div>
-                                <div class="accordion-content">
-                                    {% for i in (1..10) %}
-                                        {% assign result_title_key = 'result_title_' | append: i %}
-                                        {% assign result_url_key = 'result_url_' | append: i %}
-                                        
-                                        {% if inner_block.settings[result_title_key] != blank and inner_block.settings[result_url_key] != blank %}
-                                            <div class="lab-result">
-                                                <span>{{ inner_block.settings[result_title_key] }}</span>
-                                                <a href="{{ inner_block.settings[result_url_key] }}" target="_blank">Lab Results</a>
-                                            </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            {% endif %}
-        {% endfor %}
+<section class="faq-section">
+  <div class="container">
+    <div class="faq-details">
+      <h2>{{ section.settings.main_title | default: 'Frequently Asked Questions' }}</h2>
     </div>
+    <ul class="tab">
+      {% for block in section.blocks %}
+        {% if block.type == 'tabbing' %}
+          <li class="tablinks {% if forloop.first %}active_tab{% endif %}" data-tab="tab-{{ block.id }}">{{ block.settings.tab_title }}</li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+    <div class="faq-tabs-content">
+      {% for block in section.blocks %}
+        {% if block.type == 'tabbing' %}
+          <div class="faq-sections tab-{{ block.id }} {% if forloop.first %}active{% endif %}">
+            {% for accordion_block in section.blocks %}
+              {% if accordion_block.type == 'accordion' and accordion_block.settings.tab_id == block.id %}
+                <div class="question" data-accordion-id="accordion-{{ accordion_block.id }}">
+                  <p>{{ accordion_block.settings.questions_question }}</p>
+                  <div class="arrow"></div>
+                </div>
+                <div class="answer" data-accordion-id="accordion-{{ accordion_block.id }}">
+                  {{ accordion_block.settings.questions_answer }}
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Tab functionality
-            const tabButtons = document.querySelectorAll('.tab-btn');
-            const tabContents = document.querySelectorAll('.tab-content');
-            
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const tabId = button.getAttribute('data-tab');
-                    
-                    // Deactivate all tabs
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    tabContents.forEach(content => content.classList.remove('active'));
-                    
-                    // Activate clicked tab
-                    button.classList.add('active');
-                    document.getElementById(tabId).classList.add('active');
-                });
-            });
-            
-            // Accordion functionality
-            const accordionHeaders = document.querySelectorAll('.accordion-header');
-            
-            accordionHeaders.forEach(header => {
-                header.addEventListener('click', () => {
-                    const content = header.nextElementSibling;
-                    
-                    // Close all other accordions in the same tab
-                    const allContents = document.querySelectorAll('.accordion-content');
-                    allContents.forEach(item => {
-                        if (item !== content && item.classList.contains('active')) {
-                            item.classList.remove('active');
-                            item.previousElementSibling.classList.remove('active');
-                        }
-                    });
-                    
-                    // Toggle current accordion
-                    header.classList.toggle('active');
-                    content.classList.toggle('active');
-                });
-            });
-            
-            // Mobile accordion tabs functionality
-            const mobileAccordionHeaders = document.querySelectorAll('.mobile-accordion-header');
-            const mobileAccordionContents = document.querySelectorAll('.mobile-accordion-content');
-            
-            // Copy tab contents to mobile accordion
-            tabContents.forEach(tab => {
-                const tabId = tab.id;
-                const mobileContent = document.getElementById(`mobile-${tabId}`);
-                if (mobileContent) {
-                    mobileContent.innerHTML = tab.innerHTML;
-                }
-            });
-            
-            // Add click events to mobile accordion headers
-            mobileAccordionHeaders.forEach(header => {
-                header.addEventListener('click', () => {
-                    const tabId = header.getAttribute('data-tab');
-                    const content = document.getElementById(`mobile-${tabId}`);
-                    
-                    // Close all other mobile accordions
-                    mobileAccordionHeaders.forEach(h => {
-                        if (h !== header) {
-                            h.classList.remove('active');
-                        }
-                    });
-                    
-                    mobileAccordionContents.forEach(c => {
-                        if (c !== content) {
-                            c.classList.remove('active');
-                        }
-                    });
-                    
-                    // Toggle current mobile accordion
-                    header.classList.toggle('active');
-                    content.classList.toggle('active');
-                });
-            });
-            
-            // Initialize mobile accordions if on mobile
-            function checkMobile() {
-                if (window.innerWidth <= 768) {
-                    // Close all mobile accordions by default
-                    mobileAccordionContents.forEach(content => {
-                        content.classList.remove('active');
-                    });
-                    mobileAccordionHeaders.forEach(header => {
-                        header.classList.remove('active');
-                    });
-                    
-                    // Open first accordion by default on mobile
-                    if (mobileAccordionHeaders.length > 0) {
-                        mobileAccordionHeaders[0].classList.add('active');
-                        mobileAccordionContents[0].classList.add('active');
-                    }
-                }
-            }
-            
-            // Check on load and resize
-            checkMobile();
-            window.addEventListener('resize', checkMobile);
-        });
-    </script>
+<script>
+  // Tab switching functionality
+  document.querySelectorAll('.tablinks').forEach(tab => {
+    tab.addEventListener('click', function() {
+      // Remove active classes from all tabs and sections
+      document.querySelectorAll('.tablinks').forEach(t => t.classList.remove('active_tab'));
+      document.querySelectorAll('.faq-sections').forEach(s => s.classList.remove('active'));
+
+      // Add active class to clicked tab and corresponding section
+      this.classList.add('active_tab');
+      const tabContent = document.querySelector(`.faq-sections.${this.getAttribute('data-tab')}`);
+      if (tabContent) {
+        tabContent.classList.add('active');
+        // Close all accordions in the newly active tab
+        tabContent.querySelectorAll('.question').forEach(q => q.classList.remove('active'));
+        tabContent.querySelectorAll('.answer').forEach(a => a.classList.remove('active'));
+      }
+    });
+  });
+
+  // Accordion functionality for questions
+  document.querySelectorAll('.question').forEach(question => {
+    question.addEventListener('click', function() {
+      const answer = this.nextElementSibling;
+      const isActive = this.classList.contains('active');
+      const parentTab = this.closest('.faq-sections');
+
+      // Close all other answers within the same tab
+      parentTab.querySelectorAll('.question').forEach(q => q.classList.remove('active'));
+      parentTab.querySelectorAll('.answer').forEach(a => a.classList.remove('active'));
+
+      // Toggle current answer
+      if (!isActive) {
+        this.classList.add('active');
+        answer.classList.add('active');
+      }
+    });
+  });
+</script>
 
 {% schema %}
 {
