@@ -1,34 +1,6 @@
-{% schema %}
-{
-  "name": "Tabs with Accordions",
-  "settings": [],
-  "blocks": [
-    {
-      "type": "tab",
-      "name": "Tab",
-      "settings": [
-        { "type": "text", "id": "tab_id", "label": "Tab ID (unique, e.g. cartridges)" },
-        { "type": "text", "id": "tab_title", "label": "Tab Title" }
-      ]
-    },
-    {
-      "type": "accordion",
-      "name": "Accordion",
-      "settings": [
-        { "type": "text", "id": "accordion_title", "label": "Accordion Title" },
-        { "type": "textarea", "id": "accordion_content", "label": "Accordion Content" }
-      ]
-    }
-  ],
-  "presets": [
-    { "name": "Tabs with Accordions" }
-  ]
-}
-{% endschema %}
 
 <div class="tab-container">
   
-  <!-- Tab Buttons -->
   <div class="tab-buttons">
     {% for block in section.blocks %}
       {% if block.type == 'tab' %}
@@ -39,14 +11,13 @@
     {% endfor %}
   </div>
 
-  <!-- Tab Content + Accordions (single loop) -->
   {% assign current_tab = '' %}
   {% for block in section.blocks %}
     
     {% if block.type == 'tab' %}
       {% if current_tab != '' %}
-        </div> <!-- /.accordion -->
-      </div>   <!-- /.tab-content -->
+        </div>
+      </div>
       {% endif %}
       
       <div id="tab-{{ block.settings.tab_id }}" class="tab-content">
@@ -67,8 +38,8 @@
   {% endfor %}
   
   {% if current_tab != '' %}
-        </div> <!-- /.accordion -->
-      </div>   <!-- /.tab-content -->
+        </div>
+      </div>
   {% endif %}
 
 </div>
@@ -228,3 +199,49 @@
     if (firstButton) firstButton.click();
   });
 </script>
+
+{% schema %}
+{
+  "name": "Tabs with Accordions",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        { 
+          "type": "text", 
+          "id": "tab_id", 
+          "label": "Tab ID " 
+        },
+        { 
+          "type": "text", 
+          "id": "tab_title", 
+          "label": "Tab Title"
+        }
+      ]
+    },
+    {
+      "type": "accordion",
+      "name": "Accordion",
+      "settings": [
+        { 
+          "type": "text", 
+          "id": "accordion_title", 
+          "label": "Accordion Title"
+        },
+        { 
+          "type": "textarea", 
+          "id": "accordion_content", 
+          "label": "Accordion Content" 
+        }
+      ]
+    }
+  ],
+  "presets": [
+    { 
+      "name": "Tabs with Accordions" 
+    }
+  ]
+}
+{% endschema %}
