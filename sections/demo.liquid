@@ -1,49 +1,4 @@
 
-<div class="tab-container">
-  
-  <div class="tab-buttons">
-    {% for block in section.blocks %}
-      {% if block.type == 'tab' %}
-        <button class="tab-button" onclick="openTab(event, 'tab-{{ block.settings.tab_id }}')">
-          {{ block.settings.tab_title }}
-        </button>
-      {% endif %}
-    {% endfor %}
-  </div>
-
-  {% assign current_tab = '' %}
-  {% for block in section.blocks %}
-    
-    {% if block.type == 'tab' %}
-      {% if current_tab != '' %}
-        </div>
-      </div>
-      {% endif %}
-      
-      <div id="tab-{{ block.settings.tab_id }}" class="tab-content">
-        <div class="accordion">
-      {% assign current_tab = block.settings.tab_id %}
-    
-    {% elsif block.type == 'accordion' and current_tab != '' %}
-      <div class="accordion-item">
-        <div class="accordion-header" onclick="toggleAccordion('accordion-{{ block.id }}')">
-          {{ block.settings.accordion_title }}
-        </div>
-        <div id="accordion-{{ block.id }}" class="accordion-panel">
-          {{ block.settings.accordion_content }}
-        </div>
-      </div>
-    {% endif %}
-  
-  {% endfor %}
-  
-  {% if current_tab != '' %}
-        </div>
-      </div>
-  {% endif %}
-
-</div>
-
 <style>
   .tab-container {
     max-width: 600px;
@@ -137,6 +92,51 @@
     opacity: 1;
   }
 </style>
+
+<div class="tab-container">
+  
+  <div class="tab-buttons">
+    {% for block in section.blocks %}
+      {% if block.type == 'tab' %}
+        <button class="tab-button" onclick="openTab(event, 'tab-{{ block.settings.tab_id }}')">
+          {{ block.settings.tab_title }}
+        </button>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  {% assign current_tab = '' %}
+  {% for block in section.blocks %}
+    
+    {% if block.type == 'tab' %}
+      {% if current_tab != '' %}
+        </div>
+      </div>
+      {% endif %}
+      
+      <div id="tab-{{ block.settings.tab_id }}" class="tab-content">
+        <div class="accordion">
+      {% assign current_tab = block.settings.tab_id %}
+    
+    {% elsif block.type == 'accordion' and current_tab != '' %}
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion('accordion-{{ block.id }}')">
+          {{ block.settings.accordion_title }}
+        </div>
+        <div id="accordion-{{ block.id }}" class="accordion-panel">
+          {{ block.settings.accordion_content }}
+        </div>
+      </div>
+    {% endif %}
+  
+  {% endfor %}
+  
+  {% if current_tab != '' %}
+        </div>
+      </div>
+  {% endif %}
+
+</div>
 
 <script>
   // Tabs
