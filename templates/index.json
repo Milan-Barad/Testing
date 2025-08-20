@@ -12,43 +12,106 @@
     "demo_J3R7PF": {
       "type": "demo",
       "blocks": {
-        "tab_settings_LeMJgm": {
-          "type": "tab_settings",
+        "tab_di9gCx": {
+          "type": "tab",
           "settings": {
-            "title": "tab 1",
-            "data_tab": "tab_1"
+            "tab_title": "New Tab",
+            "tab_id": "tab-id"
           }
         },
-        "tab_settings_qtbpcq": {
-          "type": "tab_settings",
+        "accordion_VWMFTA": {
+          "type": "accordion",
           "settings": {
-            "title": "tab 2",
-            "data_tab": "tab_2"
+            "accordion_title": "Product Category",
+            "parent_tab": "tab-id",
+            "result_title_1": "Product Batch Name",
+            "result_url_1": "",
+            "result_title_2": "",
+            "result_url_2": "",
+            "result_title_3": "",
+            "result_url_3": "",
+            "result_title_4": "",
+            "result_url_4": "",
+            "result_title_5": "adsad",
+            "result_url_5": "",
+            "result_title_6": "",
+            "result_url_6": "",
+            "result_title_7": "",
+            "result_url_7": "",
+            "result_title_8": "",
+            "result_url_8": "",
+            "result_title_9": "",
+            "result_url_9": "",
+            "result_title_10": "",
+            "result_url_10": ""
           }
         },
-        "tab_settings_JbUEVj": {
-          "type": "tab_settings",
+        "accordion_N7gG43": {
+          "type": "accordion",
           "settings": {
-            "title": "tab 3",
-            "data_tab": "tab_3"
+            "accordion_title": "Product Category",
+            "parent_tab": "tab-id",
+            "result_title_1": "Product Batch Name",
+            "result_url_1": "",
+            "result_title_2": "",
+            "result_url_2": "",
+            "result_title_3": "",
+            "result_url_3": "",
+            "result_title_4": "",
+            "result_url_4": "",
+            "result_title_5": "adsad",
+            "result_url_5": "",
+            "result_title_6": "",
+            "result_url_6": "",
+            "result_title_7": "",
+            "result_url_7": "",
+            "result_title_8": "",
+            "result_url_8": "",
+            "result_title_9": "",
+            "result_url_9": "",
+            "result_title_10": "",
+            "result_url_10": ""
           }
         },
-        "order_questions_dFqdbk": {
-          "type": "order_questions",
+        "tab_CQkzpX": {
+          "type": "tab",
           "settings": {
-            "questions_question": "",
-            "questions_answer": ""
+            "tab_title": "New Tab 2",
+            "tab_id": "tab-id2"
+          }
+        },
+        "tab_i8NTHx": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "New Tab 3",
+            "tab_id": "tab-id3"
           }
         }
       },
       "block_order": [
-        "tab_settings_LeMJgm",
-        "tab_settings_qtbpcq",
-        "tab_settings_JbUEVj",
-        "order_questions_dFqdbk"
+        "tab_di9gCx",
+        "accordion_VWMFTA",
+        "accordion_N7gG43",
+        "tab_CQkzpX",
+        "tab_i8NTHx"
       ],
       "settings": {
-        "main_title": ""
+        "page_title": "Product Lab Results",
+        "font_family": "helvetica_n4",
+        "text_color": "#333333",
+        "background_color": "#f8f9fa",
+        "tab_header_bg": "#f1f5f9",
+        "tab_border_color": "#e2e8f0",
+        "tab_text_color": "#64748b",
+        "tab_hover_bg": "#e2e8f0",
+        "tab_hover_text": "#334155",
+        "tab_active_color": "#3b82f6",
+        "accordion_border": "#e2e8f0",
+        "accordion_header_bg": "#f8fafc",
+        "accordion_hover_bg": "#e2e8f0",
+        "result_bg": "#f1f5f9",
+        "link_color": "#3b82f6",
+        "link_hover_bg": "#dbeafe"
       }
     },
     "1621243260e1af0c20": {
