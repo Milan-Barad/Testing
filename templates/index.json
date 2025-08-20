@@ -12,80 +12,27 @@
     "demo_J3R7PF": {
       "type": "demo",
       "blocks": {
-        "tab_UdcRzf": {
-          "type": "tab",
+        "tabbing_MXgApF": {
+          "type": "tabbing",
           "settings": {
-            "tab_title": "New Tab",
-            "tab_id": "tab-1"
+            "tab_title": "Tab Title"
           }
         },
-        "accordion_jJHxnb": {
+        "accordion_RAhnrH": {
           "type": "accordion",
           "settings": {
-            "accordion_title": "Accordion Title",
-            "parent_tab": "cartridges",
-            "result_title_1": "Product Batch Name",
-            "result_url_1": "",
-            "result_title_2": "",
-            "result_url_2": "",
-            "result_title_3": "",
-            "result_url_3": "",
-            "result_title_4": "",
-            "result_url_4": "",
-            "result_title_5": "",
-            "result_url_5": "",
-            "result_title_6": "",
-            "result_url_6": "",
-            "result_title_7": "",
-            "result_url_7": "",
-            "result_title_8": "",
-            "result_url_8": "",
-            "result_title_9": "",
-            "result_url_9": "",
-            "result_title_10": "",
-            "result_url_10": ""
-          }
-        },
-        "tab_XdBVjj": {
-          "type": "tab",
-          "settings": {
-            "tab_title": "New Tab 2",
-            "tab_id": "tab-2"
-          }
-        },
-        "tab_Knzjqp": {
-          "type": "tab",
-          "settings": {
-            "tab_title": "New Tab 3",
-            "tab_id": "tab-3"
+            "tab_id": "",
+            "questions_question": "Your Question",
+            "questions_answer": "<p>Your answer goes here.</p>"
           }
         }
       },
       "block_order": [
-        "tab_UdcRzf",
-        "accordion_jJHxnb",
-        "tab_XdBVjj",
-        "tab_Knzjqp"
+        "tabbing_MXgApF",
+        "accordion_RAhnrH"
       ],
       "settings": {
-        "font_family": "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-        "text_color": "#333333",
-        "background_color": "#f8f9fa",
-        "tab_header_bg": "#f1f5f9",
-        "tab_border_color": "#e2e8f0",
-        "tab_text_color": "#64748b",
-        "tab_hover_bg": "#e2e8f0",
-        "tab_hover_text_color": "#334155",
-        "active_tab_color": "#3b82f6",
-        "accordion_border_color": "#e2e8f0",
-        "accordion_header_bg": "#f8fafc",
-        "accordion_hover_bg": "#e2e8f0",
-        "lab_result_bg": "#f1f5f9",
-        "link_color": "#3b82f6",
-        "link_hover_bg": "#dbeafe",
-        "mobile_header_bg": "#3b82f6",
-        "mobile_header_text_color": "#ffffff",
-        "mobile_active_header_bg": "#2563eb"
+        "main_title": "Frequently Asked Questions"
       }
     },
     "1621243260e1af0c20": {
