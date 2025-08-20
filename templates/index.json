@@ -12,48 +12,80 @@
     "demo_J3R7PF": {
       "type": "demo",
       "blocks": {
-        "tabbing_6WCWWw": {
-          "type": "tabbing",
+        "tab_DGYErY": {
+          "type": "tab",
           "settings": {
-            "tab_title": "Tab 1"
+            "tab_title": "New Tab",
+            "tab_id": "tab-1"
           }
         },
-        "accordion_hjqB3j": {
+        "accordion_t4DnYJ": {
           "type": "accordion",
           "settings": {
-            "questions_question": "Questions 1",
-            "questions_answer": "<p>There’s no other feeling like it—the thrill of watching your mini-me come to life right before your eyes.</p>"
+            "accordion_title": "Accordion Title",
+            "parent_tab": "cartridges",
+            "result_title_1": "Product Batch Name",
+            "result_url_1": "",
+            "result_title_2": "",
+            "result_url_2": "",
+            "result_title_3": "",
+            "result_url_3": "",
+            "result_title_4": "",
+            "result_url_4": "",
+            "result_title_5": "",
+            "result_url_5": "",
+            "result_title_6": "",
+            "result_url_6": "",
+            "result_title_7": "",
+            "result_url_7": "",
+            "result_title_8": "",
+            "result_url_8": "",
+            "result_title_9": "",
+            "result_url_9": "",
+            "result_title_10": "",
+            "result_url_10": ""
           }
         },
-        "accordion_cz73UT": {
-          "type": "accordion",
+        "tab_Ghjnkr": {
+          "type": "tab",
           "settings": {
-            "questions_question": "Questions 1",
-            "questions_answer": "<h3>Technology With a Human Touch</h3><p>Skilled artists perfect the final touches, making colors pop and capturing your unique personality.</p>"
+            "tab_title": "New Tab 2",
+            "tab_id": "tab-2"
           }
         },
-        "tabbing_a4xBFr": {
-          "type": "tabbing",
+        "tab_DyLVTf": {
+          "type": "tab",
           "settings": {
-            "tab_title": "Tab 2"
-          }
-        },
-        "tabbing_hNQfkT": {
-          "type": "tabbing",
-          "settings": {
-            "tab_title": "Tab 3"
+            "tab_title": "New Tab 3",
+            "tab_id": "tab-3"
           }
         }
       },
       "block_order": [
-        "tabbing_6WCWWw",
-        "accordion_hjqB3j",
-        "accordion_cz73UT",
-        "tabbing_a4xBFr",
-        "tabbing_hNQfkT"
+        "tab_DGYErY",
+        "accordion_t4DnYJ",
+        "tab_Ghjnkr",
+        "tab_DyLVTf"
       ],
       "settings": {
-        "main_title": ""
+        "font_family": "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+        "text_color": "#333333",
+        "background_color": "#f8f9fa",
+        "tab_header_bg": "#f1f5f9",
+        "tab_border_color": "#e2e8f0",
+        "tab_text_color": "#64748b",
+        "tab_hover_bg": "#e2e8f0",
+        "tab_hover_text_color": "#334155",
+        "active_tab_color": "#3b82f6",
+        "accordion_border_color": "#e2e8f0",
+        "accordion_header_bg": "#f8fafc",
+        "accordion_hover_bg": "#e2e8f0",
+        "lab_result_bg": "#f1f5f9",
+        "link_color": "#3b82f6",
+        "link_hover_bg": "#dbeafe",
+        "mobile_header_bg": "#3b82f6",
+        "mobile_header_text_color": "#ffffff",
+        "mobile_active_header_bg": "#2563eb"
       }
     },
     "1621243260e1af0c20": {
