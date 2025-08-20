@@ -1,6 +1,6 @@
 {% schema %}
 {
-  "name": "Tabs with ",
+  "name": "Tabs with Accordions",
   "settings": [],
   "blocks": [
     {
@@ -21,12 +21,13 @@
     }
   ],
   "presets": [
-    { "name": "Tabs with " }
+    { "name": "Tabs with Accordions" }
   ]
 }
 {% endschema %}
 
 <div class="tab-container">
+  
   <!-- Tab Buttons -->
   <div class="tab-buttons">
     {% for block in section.blocks %}
@@ -41,13 +42,17 @@
   <!-- Tab Content + Accordions (single loop) -->
   {% assign current_tab = '' %}
   {% for block in section.blocks %}
+    
     {% if block.type == 'tab' %}
       {% if current_tab != '' %}
-        </div></div> <!-- close previous accordion + tab -->
+        </div> <!-- /.accordion -->
+      </div>   <!-- /.tab-content -->
       {% endif %}
+      
       <div id="tab-{{ block.settings.tab_id }}" class="tab-content">
         <div class="accordion">
       {% assign current_tab = block.settings.tab_id %}
+    
     {% elsif block.type == 'accordion' and current_tab != '' %}
       <div class="accordion-item">
         <div class="accordion-header" onclick="toggleAccordion('accordion-{{ block.id }}')">
@@ -58,54 +63,141 @@
         </div>
       </div>
     {% endif %}
+  
   {% endfor %}
+  
   {% if current_tab != '' %}
-    </div></div> <!-- close last accordion + tab -->
+        </div> <!-- /.accordion -->
+      </div>   <!-- /.tab-content -->
   {% endif %}
+
 </div>
 
 <style>
-  .tab-container { max-width: 600px; margin: 20px auto; border: 1px solid #ccc; font-family: Arial, sans-serif; }
-  .tab-buttons { display: flex; border-bottom: 1px solid #ccc; }
-  .tab-button { flex: 1; padding: 10px; cursor: pointer; background: #f4f4f4; border: none; outline: none; transition: background 0.3s; }
-  .tab-button:hover { background: #ddd; }
-  .tab-button.active { background: #fff; font-weight: bold; border-bottom: 2px solid #333; }
-  .tab-content { display: none; padding: 15px; }
-  .tab-content.active { display: block; }
+  .tab-container {
+    max-width: 600px;
+    margin: 20px auto;
+    border: 1px solid #ccc;
+    font-family: Arial, sans-serif;
+  }
 
-  .accordion { width: 100%; margin: 10px 0; }
-  .accordion-item { border: 1px solid #ddd; margin-bottom: 5px; border-radius: 4px; overflow: hidden; }
-  .accordion-header { padding: 12px; cursor: pointer; background: #f4f4f4; position: relative; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s; }
-  .accordion-header:hover { background: #ddd; }
-  .accordion-header::after { content: '+'; font-size: 18px; transition: transform 0.3s ease; }
-  .accordion-header.active::after { content: '−'; }
-  .accordion-panel { max-height: 0; overflow: hidden; opacity: 0; padding: 0 12px; transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.3s ease; }
-  .accordion-panel.active { opacity: 1; }
+  .tab-buttons {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .tab-button {
+    flex: 1;
+    padding: 10px;
+    cursor: pointer;
+    background: #f4f4f4;
+    border: none;
+    outline: none;
+    transition: background 0.3s;
+  }
+
+  .tab-button:hover {
+    background: #ddd;
+  }
+
+  .tab-button.active {
+    background: #fff;
+    font-weight: bold;
+    border-bottom: 2px solid #333;
+  }
+
+  .tab-content {
+    display: none;
+    padding: 15px;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  .accordion {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .accordion-item {
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .accordion-header {
+    padding: 12px;
+    cursor: pointer;
+    background: #f4f4f4;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s;
+  }
+
+  .accordion-header:hover {
+    background: #ddd;
+  }
+
+  .accordion-header::after {
+    content: '+';
+    font-size: 18px;
+    transition: transform 0.3s ease;
+  }
+
+  .accordion-header.active::after {
+    content: '−';
+  }
+
+  .accordion-panel {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    padding: 0 12px;
+    transition: max-height 0.4s ease,
+                opacity 0.4s ease,
+                padding 0.3s ease;
+  }
+
+  .accordion-panel.active {
+    opacity: 1;
+  }
 </style>
 
 <script>
+  // Tabs
   function openTab(evt, tabName) {
-    var i, tabContent, tabButtons;
-    tabContent = document.getElementsByClassName("tab-content");
-    for (i = 0; i < tabContent.length; i++) {
+    var tabContent = document.getElementsByClassName("tab-content");
+    var tabButtons = document.getElementsByClassName("tab-button");
+    var panels = document.getElementsByClassName("accordion-panel");
+    var headers = document.getElementsByClassName("accordion-header");
+
+    // Hide all tabs
+    for (var i = 0; i < tabContent.length; i++) {
       tabContent[i].classList.remove("active");
     }
-    tabButtons = document.getElementsByClassName("tab-button");
-    for (i = 0; i < tabButtons.length; i++) {
+
+    // Reset all buttons
+    for (var i = 0; i < tabButtons.length; i++) {
       tabButtons[i].classList.remove("active");
     }
+
+    // Show current tab
     document.getElementById(tabName).classList.add("active");
     evt.currentTarget.classList.add("active");
 
-    var panels = document.getElementsByClassName("accordion-panel");
-    var headers = document.getElementsByClassName("accordion-header");
-    for (i = 0; i < panels.length; i++) {
+    // Close all accordions
+    for (var i = 0; i < panels.length; i++) {
       panels[i].classList.remove("active");
       panels[i].style.maxHeight = null;
       headers[i].classList.remove("active");
     }
   }
 
+  // Accordion
   function toggleAccordion(panelId) {
     var panel = document.getElementById(panelId);
     var header = panel.previousElementSibling;
@@ -117,19 +209,22 @@
     } else {
       var panels = document.getElementsByClassName("accordion-panel");
       var headers = document.getElementsByClassName("accordion-header");
+
       for (var i = 0; i < panels.length; i++) {
         panels[i].classList.remove("active");
         panels[i].style.maxHeight = null;
         headers[i].classList.remove("active");
       }
+
       panel.classList.add("active");
       header.classList.add("active");
       panel.style.maxHeight = panel.scrollHeight + "px";
     }
   }
 
+  // Open first tab by default
   document.addEventListener("DOMContentLoaded", function() {
     var firstButton = document.querySelector(".tab-button");
-    if(firstButton) firstButton.click();
+    if (firstButton) firstButton.click();
   });
 </script>
