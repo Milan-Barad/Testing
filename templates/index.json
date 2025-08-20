@@ -12,106 +12,48 @@
     "demo_J3R7PF": {
       "type": "demo",
       "blocks": {
-        "tab_di9gCx": {
-          "type": "tab",
+        "tabbing_6WCWWw": {
+          "type": "tabbing",
           "settings": {
-            "tab_title": "New Tab",
-            "tab_id": "tab-id"
+            "tab_title": "Tab 1"
           }
         },
-        "accordion_VWMFTA": {
+        "accordion_hjqB3j": {
           "type": "accordion",
           "settings": {
-            "accordion_title": "Product Category",
-            "parent_tab": "tab-id",
-            "result_title_1": "Product Batch Name",
-            "result_url_1": "",
-            "result_title_2": "",
-            "result_url_2": "",
-            "result_title_3": "",
-            "result_url_3": "",
-            "result_title_4": "",
-            "result_url_4": "",
-            "result_title_5": "adsad",
-            "result_url_5": "",
-            "result_title_6": "",
-            "result_url_6": "",
-            "result_title_7": "",
-            "result_url_7": "",
-            "result_title_8": "",
-            "result_url_8": "",
-            "result_title_9": "",
-            "result_url_9": "",
-            "result_title_10": "gergsth",
-            "result_url_10": "shopify://products/analog-railway-clock"
+            "questions_question": "Questions 1",
+            "questions_answer": "<p>There’s no other feeling like it—the thrill of watching your mini-me come to life right before your eyes.</p>"
           }
         },
-        "accordion_N7gG43": {
+        "accordion_cz73UT": {
           "type": "accordion",
           "settings": {
-            "accordion_title": "Product Category",
-            "parent_tab": "tab-id",
-            "result_title_1": "Product Batch Name",
-            "result_url_1": "",
-            "result_title_2": "",
-            "result_url_2": "",
-            "result_title_3": "",
-            "result_url_3": "",
-            "result_title_4": "",
-            "result_url_4": "",
-            "result_title_5": "adsad",
-            "result_url_5": "",
-            "result_title_6": "",
-            "result_url_6": "",
-            "result_title_7": "",
-            "result_url_7": "",
-            "result_title_8": "",
-            "result_url_8": "",
-            "result_title_9": "",
-            "result_url_9": "",
-            "result_title_10": "",
-            "result_url_10": ""
+            "questions_question": "Questions 1",
+            "questions_answer": "<h3>Technology With a Human Touch</h3><p>Skilled artists perfect the final touches, making colors pop and capturing your unique personality.</p>"
           }
         },
-        "tab_CQkzpX": {
-          "type": "tab",
+        "tabbing_a4xBFr": {
+          "type": "tabbing",
           "settings": {
-            "tab_title": "New Tab 2",
-            "tab_id": "tab-id2"
+            "tab_title": "Tab 2"
           }
         },
-        "tab_i8NTHx": {
-          "type": "tab",
+        "tabbing_hNQfkT": {
+          "type": "tabbing",
           "settings": {
-            "tab_title": "New Tab 3",
-            "tab_id": "tab-id3"
+            "tab_title": "Tab 3"
           }
         }
       },
       "block_order": [
-        "tab_di9gCx",
-        "accordion_VWMFTA",
-        "accordion_N7gG43",
-        "tab_CQkzpX",
-        "tab_i8NTHx"
+        "tabbing_6WCWWw",
+        "accordion_hjqB3j",
+        "accordion_cz73UT",
+        "tabbing_a4xBFr",
+        "tabbing_hNQfkT"
       ],
       "settings": {
-        "page_title": "Product Lab Results",
-        "font_family": "helvetica_n4",
-        "text_color": "#333333",
-        "background_color": "#f8f9fa",
-        "tab_header_bg": "#f1f5f9",
-        "tab_border_color": "#e2e8f0",
-        "tab_text_color": "#64748b",
-        "tab_hover_bg": "#e2e8f0",
-        "tab_hover_text": "#334155",
-        "tab_active_color": "#3b82f6",
-        "accordion_border": "#e2e8f0",
-        "accordion_header_bg": "#f8fafc",
-        "accordion_hover_bg": "#e2e8f0",
-        "result_bg": "#f1f5f9",
-        "link_color": "#3b82f6",
-        "link_hover_bg": "#dbeafe"
+        "main_title": ""
       }
     },
     "1621243260e1af0c20": {
