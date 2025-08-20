@@ -1,194 +1,218 @@
 <style>
-        .tab-container {
-            max-width: 600px;
-            margin: 20px auto;
-            border: 1px solid #ccc;
-        }
-        .tab-buttons {
-            display: flex;
-            border-bottom: 1px solid #ccc;
-        }
-        .tab-button {
-            flex: 1;
-            padding: 10px;
-            cursor: pointer;
-            background: #f4f4f4;
-            border: none;
-            outline: none;
-        }
-        .tab-button:hover {
-            background: #ddd;
-        }
-        .tab-content {
-            display: none;
-            padding: 20px;
-        }
-        .tab-content.active {
-            display: block;
-        }
-        .accordion {
-            width: 100%;
-            margin: 10px 0;
-        }
-        .accordion-item {
-            border: 1px solid #ddd;
-            margin-bottom: 5px;
-        }
-        .accordion-header {
-            padding: 10px;
-            cursor: pointer;
-            background: #f4f4f4;
-            position: relative;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .accordion-header:hover {
-            background: #ddd;
-        }
-        .accordion-header::after {
-            content: '+';
-            font-size: 18px;
-            transition: transform 0.3s ease;
-        }
-        .accordion-header.active::after {
-            content: '−';
-        }
-        .accordion-panel {
-            padding: 0 10px;
-            display: none;
-            overflow: hidden;
-            max-height: 0;
-            opacity: 0;
-            transition: max-height 0.3s ease-out, opacity 0.3s ease-out, padding 0.3s ease-out;
-        }
-        .accordion-panel.active {
-            display: block;
-            max-height: 200px; /* Adjust as needed */
-            opacity: 1;
-            padding: 10px;
-        }
-    </style>
+    .tab-container {
+      max-width: 600px;
+      margin: 20px auto;
+      border: 1px solid #ccc;
+      font-family: Arial, sans-serif;
+    }
+    .tab-buttons {
+      display: flex;
+      border-bottom: 1px solid #ccc;
+    }
+    .tab-button {
+      flex: 1;
+      padding: 10px;
+      cursor: pointer;
+      background: #f4f4f4;
+      border: none;
+      outline: none;
+      transition: background 0.3s;
+    }
+    .tab-button:hover {
+      background: #ddd;
+    }
+    .tab-button.active {
+      background: #fff;
+      font-weight: bold;
+      border-bottom: 2px solid #333;
+    }
+    .tab-content {
+      display: none;
+      padding: 15px;
+    }
+    .tab-content.active {
+      display: block;
+    }
 
-<div class="tab-container">
-        <div class="tab-buttons">
-            <button class="tab-button" onclick="openTab('Cartridges')">Cartridges</button>
-            <button class="tab-button" onclick="openTab('Disposables')">Disposables</button>
-            <button class="tab-button" onclick="openTab('Edibles')">Edibles</button>
-            <button class="tab-button" onclick="openTab('Flower')">Flower</button>
-        </div>
+    /* Accordion */
+    .accordion {
+      width: 100%;
+      margin: 10px 0;
+    }
+    .accordion-item {
+      border: 1px solid #ddd;
+      margin-bottom: 5px;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .accordion-header {
+      padding: 12px;
+      cursor: pointer;
+      background: #f4f4f4;
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.3s;
+    }
+    .accordion-header:hover {
+      background: #ddd;
+    }
+    .accordion-header::after {
+      content: '+';
+      font-size: 18px;
+      transition: transform 0.3s ease;
+    }
+    .accordion-header.active::after {
+      content: '−';
+    }
+    .accordion-panel {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      padding: 0 12px;
+      transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.3s ease;
+    }
+    .accordion-panel.active {
+      opacity: 1;
+      padding: 12px;
+    }
+  </style>
 
-        <div id="Cartridges" class="tab-content">
-            <div class="accordion">
-                <div class="accordion-item">
-                    <div class="accordion-header" onclick="toggleAccordion('adiosBlend')">Adios Blend: THCA + Delta-9P Live Resin</div>
-                    <div id="adiosBlend" class="accordion-panel">
-                        Details about Adios Blend: THCA + Delta-9P Live Resin
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <div class="accordion-header" onclick="toggleAccordion('adiosMF')">Adios MF Blend: THCA Live Sugar</div>
-                    <div id="adiosMF" class="accordion-panel">
-                        Details about Adios MF Blend: THCA Live Sugar
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <div class="accordion-header" onclick="toggleAccordion('wreckdSeries')">Wreck'd Series: THCA + THCP + THCJD</div>
-                    <div id="wreckdSeries" class="accordion-panel">
-                        Details about Wreck'd Series: THCA + THCP + THCJD
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <div class="accordion-header" onclick="toggleAccordion('lightsOut')">Lights Out Collection: THCH + THCJD</div>
-                    <div id="lightsOut" class="accordion-panel">
-                        Details about Lights Out Collection: THCH + THCJD
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="Disposables" class="tab-content" style="display:none;">
-            <div class="accordion">
-                <div class="accordion-item">
-                    <div class="accordion-header" onclick="toggleAccordion('disposable1')">Disposable 1: THCA Disposable</div>
-                    <div id="disposable1" class="accordion-panel">
-                        Details about Disposable 1: THCA Disposable
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <div class="accordion-header" onclick="toggleAccordion('disposable2')">Disposable 2: THCP Disposable</div>
-                    <div id="disposable2" class="accordion-panel">
-                        Details about Disposable 2: THCP Disposable
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="Edibles" class="tab-content" style="display:none;">
-            <div class="accordion">
-                <div class="accordion-item">
-                    <div class="accordion-header" onclick="toggleAccordion('edible1')">Edible 1: THCA Gummies</div>
-                    <div id="edible1" class="accordion-panel">
-                        Details about Edible 1: THCA Gummies
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <div class="accordion-header" onclick="toggleAccordion('edible2')">Edible 2: THCP Chocolates</div>
-                    <div id="edible2" class="accordion-panel">
-                        Details about Edible 2: THCP Chocolates
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="Flower" class="tab-content" style="display:none;">
-            <!-- Add Flower content here -->
-        </div>
+  <div class="tab-container">
+    <div class="tab-buttons">
+      <button class="tab-button" onclick="openTab(event, 'Cartridges')">Cartridges</button>
+      <button class="tab-button" onclick="openTab(event, 'Disposables')">Disposables</button>
+      <button class="tab-button" onclick="openTab(event, 'Edibles')">Edibles</button>
+      <button class="tab-button" onclick="openTab(event, 'Flower')">Flower</button>
     </div>
 
-    <script>
-        function openTab(tabName) {
-            var i, tabContent, tabButtons;
-            tabContent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabContent.length; i++) {
-                tabContent[i].style.display = "none";
-            }
-            tabButtons = document.getElementsByClassName("tab-button");
-            for (i = 0; i < tabButtons.length; i++) {
-                tabButtons[i].className = tabButtons[i].className.replace(" active", "");
-            }
-            document.getElementById(tabName).style.display = "block";
-            event.currentTarget.className += " active";
-            // Close all accordion panels when switching tabs
-            var panels = document.getElementsByClassName("accordion-panel");
-            for (i = 0; i < panels.length; i++) {
-                panels[i].className = panels[i].className.replace(" active", "");
-            }
-            // Remove active class from all accordion headers
-            var headers = document.getElementsByClassName("accordion-header");
-            for (i = 0; i < headers.length; i++) {
-                headers[i].className = headers[i].className.replace(" active", "");
-            }
-        }
+    <!-- Cartridges -->
+    <div id="Cartridges" class="tab-content">
+      <div class="accordion">
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion('adiosBlend')">Adios Blend: THCA + Delta-9P Live Resin</div>
+          <div id="adiosBlend" class="accordion-panel">
+            Details about Adios Blend: THCA + Delta-9P Live Resin
+          </div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion('adiosMF')">Adios MF Blend: THCA Live Sugar</div>
+          <div id="adiosMF" class="accordion-panel">
+            Details about Adios MF Blend: THCA Live Sugar
+          </div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion('wreckdSeries')">Wreck'd Series: THCA + THCP + THCJD</div>
+          <div id="wreckdSeries" class="accordion-panel">
+            Details about Wreck'd Series: THCA + THCP + THCJD
+          </div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion('lightsOut')">Lights Out Collection: THCH + THCJD</div>
+          <div id="lightsOut" class="accordion-panel">
+            Details about Lights Out Collection: THCH + THCJD
+          </div>
+        </div>
+      </div>
+    </div>
 
-        function toggleAccordion(panelId) {
-            // Close all panels and remove active class from headers
-            var panels = document.getElementsByClassName("accordion-panel");
-            var headers = document.getElementsByClassName("accordion-header");
-            for (var i = 0; i < panels.length; i++) {
-                panels[i].className = panels[i].className.replace(" active", "");
-                headers[i].className = headers[i].className.replace(" active", "");
-            }
-            // Open the clicked panel and mark its header as active
-            var panel = document.getElementById(panelId);
-            panel.className += " active";
-            var header = panel.previousElementSibling;
-            header.className += " active";
-        }
+    <!-- Disposables -->
+    <div id="Disposables" class="tab-content">
+      <div class="accordion">
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion('disposable1')">Disposable 1: THCA Disposable</div>
+          <div id="disposable1" class="accordion-panel">
+            Details about Disposable 1: THCA Disposable
+          </div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion('disposable2')">Disposable 2: THCP Disposable</div>
+          <div id="disposable2" class="accordion-panel">
+            Details about Disposable 2: THCP Disposable
+          </div>
+        </div>
+      </div>
+    </div>
 
-        // Open first tab by default
-        document.getElementsByClassName("tab-button")[0].click();
-    </script>
+    <!-- Edibles -->
+    <div id="Edibles" class="tab-content">
+      <div class="accordion">
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion('edible1')">Edible 1: THCA Gummies</div>
+          <div id="edible1" class="accordion-panel">
+            Details about Edible 1: THCA Gummies
+          </div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion('edible2')">Edible 2: THCP Chocolates</div>
+          <div id="edible2" class="accordion-panel">
+            Details about Edible 2: THCP Chocolates
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flower -->
+    <div id="Flower" class="tab-content">
+      <p>Flower content goes here...</p>
+    </div>
+  </div>
+
+  <script>
+    // Tabs
+    function openTab(evt, tabName) {
+      var i, tabContent, tabButtons;
+      tabContent = document.getElementsByClassName("tab-content");
+      for (i = 0; i < tabContent.length; i++) {
+        tabContent[i].classList.remove("active");
+      }
+      tabButtons = document.getElementsByClassName("tab-button");
+      for (i = 0; i < tabButtons.length; i++) {
+        tabButtons[i].classList.remove("active");
+      }
+      document.getElementById(tabName).classList.add("active");
+      evt.currentTarget.classList.add("active");
+
+      // Close all accordions when switching tabs
+      var panels = document.getElementsByClassName("accordion-panel");
+      var headers = document.getElementsByClassName("accordion-header");
+      for (i = 0; i < panels.length; i++) {
+        panels[i].classList.remove("active");
+        panels[i].style.maxHeight = null;
+        headers[i].classList.remove("active");
+      }
+    }
+
+    // Accordion with transition
+    function toggleAccordion(panelId) {
+      var panel = document.getElementById(panelId);
+      var header = panel.previousElementSibling;
+
+      if (panel.classList.contains("active")) {
+        // Close
+        panel.classList.remove("active");
+        header.classList.remove("active");
+        panel.style.maxHeight = null;
+      } else {
+        // Close others
+        var panels = document.getElementsByClassName("accordion-panel");
+        var headers = document.getElementsByClassName("accordion-header");
+        for (var i = 0; i < panels.length; i++) {
+          panels[i].classList.remove("active");
+          panels[i].style.maxHeight = null;
+          headers[i].classList.remove("active");
+        }
+        // Open this one
+        panel.classList.add("active");
+        header.classList.add("active");
+        panel.style.maxHeight = panel.scrollHeight + "px";
+      }
+    }
+
+    // Open first tab by default
+    document.getElementsByClassName("tab-button")[0].click();
+  </script>
 
 {% comment %} Schema for the section {% endcomment %}
 {% schema %}
