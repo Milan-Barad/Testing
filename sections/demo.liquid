@@ -1,191 +1,177 @@
 <style>
-  .faq-section {
-    padding: 40px 0;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  .container {
-    padding: 0 20px;
-  }
-  .faq-details {
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  .faq-details h2 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-  }
-  .tab {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 30px;
-    border-bottom: 2px solid #eee;
-  }
-  .tablinks {
-    padding: 15px 25px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    color: #333;
-    transition: all 0.3s ease;
-  }
-  .tablinks:hover {
-    color: #007bff;
-  }
-  .tablinks.active_tab {
-    color: #007bff;
-    border-bottom: 2px solid #007bff;
-  }
-  .faq-tabs-content {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  .faq-sections {
-    display: none;
-  }
-  .faq-sections.active {
-    display: block;
-  }
-  .question {
-    background: #f9f9f9;
-    padding: 15px;
-    margin-bottom: 5px;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 5px;
-  }
-  .question p {
-    margin: 0;
-    font-weight: 500;
-  }
-  .arrow {
-    border: solid #333;
-    border-width: 0 2px 2px 0;
-    display: inline-block;
-    padding: 3px;
-    transform: rotate(45deg);
-    transition: transform 0.3s ease;
-  }
-  .question.active .arrow {
-    transform: rotate(-135deg);
-  }
-  .answer {
-    display: none;
-    padding: 15px;
-    background: #fff;
-    border: 1px solid #eee;
-    border-radius: 5px;
-    margin-bottom: 10px;
-  }
-  .answer.active {
-    display: block;
-  }
-</style>
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:{{ section.settings.font_family }};color:{{ section.settings.text_color }};background:{{ section.settings.background_color }};padding:20px}
+        .container{max-width:1200px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,0.1);overflow:hidden}
+        .tabs-header{display:flex;background:{{ section.settings.tab_header_bg }};border-bottom:1px solid {{ section.settings.tab_border_color }}}
+        .tab-btn{padding:15px 25px;cursor:pointer;border:none;background:none;font-weight:600;color:{{ section.settings.tab_text_color }};transition:all 0.3s;border-bottom:3px solid transparent}
+        .tab-btn:hover{background:{{ section.settings.tab_hover_bg }};color:{{ section.settings.tab_hover_text_color }}}
+        .tab-btn.active{color:{{ section.settings.active_tab_color }};border-bottom:3px solid {{ section.settings.active_tab_color }};background:#fff}
+        .tab-content{display:none;padding:20px}
+        .tab-content.active{display:block}
+        .accordion{margin-bottom:15px;border:1px solid {{ section.settings.accordion_border_color }};border-radius:8px;overflow:hidden}
+        .accordion-header{padding:15px 20px;background:{{ section.settings.accordion_header_bg }};cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600}
+        .accordion-header:hover{background:{{ section.settings.accordion_hover_bg }}}
+        .accordion-header::after{content:'+';font-size:18px}
+        .accordion-header.active::after{content:'-'}
+        .accordion-content{max-height:0;overflow:hidden;transition:max-height 0.3s;padding:0;background:#fff}
+        .accordion-content.active{padding:20px;max-height:1000px}
+        .lab-result{margin-bottom:10px;padding:10px 15px;background:{{ section.settings.lab_result_bg }};border-radius:6px;display:flex;justify-content:space-between;align-items:center}
+        .lab-result a{color:{{ section.settings.link_color }};text-decoration:none;font-weight:500;padding:5px 10px;border-radius:4px}
+        .lab-result a:hover{background:{{ section.settings.link_hover_bg }}}
+        .mobile-accordion{display:none}
+        .mobile-accordion-header{padding:15px 20px;background:{{ section.settings.mobile_header_bg }};color:{{ section.settings.mobile_header_text_color }};cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;border-radius:8px;margin-bottom:10px}
+        .mobile-accordion-header::after{content:'+';font-size:18px}
+        .mobile-accordion-header.active{background:{{ section.settings.mobile_active_header_bg }};border-radius:8px 8px 0 0;margin-bottom:0}
+        .mobile-accordion-header.active::after{content:'-'}
+        .mobile-accordion-content{max-height:0;overflow:hidden;transition:max-height 0.3s;padding:0;background:#fff;border-radius:0 0 8px 8px}
+        .mobile-accordion-content.active{padding:20px;max-height:1000px;border:1px solid {{ section.settings.accordion_border_color }};border-top:none}
+        @media (max-width:768px){
+            .tabs-header{display:none}
+            .mobile-accordion{display:block}
+            .tab-content{padding:0;display:block;max-height:0;overflow:hidden;transition:max-height 0.3s}
+            .tab-content.active{max-height:1000px;padding:0}
+            .tab-content .accordion{border:none;margin-bottom:0}
+            .tab-content .accordion-header{border-radius:0}
+            .tab-content .accordion-content.active{padding:15px;border-top:1px solid {{ section.settings.accordion_border_color }}}
+        }
+        @media (min-width:769px){.mobile-accordion{display:none}}
+    </style>
 
-<section class="faq-section">
-  <div class="container">
-    <div class="faq-details">
-      <h2>{{ section.settings.main_title | default: 'Frequently Asked Questions' }}</h2>
-    </div>
-    <ul class="tab">
-      {% for block in section.blocks %}
-        {% if block.type == 'tabbing' %}
-          <li class="tablinks {% if forloop.first %}active_tab{% endif %}" data-tab="tab-{{ block.id }}">
-            {{ block.settings.tab_title }}
-          </li>
-        {% endif %}
-      {% endfor %}
-    </ul>
-    <div class="faq-tabs-content">
-      {% for block in section.blocks %}
-        {% if block.type == 'tabbing' %}
-          <div class="faq-sections tab-{{ block.id }} {% if forloop.first %}active{% endif %}">
-            {% for accordion_block in section.blocks %}
-              {% if accordion_block.type == 'accordion' and accordion_block.settings.tab_id == block.id %}
-                <div class="question" data-accordion-id="accordion-{{ accordion_block.id }}">
-                  <p>{{ accordion_block.settings.questions_question }}</p>
-                  <div class="arrow"></div>
-                </div>
-                <div class="answer" data-accordion-id="accordion-{{ accordion_block.id }}">
-                  {{ accordion_block.settings.questions_answer }}
-                </div>
-              {% endif %}
+<div class="container">
+        <div class="tabs-header">
+            {% for block in section.blocks %}
+                {% if block.type == 'tab' %}
+                    <button class="tab-btn {% if forloop.first %}active{% endif %}" data-tab="{{ block.settings.tab_id }}">{{ block.settings.tab_title }}</button>
+                {% endif %}
             {% endfor %}
-          </div>
-        {% endif %}
-      {% endfor %}
+        </div>
+        <div class="mobile-accordion">
+            {% for block in section.blocks %}
+                {% if block.type == 'tab' %}
+                    <div class="mobile-accordion-header {% if forloop.first %}active{% endif %}" data-tab="{{ block.settings.tab_id }}">{{ block.settings.tab_title }}</div>
+                    <div class="mobile-accordion-content" id="mobile-{{ block.settings.tab_id }}"></div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% for block in section.blocks %}
+            {% if block.type == 'tab' %}
+                <div class="tab-content {% if forloop.first %}active{% endif %}" id="{{ block.settings.tab_id }}">
+                    {% for inner_block in section.blocks %}
+                        {% if inner_block.type == 'accordion' and inner_block.settings.parent_tab == block.settings.tab_id %}
+                            <div class="accordion">
+                                <div class="accordion-header">{{ inner_block.settings.accordion_title }}</div>
+                                <div class="accordion-content">
+                                    {% for i in (1..10) %}
+                                        {% assign result_title_key = 'result_title_' | append: i %}
+                                        {% assign result_url_key = 'result_url_' | append: i %}
+                                        {% if inner_block.settings[result_title_key] != blank and inner_block.settings[result_url_key] != blank %}
+                                            <div class="lab-result">
+                                                <span>{{ inner_block.settings[result_title_key] }}</span>
+                                                <a href="{{ inner_block.settings[result_url_key] }}" target="_blank">Lab Results</a>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endfor %}
     </div>
-  </div>
-</section>
+    <script>
+        document.addEventListener('DOMContentLoaded',()=>{
+            const tabs=document.querySelectorAll('.tab-btn'),tabContents=document.querySelectorAll('.tab-content'),accordions=document.querySelectorAll('.accordion-header'),mobileTabs=document.querySelectorAll('.mobile-accordion-header'),mobileContents=document.querySelectorAll('.mobile-accordion-content');
+            
+            tabs.forEach(t=>t.addEventListener('click',()=>{const id=t.dataset.tab;tabs.forEach(t=>t.classList.remove('active'));tabContents.forEach(c=>c.classList.remove('active'));t.classList.add('active');document.getElementById(id).classList.add('active')}));
+            
+            accordions.forEach(a=>a.addEventListener('click',()=>{const c=a.nextElementSibling;accordions.forEach(h=>h.nextElementSibling!==c&&h.classList.remove('active')&&h.nextElementSibling.classList.remove('active'));a.classList.toggle('active');c.classList.toggle('active')}));
+            
+            tabContents.forEach(t=>document.getElementById(`mobile-${t.id}`).innerHTML=t.innerHTML);
+            
+            mobileTabs.forEach(t=>t.addEventListener('click',()=>{const id=t.dataset.tab;mobileTabs.forEach(h=>h.classList.remove('active'));mobileContents.forEach(c=>c.classList.remove('active'));t.classList.add('active');document.getElementById(`mobile-${id}`).classList.add('active')}));
+            
+            function initMobile(){if(window.innerWidth<=768){mobileContents.forEach(c=>c.classList.remove('active'));mobileTabs.forEach(t=>t.classList.remove('active'));mobileTabs[0]?.classList.add('active');mobileContents[0]?.classList.add('active')}}
+            initMobile();window.addEventListener('resize',initMobile);
+        });
+    </script>
 
-<script>
-  // Tab switching functionality
-  document.querySelectorAll('.tablinks').forEach((tab) => {
-    tab.addEventListener('click', function () {
-      // Remove active classes from all tabs and sections
-      document.querySelectorAll('.tablinks').forEach((t) => t.classList.remove('active_tab'));
-      document.querySelectorAll('.faq-sections').forEach((s) => s.classList.remove('active'));
-
-      // Add active class to clicked tab and corresponding section
-      this.classList.add('active_tab');
-      const tabContent = document.querySelector(`.faq-sections.${this.getAttribute('data-tab')}`);
-      if (tabContent) {
-        tabContent.classList.add('active');
-        // Close all accordions in the newly active tab
-        tabContent.querySelectorAll('.question').forEach((q) => q.classList.remove('active'));
-        tabContent.querySelectorAll('.answer').forEach((a) => a.classList.remove('active'));
-      }
-    });
-  });
-
-  // Accordion functionality for questions
-  document.querySelectorAll('.question').forEach((question) => {
-    question.addEventListener('click', function () {
-      const answer = this.nextElementSibling;
-      const isActive = this.classList.contains('active');
-      const parentTab = this.closest('.faq-sections');
-
-      // Close all other answers within the same tab
-      parentTab.querySelectorAll('.question').forEach((q) => q.classList.remove('active'));
-      parentTab.querySelectorAll('.answer').forEach((a) => a.classList.remove('active'));
-
-      // Toggle current answer
-      if (!isActive) {
-        this.classList.add('active');
-        answer.classList.add('active');
-      }
-    });
-  });
-</script>
 
 {% schema %}
 {
-  "name": "Faq With Tabbing",
-  "settings": [{ "type": "text", "id": "main_title", "label": "Title", "default": "Frequently Asked Questions" }],
+  "name": "Product Lab Results",
+  "settings": [
+    {"type":"header","content":"Typography"},
+    {"type":"select","id":"font_family","label":"Font Family","options":[{"value":"'Segoe UI', Tahoma, Geneva, Verdana, sans-serif","label":"Segoe UI"},{"value":"Arial, sans-serif","label":"Arial"},{"value":"Georgia, serif","label":"Georgia"},{"value":"'Times New Roman', serif","label":"Times New Roman"},{"value":"'Helvetica Neue', Helvetica, Arial, sans-serif","label":"Helvetica"}],"default":"'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"},
+    {"type":"header","content":"Colors"},
+    {"type":"color","id":"text_color","label":"Text Color","default":"#333"},
+    {"type":"color","id":"background_color","label":"Background Color","default":"#f8f9fa"},
+    {"type":"color","id":"tab_header_bg","label":"Tab Header Background","default":"#f1f5f9"},
+    {"type":"color","id":"tab_border_color","label":"Tab Border Color","default":"#e2e8f0"},
+    {"type":"color","id":"tab_text_color","label":"Tab Text Color","default":"#64748b"},
+    {"type":"color","id":"tab_hover_bg","label":"Tab Hover Background","default":"#e2e8f0"},
+    {"type":"color","id":"tab_hover_text_color","label":"Tab Hover Text Color","default":"#334155"},
+    {"type":"color","id":"active_tab_color","label":"Active Tab Color","default":"#3b82f6"},
+    {"type":"color","id":"accordion_border_color","label":"Accordion Border Color","default":"#e2e8f0"},
+    {"type":"color","id":"accordion_header_bg","label":"Accordion Header Background","default":"#f8fafc"},
+    {"type":"color","id":"accordion_hover_bg","label":"Accordion Hover Background","default":"#e2e8f0"},
+    {"type":"color","id":"lab_result_bg","label":"Lab Result Background","default":"#f1f5f9"},
+    {"type":"color","id":"link_color","label":"Link Color","default":"#3b82f6"},
+    {"type":"color","id":"link_hover_bg","label":"Link Hover Background","default":"#dbeafe"},
+    {"type":"color","id":"mobile_header_bg","label":"Mobile Header Background","default":"#3b82f6"},
+    {"type":"color","id":"mobile_header_text_color","label":"Mobile Header Text Color","default":"#ffffff"},
+    {"type":"color","id":"mobile_active_header_bg","label":"Mobile Active Header Background","default":"#2563eb"}
+  ],
   "blocks": [
     {
-      "type": "tabbing",
+      "type": "tab",
       "name": "Tab",
-      "settings": [{ "type": "text", "id": "tab_title", "label": "Tab Title", "default": "Tab Title" }]
+      "settings": [
+        {"type":"text","id":"tab_title","label":"Tab Title","default":"New Tab"},
+        {"type":"text","id":"tab_id","label":"Tab ID","default":"tab-1","info":"Must be unique with no spaces (e.g., 'cartridges')"}
+      ]
     },
     {
       "type": "accordion",
-      "name": "Accordion",
+      "name": "Accordion Item",
       "settings": [
-        {
-          "type": "text",
-          "id": "tab_id",
-          "label": "Tab ID",
-          "info": "Enter the ID of the tab this accordion belongs to (e.g., tab-1234567890abcdef)"
-        },
-        { "type": "text", "id": "questions_question", "label": "Question", "default": "Your Question" },
-        { "type": "richtext", "id": "questions_answer", "label": "Answer", "default": "<p>Your answer goes here.</p>" }
+        {"type":"text","id":"accordion_title","label":"Accordion Title","default":"Accordion Title"},
+        {"type":"select","id":"parent_tab","label":"Parent Tab","options":[{"value":"cartridges","label":"Cartridges"},{"value":"disposables","label":"Disposables"},{"value":"edibles","label":"Edibles"},{"value":"flower","label":"Flower"}],"default":"cartridges"},
+        {"type":"header","content":"Lab Results (Add up to 10)"},
+        {"type":"text","id":"result_title_1","label":"Result Title 1","default":"Product Batch Name"},
+        {"type":"url","id":"result_url_1","label":"Result URL 1"},
+        {"type":"text","id":"result_title_2","label":"Result Title 2"},
+        {"type":"url","id":"result_url_2","label":"Result URL 2"},
+        {"type":"text","id":"result_title_3","label":"Result Title 3"},
+        {"type":"url","id":"result_url_3","label":"Result URL 3"},
+        {"type":"text","id":"result_title_4","label":"Result Title 4"},
+        {"type":"url","id":"result_url_4","label":"Result URL 4"},
+        {"type":"text","id":"result_title_5","label":"Result Title 5"},
+        {"type":"url","id":"result_url_5","label":"Result URL 5"},
+        {"type":"text","id":"result_title_6","label":"Result Title 6"},
+        {"type":"url","id":"result_url_6","label":"Result URL 6"},
+        {"type":"text","id":"result_title_7","label":"Result Title 7"},
+        {"type":"url","id":"result_url_7","label":"Result URL 7"},
+        {"type":"text","id":"result_title_8","label":"Result Title 8"},
+        {"type":"url","id":"result_url_8","label":"Result URL 8"},
+        {"type":"text","id":"result_title_9","label":"Result Title 9"},
+        {"type":"url","id":"result_url_9","label":"Result URL 9"},
+        {"type":"text","id":"result_title_10","label":"Result Title 10"},
+        {"type":"url","id":"result_url_10","label":"Result URL 10"}
       ]
     }
   ],
-  "presets": [{ "name": "Faq With Tabbing" }]
+  "presets": [
+    {
+      "name": "Product Lab Results",
+      "category": "Custom",
+      "blocks": [
+        {"type":"tab","settings":{"tab_title":"Cartridges","tab_id":"cartridges"}},
+        {"type":"tab","settings":{"tab_title":"Disposables","tab_id":"disposables"}},
+        {"type":"tab","settings":{"tab_title":"Edibles","tab_id":"edibles"}},
+        {"type":"tab","settings":{"tab_title":"Flower","tab_id":"flower"}}
+      ]
+    }
+  ]
 }
 {% endschema %}
