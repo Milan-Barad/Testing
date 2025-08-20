@@ -1,136 +1,159 @@
-{% comment %} CSS for tabs and accordion styling {% endcomment %}
 <style>
-  .tab-container {
-    max-width: 600px;
-    margin: 20px auto;
-    border: 1px solid #ccc;
-  }
-  .tab-buttons {
-    display: flex;
-    border-bottom: 1px solid #ccc;
-  }
-  .tab-button {
-    flex: 1;
-    padding: 10px;
-    cursor: pointer;
-    background: #f4f4f4;
-    border: none;
-    outline: none;
-    text-align: center;
-  }
-  .tab-button:hover {
-    background: #ddd;
-  }
-  .tab-button.active {
-    background: #fff;
-    border-bottom: 2px solid #000;
-  }
-  .tab-content {
-    display: none;
-    padding: 20px;
-  }
-  .tab-content.active {
-    display: block;
-  }
-  .accordion {
-    width: 100%;
-    margin: 10px 0;
-  }
-  .accordion-item {
-    border: 1px solid #ddd;
-    margin-bottom: 5px;
-  }
-  .accordion-header {
-    padding: 10px;
-    cursor: pointer;
-    background: #f4f4f4;
-  }
-  .accordion-header:hover {
-    background: #ddd;
-  }
-  .accordion-panel {
-    padding: 10px;
-    display: none;
-  }
-  .accordion-panel.active {
-    display: block;
-  }
-</style>
+        .tab-container {
+            max-width: 600px;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+        }
+        .tab-buttons {
+            display: flex;
+            border-bottom: 1px solid #ccc;
+        }
+        .tab-button {
+            flex: 1;
+            padding: 10px;
+            cursor: pointer;
+            background: #f4f4f4;
+            border: none;
+            outline: none;
+        }
+        .tab-button:hover {
+            background: #ddd;
+        }
+        .tab-content {
+            display: none;
+            padding: 20px;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .accordion {
+            width: 100%;
+            margin: 10px 0;
+        }
+        .accordion-item {
+            border: 1px solid #ddd;
+            margin-bottom: 5px;
+        }
+        .accordion-header {
+            padding: 10px;
+            cursor: pointer;
+            background: #f4f4f4;
+        }
+        .accordion-header:hover {
+            background: #ddd;
+        }
+        .accordion-panel {
+            padding: 10px;
+            display: none;
+        }
+        .accordion-panel.active {
+            display: block;
+        }
+    </style>
 
-{% comment %} Liquid code for tabs and accordion {% endcomment %}
 <div class="tab-container">
-  {% comment %} Tab navigation {% endcomment %}
-  <div class="tab-buttons">
-    {% for block in section.blocks %}
-      {% if block.type == 'tab' %}
-        <button class="tab-button {% if forloop.first %}active{% endif %}" data-tab="tab-{{ block.id }}">
-          {{ block.settings.tab_title | escape }}
-        </button>
-      {% endif %}
-    {% endfor %}
-  </div>
-
-  {% comment %} Tab content with accordion {% endcomment %}
-  {% for block in section.blocks %}
-    {% if block.type == 'tab' %}
-      <div id="tab-{{ block.id }}" class="tab-content {% if forloop.first %}active{% endif %}">
-        <div class="accordion">
-          {% for accordion_block in section.blocks %}
-            {% if accordion_block.type == 'accordion' and accordion_block.settings.tab_id == block.id %}
-              <div class="accordion-item">
-                <div class="accordion-header" data-panel="panel-{{ accordion_block.id }}">
-                  {{ accordion_block.settings.accordion_title | escape }}
-                </div>
-                <div id="panel-{{ accordion_block.id }}" class="accordion-panel">
-                  {{ accordion_block.settings.accordion_content }}
-                </div>
-              </div>
-            {% endif %}
-          {% endfor %}
+        <div class="tab-buttons">
+            <button class="tab-button" onclick="openTab('Cartridges')">Cartridges</button>
+            <button class="tab-button" onclick="openTab('Disposables')">Disposables</button>
+            <button class="tab-button" onclick="openTab('Edibles')">Edibles</button>
+            <button class="tab-button" onclick="openTab('Flower')">Flower</button>
         </div>
-      </div>
-    {% endif %}
-  {% endfor %}
-</div>
 
-{% comment %} JavaScript for tab and accordion functionality {% endcomment %}
+        <div id="Cartridges" class="tab-content">
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion('adiosBlend')">Adios Blend: THCA + Delta-9P Live Resin</div>
+                    <div id="adiosBlend" class="accordion-panel">
+                        Details about Adios Blend: THCA + Delta-9P Live Resin
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion('adiosMF')">Adios MF Blend: THCA Live Sugar</div>
+                    <div id="adiosMF" class="accordion-panel">
+                        Details about Adios MF Blend: THCA Live Sugar
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion('wreckdSeries')">Wreck'd Series: THCA + THCP + THCJD</div>
+                    <div id="wreckdSeries" class="accordion-panel">
+                        Details about Wreck'd Series: THCA + THCP + THCJD
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion('lightsOut')">Lights Out Collection: THCH + THCJD</div>
+                    <div id="lightsOut" class="accordion-panel">
+                        Details about Lights Out Collection: THCH + THCJD
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="Disposables" class="tab-content" style="display:none;">
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion('disposable1')">Disposable 1: THCA Disposable</div>
+                    <div id="disposable1" class="accordion-panel">
+                        Details about Disposable 1: THCA Disposable
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion('disposable2')">Disposable 2: THCP Disposable</div>
+                    <div id="disposable2" class="accordion-panel">
+                        Details about Disposable 2: THCP Disposable
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="Edibles" class="tab-content" style="display:none;">
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion('edible1')">Edible 1: THCA Gummies</div>
+                    <div id="edible1" class="accordion-panel">
+                        Details about Edible 1: THCA Gummies
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion('edible2')">Edible 2: THCP Chocolates</div>
+                    <div id="edible2" class="accordion-panel">
+                        Details about Edible 2: THCP Chocolates
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="Flower" class="tab-content" style="display:none;">
+            <!-- Add Flower content here -->
+        </div>
+    </div>
+
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Tab switching
-    const tabButtons = document.querySelectorAll('.tab-button');
-    tabButtons.forEach(button => {
-      button.addEventListener('click', function() {
-        // Hide all tab contents and remove active class from buttons
-        document.querySelectorAll('.tab-content').forEach(content => {
-          content.classList.remove('active');
-        });
-        document.querySelectorAll('.tab-button').forEach(btn => {
-          btn.classList.remove('active');
-        });
+        function openTab(tabName) {
+            var i, tabContent, tabButtons;
+            tabContent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].style.display = "none";
+            }
+            tabButtons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            event.currentTarget.className += " active";
+        }
 
-        // Show selected tab content and mark button as active
-        const tabId = this.getAttribute('data-tab');
-        document.getElementById(tabId).classList.add('active');
-        this.classList.add('active');
-      });
-    });
+        function toggleAccordion(panelId) {
+            var panel = document.getElementById(panelId);
+            if (panel.className.indexOf("active") == -1) {
+                panel.className += " active";
+            } else {
+                panel.className = panel.className.replace(" active", "");
+            }
+        }
 
-    // Accordion toggling
-    const accordionHeaders = document.querySelectorAll('.accordion-header');
-    accordionHeaders.forEach(header => {
-      header.addEventListener('click', function() {
-        const panelId = this.getAttribute('data-panel');
-        const panel = document.getElementById(panelId);
-        panel.classList.toggle('active');
-      });
-    });
-
-    // Open first tab by default
-    if (tabButtons.length > 0) {
-      tabButtons[0].click();
-    }
-  });
-</script>
+        // Open first tab by default
+        document.getElementsByClassName("tab-button")[0].click();
+    </script>
 
 {% comment %} Schema for the section {% endcomment %}
 {% schema %}
