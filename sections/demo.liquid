@@ -38,16 +38,35 @@
             padding: 10px;
             cursor: pointer;
             background: #f4f4f4;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         .accordion-header:hover {
             background: #ddd;
         }
+        .accordion-header::after {
+            content: '+';
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+        .accordion-header.active::after {
+            content: '−';
+        }
         .accordion-panel {
-            padding: 10px;
+            padding: 0 10px;
             display: none;
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out, padding 0.3s ease-out;
         }
         .accordion-panel.active {
             display: block;
+            max-height: 200px; /* Adjust as needed */
+            opacity: 1;
+            padding: 10px;
         }
     </style>
 
@@ -127,7 +146,7 @@
         </div>
     </div>
 
-<script>
+    <script>
         function openTab(tabName) {
             var i, tabContent, tabButtons;
             tabContent = document.getElementsByClassName("tab-content");
@@ -140,15 +159,31 @@
             }
             document.getElementById(tabName).style.display = "block";
             event.currentTarget.className += " active";
+            // Close all accordion panels when switching tabs
+            var panels = document.getElementsByClassName("accordion-panel");
+            for (i = 0; i < panels.length; i++) {
+                panels[i].className = panels[i].className.replace(" active", "");
+            }
+            // Remove active class from all accordion headers
+            var headers = document.getElementsByClassName("accordion-header");
+            for (i = 0; i < headers.length; i++) {
+                headers[i].className = headers[i].className.replace(" active", "");
+            }
         }
 
         function toggleAccordion(panelId) {
-            var panel = document.getElementById(panelId);
-            if (panel.className.indexOf("active") == -1) {
-                panel.className += " active";
-            } else {
-                panel.className = panel.className.replace(" active", "");
+            // Close all panels and remove active class from headers
+            var panels = document.getElementsByClassName("accordion-panel");
+            var headers = document.getElementsByClassName("accordion-header");
+            for (var i = 0; i < panels.length; i++) {
+                panels[i].className = panels[i].className.replace(" active", "");
+                headers[i].className = headers[i].className.replace(" active", "");
             }
+            // Open the clicked panel and mark its header as active
+            var panel = document.getElementById(panelId);
+            panel.className += " active";
+            var header = panel.previousElementSibling;
+            header.className += " active";
         }
 
         // Open first tab by default
