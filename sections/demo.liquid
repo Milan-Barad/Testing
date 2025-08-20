@@ -17,6 +17,39 @@
   .accordion-panel.active { opacity: 1; }
 </style>
 
+<div class="tab-container">
+  <div class="tab-buttons">
+    {% for block in section.blocks %}
+      {% if block.type == 'tab' %}
+        <button class="tab-button" onclick="openTab(event, 'tab-{{ block.id }}')">
+          {{ block.settings.tab_title }}
+        </button>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  {% for block in section.blocks %}
+    {% if block.type == 'tab' %}
+      <div id="tab-{{ block.id }}" class="tab-content">
+        <div class="accordion">
+          {% for subblock in block.blocks %}
+            {% if subblock.type == 'accordion' %}
+              <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion('accordion-{{ subblock.id }}')">
+                  {{ subblock.settings.accordion_title }}
+                </div>
+                <div id="accordion-{{ subblock.id }}" class="accordion-panel">
+                  {{ subblock.settings.accordion_content }}
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+
 <script>
   // Tabs
   function openTab(evt, tabName) {
@@ -71,24 +104,33 @@
   });
 </script>
 
-{% comment %} Schema for the section {% endcomment %}
 {% schema %}
 {
-  "name": "Dynamic Tabs ",
+  "name": "Tabs with Accordions",
   "settings": [],
   "blocks": [
     {
       "type": "tab",
       "name": "Tab",
       "settings": [
-        {
-          "type": "text",
-          "id": "tab_title",
-          "label": "Tab Title",
-          "default": "Tab"
+        { 
+          "type": "text", "id": "tab_title", "label": "Tab Title"
         }
-      ]
+      ],
     },
+    {
+      "type": "accordion",
+      "name": "Accordion",
+      "settings": [
+        { "type": "text", "id": "accordion_title", "label": "Accordion Title" },
+        { "type": "textarea", "id": "accordion_content", "label": "Accordion Content" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tabs with Accordions"
+    }
   ]
 }
 {% endschema %}
