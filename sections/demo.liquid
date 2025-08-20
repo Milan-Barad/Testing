@@ -1,270 +1,217 @@
 <style>
-  .container {
+    .faq-section {
+      padding: 40px 0;
       max-width: 1200px;
       margin: 0 auto;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-  }
-
-  .tabs-header {
+    }
+    .container {
+      padding: 0 20px;
+    }
+    .faq-details {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .faq-details h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    .tab {
+      list-style: none;
+      padding: 0;
       display: flex;
-      background: {{ settings.tab_header_bg | default: "#f1f5f9" }};
-      border-bottom: 1px solid {{ settings.tab_border_color | default: "#e2e8f0" }};
-  }
-
-  .tab-btn {
+      justify-content: center;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #eee;
+    }
+    .tablinks {
       padding: 15px 25px;
       cursor: pointer;
-      border: none;
-      background: none;
-      font-weight: 600;
-      color: {{ settings.tab_text_color | default: "#64748b" }};
+      font-size: 1.1rem;
+      color: #333;
       transition: all 0.3s ease;
-      border-bottom: 3px solid transparent;
-  }
-
-  .tab-btn:hover {
-      background: {{ settings.tab_hover_bg | default: "#e2e8f0" }};
-      color: {{ settings.tab_hover_text | default: "#334155" }};
-  }
-
-  .tab-btn.active {
-      color: {{ settings.tab_active_color | default: "#3b82f6" }};
-      border-bottom: 3px solid {{ settings.tab_active_color | default: "#3b82f6" }};
-      background: white;
-  }
-
-  .tab-content {
+    }
+    .tablinks:hover {
+      color: #007bff;
+    }
+    .tablinks.active_tab {
+      color: #007bff;
+      border-bottom: 2px solid #007bff;
+    }
+    .faq-tabs-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .faq-sections {
       display: none;
-      padding: 20px;
-  }
-
-  .tab-content.active {
+    }
+    .faq-sections.active {
       display: block;
-  }
-
-  .accordion {
-      margin-bottom: 15px;
-      border: 1px solid {{ settings.accordion_border | default: "#e2e8f0" }};
-      border-radius: 8px;
-      overflow: hidden;
-  }
-
-  .accordion-header {
-      padding: 15px 20px;
-      background: {{ settings.accordion_header_bg | default: "#f8fafc" }};
+    }
+    .question {
+      background: #f9f9f9;
+      padding: 15px;
+      margin-bottom: 5px;
       cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-weight: 600;
-      transition: background 0.3s ease;
-  }
-
-  .accordion-header:hover {
-      background: {{ settings.accordion_hover_bg | default: "#e2e8f0" }};
-  }
-
-  .accordion-header::after {
-      content: '+';
-      font-size: 18px;
-      font-weight: bold;
-  }
-
-  .accordion-header.active::after {
-      content: '-';
-  }
-
-  .accordion-content {
-      padding: 0;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease, padding 0.3s ease;
-      background: white;
-  }
-
-  .accordion-content.active {
-      padding: 20px;
-      max-height: 1000px;
-  }
-
-  .lab-result {
-      margin-bottom: 10px;
-      padding: 10px 15px;
-      background: {{ settings.result_bg | default: "#f1f5f9" }};
-      border-radius: 6px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-  }
-
-  .lab-result a {
-      color: {{ settings.link_color | default: "#3b82f6" }};
-      text-decoration: none;
+      border-radius: 5px;
+    }
+    .question p {
+      margin: 0;
       font-weight: 500;
-      padding: 5px 10px;
-      border-radius: 4px;
-      transition: background 0.2s ease;
-  }
+    }
+    .arrow {
+      border: solid #333;
+      border-width: 0 2px 2px 0;
+      display: inline-block;
+      padding: 3px;
+      transform: rotate(45deg);
+      transition: transform 0.3s ease;
+    }
+    .question.active .arrow {
+      transform: rotate(-135deg);
+    }
+    .answer {
+      display: none;
+      padding: 15px;
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+    .answer.active {
+      display: block;
+    }
+  </style>
 
-  .lab-result a:hover {
-      background: {{ settings.link_hover_bg | default: "#dbeafe" }};
-  }
-
-  @media (max-width: 768px) {
-      .tabs-header {
-          flex-direction: column;
-      }
-      
-      .tab-btn {
-          width: 100%;
-          text-align: left;
-          border-bottom: 1px solid #e2e8f0;
-      }
-  }
-</style>
-
- <div class="container">
-        <div class="tabs-header">
-            {% for block in section.blocks %}
-                {% if block.type == 'tab' %}
-                    <button class="tab-btn{% if forloop.first %} active{% endif %}" data-tab="{{ block.settings.tab_id }}">
-                        {{ block.settings.tab_title }}
-                    </button>
-                {% endif %}
-            {% endfor %}
-        </div>
-        
-        {% for block in section.blocks %}
-            {% if block.type == 'tab' %}
-                <div class="tab-content{% if forloop.first %} active{% endif %}" id="{{ block.settings.tab_id }}">
-                    {% for inner_block in section.blocks %}
-                        {% if inner_block.type == 'accordion' and inner_block.settings.parent_tab == block.settings.tab_id %}
-                            <div class="accordion">
-                                <div class="accordion-header">{{ inner_block.settings.accordion_title }}</div>
-                                <div class="accordion-content">
-                                    {% for i in (1..10) %}
-                                        {% assign result_title_key = 'result_title_' | append: i %}
-                                        {% assign result_url_key = 'result_url_' | append: i %}
-                                        
-                                        {% if inner_block.settings[result_title_key] != blank and inner_block.settings[result_url_key] != blank %}
-                                            <div class="lab-result">
-                                                <span>{{ inner_block.settings[result_title_key] }}</span>
-                                                <a href="{{ inner_block.settings[result_url_key] }}" target="_blank">Lab Results</a>
-                                            </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            {% endif %}
-        {% endfor %}
+<section class="faq-section">
+  <div class="container">
+    <div class="faq-details">
+      <h2>{{ section.settings.main_title | default: 'Frequently Asked Questions' }}</h2>
     </div>
+    <ul class="tab">
+      {% for block in section.blocks %}
+        <li class="tablinks {% if forloop.first %}active_tab{% endif %}" data-tab="{{ block.type }}">{{ block.settings.tab_title }}</li>
+      {% endfor %}
+    </ul>
+    <div class="faq-tabs-content">
+      {% for block in section.blocks %}
+        <div class="faq-sections {{ block.type }} {% if forloop.first %}active{% endif %}">
+          {% if block.type == 'order_questions' or block.type == 'miscellaneous_questions' or block.type == 'jewelry_questions' %}
+            <div class="question">
+              <p>{{ block.settings.questions_question }}</p>
+              <div class="arrow"></div>
+            </div>
+            <div class="answer">
+              {{ block.settings.questions_answer }}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
 
 <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Tab functionality
-            const tabButtons = document.querySelectorAll('.tab-btn');
-            const tabContents = document.querySelectorAll('.tab-content');
-            
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const tabId = button.getAttribute('data-tab');
-                    
-                    // Deactivate all tabs
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    tabContents.forEach(content => content.classList.remove('active'));
-                    
-                    // Activate clicked tab
-                    button.classList.add('active');
-                    document.getElementById(tabId).classList.add('active');
-                });
-            });
-            
-            // Accordion functionality
-            const accordionHeaders = document.querySelectorAll('.accordion-header');
-            
-            accordionHeaders.forEach(header => {
-                header.addEventListener('click', () => {
-                    const content = header.nextElementSibling;
-                    
-                    // Close all other accordions in the same tab
-                    const allContents = document.querySelectorAll('.accordion-content');
-                    allContents.forEach(item => {
-                        if (item !== content && item.classList.contains('active')) {
-                            item.classList.remove('active');
-                            item.previousElementSibling.classList.remove('active');
-                        }
-                    });
-                    
-                    // Toggle current accordion
-                    header.classList.toggle('active');
-                    content.classList.toggle('active');
-                });
-            });
-        });
-    </script>
+  // Tab switching functionality
+  document.querySelectorAll('.tablinks').forEach(tab => {
+    tab.addEventListener('click', function() {
+      // Remove active classes from all tabs and sections
+      document.querySelectorAll('.tablinks').forEach(t => t.classList.remove('active_tab'));
+      document.querySelectorAll('.faq-sections').forEach(s => s.classList.remove('active'));
 
+      // Add active class to clicked tab and corresponding section
+      this.classList.add('active_tab');
+      const tabContent = document.querySelector(`.faq-sections.${this.getAttribute('data-tab')}`);
+      if (tabContent) {
+        tabContent.classList.add('active');
+      }
+    });
+  });
+
+  // Accordion functionality for questions
+  document.querySelectorAll('.question').forEach(question => {
+    question.addEventListener('click', function() {
+      const answer = this.nextElementSibling;
+      const isActive = this.classList.contains('active');
+
+      // Close all other answers
+      document.querySelectorAll('.question').forEach(q => q.classList.remove('active'));
+      document.querySelectorAll('.answer').forEach(a => a.classList.remove('active'));
+
+      // Toggle current answer
+      if (!isActive) {
+        this.classList.add('active');
+        answer.classList.add('active');
+      }
+    });
+  });
+</script>
 
 {% schema %}
-{
-  "name": "Lab Results Page",
-  "settings": [
-    {
+  {
+    "name": "Faq With tabbing",
+    "settings": [
+      {
       "type": "text",
-      "id": "page_title",
-      "label": "Page Title",
-      "default": "Product Lab Results"
+      "id": "main_title",
+      "label": "Title"
     }
-  ],
-  "blocks": [
+    ],
+    "blocks": [
     {
-      "type": "tab",
-      "name": "Tab",
+      "type": "order_questions",
+      "name": "Order Questions",
       "settings": [
         {
           "type": "text",
-          "id": "tab_title",
-          "label": "Tab Title",
-          "default": "New Tab"
+          "id": "questions_question",
+          "label": "Questions"
         },
         {
-          "type": "text",
-          "id": "tab_id",
-          "label": "Tab ID",
-          "default": "tab-id",
-          "info": "Must be unique with no spaces"
+          "type": "richtext",
+          "id": "questions_answer",
+          "label": "Answer"
         }
       ]
     },
     {
-      "type": "accordion",
-      "name": "Accordion Section",
+      "type": "miscellaneous_questions",
+      "name": "Miscellaneous Questions",
       "settings": [
         {
           "type": "text",
-          "id": "accordion_title",
-          "label": "Accordion Title",
-          "default": "Product Category"
+          "id": "miscellaneous_question",
+          "label": "Questions"
         },
         {
+          "type": "richtext",
+          "id": "miscellaneous_answer",
+          "label": "Answer"
+        }
+      ]
+    },
+    {
+      "type": "jewelry_questions",
+      "name": "Jewelry Questions",
+      "settings": [
+        {
           "type": "text",
-          "id": "parent_tab",
-          "label": "Parent Tab ID",
-          "default": "tab-id",
-          "info": "Must match the ID of the tab where this should appear"
+          "id": "jewelry_question",
+          "label": "Questions"
         },
+        {
+          "type": "richtext",
+          "id": "jewelry_answer",
+          "label": "Answer"
+        }
       ]
     }
   ],
-  "presets": [
+    "presets": [
     {
-      "name": "Lab Results Page",
-      "category": "Custom"
+      "name": "Faq With tabbing"
     }
   ]
 }
