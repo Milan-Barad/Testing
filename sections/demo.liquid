@@ -1,21 +1,104 @@
 <style>
-
+  .faq-section {
+    padding: 40px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .container {
+    padding: 0 20px;
+  }
+  .faq-details {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .faq-details h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  .tab {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #eee;
+  }
+  .tablinks {
+    padding: 15px 25px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: #333;
+    transition: all 0.3s ease;
+  }
+  .tablinks:hover {
+    color: #007bff;
+  }
+  .tablinks.active_tab {
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+  }
+  .faq-tabs-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .faq-sections {
+    display: none;
+  }
+  .faq-sections.active {
+    display: block;
+  }
+  .question {
+    background: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+  }
+  .question p {
+    margin: 0;
+    font-weight: 500;
+  }
+  .arrow {
+    border: solid #333;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+    transition: transform 0.3s ease;
+  }
+  .question.active .arrow {
+    transform: rotate(-135deg);
+  }
+  .answer {
+    display: none;
+    padding: 15px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  .answer.active {
+    display: block;
+  }
 </style>
 
 <section class="faq-section">
   <div class="container">
     <div class="faq-details">
-      <h2>{{ section.settings.main_title }}</h2>
+      <h2>{{ section.settings.main_title | default: 'Frequently Asked Questions' }}</h2>
     </div>
     <ul class="tab">
-      <li class="tablinks active_tab" data-tab="order-questions">Order Questions</li>
-      <li class="tablinks" data-tab="miscellaneous-questions">Miscellaneous Questions</li>
-      <li class="tablinks" data-tab="jewelry-questions">Jewelry Questions</li>
+      {% for block in section.blocks %}
+        <li class="tablinks {% if forloop.first %}active_tab{% endif %}" data-tab="{{ block.type }}">{{ block.settings.tab_title }}</li>
+      {% endfor %}
     </ul>
     <div class="faq-tabs-content">
-      <div class="faq-sections order-questions">
-        {% for block in section.blocks %}
-          {% if block.type == 'order_questions' %}
+      {% for block in section.blocks %}
+        <div class="faq-sections {{ block.type }} {% if forloop.first %}active{% endif %}">
+          {% if block.type == 'order_questions' or block.type == 'miscellaneous_questions' or block.type == 'jewelry_questions' %}
             <div class="question">
               <p>{{ block.settings.questions_question }}</p>
               <div class="arrow"></div>
@@ -24,11 +107,47 @@
               {{ block.settings.questions_answer }}
             </div>
           {% endif %}
-        {% endfor %}
-      </div>
+        </div>
+      {% endfor %}
     </div>
   </div>
 </section>
+
+<script>
+  // Tab switching functionality
+  document.querySelectorAll('.tablinks').forEach(tab => {
+    tab.addEventListener('click', function() {
+      // Remove active classes from all tabs and sections
+      document.querySelectorAll('.tablinks').forEach(t => t.classList.remove('active_tab'));
+      document.querySelectorAll('.faq-sections').forEach(s => s.classList.remove('active'));
+
+      // Add active class to clicked tab and corresponding section
+      this.classList.add('active_tab');
+      const tabContent = document.querySelector(`.faq-sections.${this.getAttribute('data-tab')}`);
+      if (tabContent) {
+        tabContent.classList.add('active');
+      }
+    });
+  });
+
+  // Accordion functionality for questions
+  document.querySelectorAll('.question').forEach(question => {
+    question.addEventListener('click', function() {
+      const answer = this.nextElementSibling;
+      const isActive = this.classList.contains('active');
+
+      // Close all other answers
+      document.querySelectorAll('.question').forEach(q => q.classList.remove('active'));
+      document.querySelectorAll('.answer').forEach(a => a.classList.remove('active'));
+
+      // Toggle current answer
+      if (!isActive) {
+        this.classList.add('active');
+        answer.classList.add('active');
+      }
+    });
+  });
+</script>
 
 
 {% schema %}
