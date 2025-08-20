@@ -6,12 +6,10 @@
     border: 1px solid #ccc;
     font-family: Arial, sans-serif;
   }
-
   .tab-buttons {
     display: flex;
     border-bottom: 1px solid #ccc;
   }
-
   .tab-button {
     flex: 1;
     padding: 10px;
@@ -21,38 +19,31 @@
     outline: none;
     transition: background 0.3s;
   }
-
   .tab-button:hover {
     background: #ddd;
   }
-
   .tab-button.active {
     background: #fff;
     font-weight: bold;
     border-bottom: 2px solid #333;
   }
-
   .tab-content {
     display: none;
     padding: 15px;
   }
-
   .tab-content.active {
     display: block;
   }
-
   .accordion {
     width: 100%;
     margin: 10px 0;
   }
-
   .accordion-item {
     border: 1px solid #ddd;
     margin-bottom: 5px;
     border-radius: 4px;
     overflow: hidden;
   }
-
   .accordion-header {
     padding: 12px;
     cursor: pointer;
@@ -63,21 +54,17 @@
     align-items: center;
     transition: all 0.3s;
   }
-
   .accordion-header:hover {
     background: #ddd;
   }
-
   .accordion-header::after {
     content: '+';
     font-size: 18px;
     transition: transform 0.3s ease;
   }
-
   .accordion-header.active::after {
     content: '−';
   }
-
   .accordion-panel {
     max-height: 0;
     overflow: hidden;
@@ -87,7 +74,6 @@
                 opacity 0.4s ease,
                 padding 0.3s ease;
   }
-
   .accordion-panel.active {
     opacity: 1;
   }
