@@ -90,31 +90,25 @@
     {% endfor %}
   </div>
 
-  {% assign current_tab = '' %}
-    {% for block in section.blocks %}
-        {% if block.type == 'tab' %}
-          {% if current_tab != '' %}
-            </div> <!-- /.accordion -->
-          </div> <!-- /.tab-content -->
-          {% endif %}
-          <div id="tab-{{ block.settings.tab_id }}" class="tab-content">
-            <div class="accordion">
-          {% assign current_tab = block.settings.tab_id %}
-        {% elsif block.type == 'accordion' and block.settings.tab_id_ref == current_tab %}
-          <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion('accordion-{{ block.id }}')">
-              {{ block.settings.accordion_title }}
-            </div>
-            <div id="accordion-{{ block.id }}" class="accordion-panel">
-              {{ block.settings.accordion_content }}
-            </div>
-          </div>
-        {% endif %}
-    {% endfor %}
-    {% if current_tab != '' %}
-      </div> <!-- /.accordion -->
-    </div> <!-- /.tab-content -->
+  {% for block in section.blocks %}
+    {% if block.type == 'tab' %}
+      <div id="tab-{{ block.settings.tab_id }}" class="tab-content">
+        <div class="accordion">
+          {% for inner_block in section.blocks %}
+            {% if inner_block.type == 'accordion' and inner_block.settings.tab_id_ref == block.settings.tab_id %}
+              <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion('accordion-{{ inner_block.id }}')">
+                  {{ inner_block.settings.accordion_title }}
+                </div08:33:37> System: .accordion-panel">
+                  {{ inner_block.settings.accordion_content }}
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div> <!-- /.accordion -->
+      </div> <!-- /.tab-content -->
     {% endif %}
+  {% endfor %}
 </div>
 
 <script>
