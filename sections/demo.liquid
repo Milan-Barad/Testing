@@ -62,32 +62,34 @@
   {% comment %} Tab navigation {% endcomment %}
   <div class="tab-buttons">
     {% for block in section.blocks %}
-      <button class="tab-button {% if forloop.first %}active{% endif %}" data-tab="tab-{{ block.id }}">
-        {{ block.settings.tab_title | escape }}
-      </button>
+      {% if block.type == 'tab' %}
+        <button class="tab-button {% if forloop.first %}active{% endif %}" data-tab="tab-{{ block.id }}">
+          {{ block.settings.tab_title | escape }}
+        </button>
+      {% endif %}
     {% endfor %}
   </div>
 
   {% comment %} Tab content with accordion {% endcomment %}
   {% for block in section.blocks %}
-    <div id="tab-{{ block.id }}" class="tab-content {% if forloop.first %}active{% endif %}">
-      <div class="accordion">
-        {% for i in (1..4) %}
-          {% assign accordion_title_key = 'accordion_title_' | append: i %}
-          {% assign accordion_content_key = 'accordion_content_' | append: i %}
-          {% if block.settings[accordion_title_key] != blank %}
-            <div class="accordion-item">
-              <div class="accordion-header" data-panel="panel-{{ block.id }}-{{ i }}">
-                {{ block.settings[accordion_title_key] | escape }}
+    {% if block.type == 'tab' %}
+      <div id="tab-{{ block.id }}" class="tab-content {% if forloop.first %}active{% endif %}">
+        <div class="accordion">
+          {% for accordion_block in section.blocks %}
+            {% if accordion_block.type == 'accordion' and accordion_block.settings.tab_id == block.id %}
+              <div class="accordion-item">
+                <div class="accordion-header" data-panel="panel-{{ accordion_block.id }}">
+                  {{ accordion_block.settings.accordion_title | escape }}
+                </div>
+                <div id="panel-{{ accordion_block.id }}" class="accordion-panel">
+                  {{ accordion_block.settings.accordion_content }}
+                </div>
               </div>
-              <div id="panel-{{ block.id }}-{{ i }}" class="accordion-panel">
-                {{ block.settings[accordion_content_key] }}
-              </div>
-            </div>
-          {% endif %}
-        {% endfor %}
+            {% endif %}
+          {% endfor %}
+        </div>
       </div>
-    </div>
+    {% endif %}
   {% endfor %}
 </div>
 
@@ -145,54 +147,35 @@
           "id": "tab_title",
           "label": "Tab Title",
           "default": "Tab"
-        },
+        }
+      ]
+    },
+    {
+      "type": "accordion",
+      "name": "Accordion Item",
+      "settings": [
         {
           "type": "text",
-          "id": "accordion_title_1",
-          "label": "Accordion 1 Title",
-          "default": "Accordion Item 1"
+          "id": "accordion_title",
+          "label": "Accordion Title",
+          "default": "Accordion Item"
         },
         {
           "type": "richtext",
-          "id": "accordion_content_1",
-          "label": "Accordion 1 Content",
-          "default": "<p>Details about accordion item 1.</p>"
+          "id": "accordion_content",
+          "label": "Accordion Content",
+          "default": "<p>Details about accordion item.</p>"
         },
         {
-          "type": "text",
-          "id": "accordion_title_2",
-          "label": "Accordion 2 Title",
-          "default": "Accordion Item 2"
-        },
-        {
-          "type": "richtext",
-          "id": "accordion_content_2",
-          "label": "Accordion 2 Content",
-          "default": "<p>Details about accordion item 2.</p>"
-        },
-        {
-          "type": "text",
-          "id": "accordion_title_3",
-          "label": "Accordion 3 Title",
-          "default": "Accordion Item 3"
-        },
-        {
-          "type": "richtext",
-          "id": "accordion_content_3",
-          "label": "Accordion 3 Content",
-          "default": "<p>Details about accordion item 3.</p>"
-        },
-        {
-          "type": "text",
-          "id": "accordion_title_4",
-          "label": "Accordion 4 Title",
-          "default": "Accordion Item 4"
-        },
-        {
-          "type": "richtext",
-          "id": "accordion_content_4",
-          "label": "Accordion 4 Content",
-          "default": "<p>Details about accordion item 4.</p>"
+          "type": "select",
+          "id": "tab_id",
+          "label": "Associated Tab",
+          "options": [
+            {
+              "value": "",
+              "label": "Select a tab"
+            }
+          ]
         }
       ]
     }
@@ -204,15 +187,39 @@
         {
           "type": "tab",
           "settings": {
-            "tab_title": "Cartridges",
-            "accordion_title_1": "Adios Blend: THCA + Delta-9P Live Resin",
-            "accordion_content_1": "<p>Details about Adios Blend: THCA + Delta-9P Live Resin</p>",
-            "accordion_title_2": "Adios MF Blend: THCA Live Sugar",
-            "accordion_content_2": "<p>Details about Adios MF Blend: THCA Live Sugar</p>",
-            "accordion_title_3": "Wreck'd Series: THCA + THCP + THCJD",
-            "accordion_content_3": "<p>Details about Wreck'd Series: THCA + THCP + THCJD</p>",
-            "accordion_title_4": "Lights Out Collection: THCH + THCJD",
-            "accordion_content_4": "<p>Details about Lights Out Collection: THCH + THCJD</p>"
+            "tab_title": "Cartridges"
+          }
+        },
+        {
+          "type": "accordion",
+          "settings": {
+            "accordion_title": "Adios Blend: THCA + Delta-9P Live Resin",
+            "accordion_content": "<p>Details about Adios Blend: THCA + Delta-9P Live Resin</p>",
+            "tab_id": "{{ section.blocks[0].id }}"
+          }
+        },
+        {
+          "type": "accordion",
+          "settings": {
+            "accordion_title": "Adios MF Blend: THCA Live Sugar",
+            "accordion_content": "<p>Details about Adios MF Blend: THCA Live Sugar</p>",
+            "tab_id": "{{ section.blocks[0].id }}"
+          }
+        },
+        {
+          "type": "accordion",
+          "settings": {
+            "accordion_title": "Wreck'd Series: THCA + THCP + THCJD",
+            "accordion_content": "<p>Details about Wreck'd Series: THCA + THCP + THCJD</p>",
+            "tab_id": "{{ section.blocks[0].id }}"
+          }
+        },
+        {
+          "type": "accordion",
+          "settings": {
+            "accordion_title": "Lights Out Collection: THCH + THCJD",
+            "accordion_content": "<p>Details about Lights Out Collection: THCH + THCJD</p>",
+            "tab_id": "{{ section.blocks[0].id }}"
           }
         },
         {
