@@ -12,56 +12,40 @@
     "demo_J3R7PF": {
       "type": "demo",
       "blocks": {
-        "tab_wcmUcq": {
-          "type": "tab",
-          "settings": {
-            "tab_id": "cartridges",
-            "tab_title": "Cartridges"
-          }
-        },
-        "accordion_t936VW": {
+        "accordion_qPNnA3": {
           "type": "accordion",
           "settings": {
-            "accordion_title": "Adios Blend: THCA + Delta-9P Live Resin",
-            "accordion_content": "Adios Blend: THCA + Delta-9P Live Resin\nApple Fritter Batch AF0824 –"
+            "question": "Adios Blend: THCA + Delta-9P Live Resin",
+            "answer": "<p>Adios Blend: THCA + Delta-9P Live Resin<br/>Adios Blend: THCA + Delta-9P Live Resin<br/>Adios Blend: THCA + Delta-9P Live Resin<br/>Adios Blend: THCA + Delta-9P Live Resin<br/><br/></p>"
           }
         },
-        "accordion_DYfWB6": {
+        "accordion_J74Rpz": {
           "type": "accordion",
           "settings": {
-            "accordion_title": "Adios MF Blend: THCA Live Sugar",
-            "accordion_content": "Adios MF Blend: THCA Live Sugar\nGSC Batch 112435 –"
+            "question": "Adios MF Blend: THCA Live Sugar",
+            "answer": "<p>Adios MF Blend: THCA Live Sugar<br/>Adios MF Blend: THCA Live Sugar<br/>Adios MF Blend: THCA Live Sugar<br/>Adios MF Blend: THCA Live Sugar<br/>Adios MF Blend: THCA Live Sugar<br/><br/></p>"
           }
         },
-        "tab_UpWGQ8": {
-          "type": "tab",
+        "accordion_nbUKiU": {
+          "type": "accordion",
           "settings": {
-            "tab_id": "disposables",
-            "tab_title": "Disposables"
+            "question": "Wreck’d Series: THCA + THCP + THCJD",
+            "answer": "<p>Wreck’d Series: THCA + THCP + THCJD<br/>Wreck’d Series: THCA + THCP + THCJD<br/>Wreck’d Series: THCA + THCP + THCJD<br/>Wreck’d Series: THCA + THCP + THCJD<br/><br/></p>"
           }
         },
-        "tab_APeUxW": {
-          "type": "tab",
+        "accordion_mVagAH": {
+          "type": "accordion",
           "settings": {
-            "tab_id": "edibles",
-            "tab_title": "Edibles"
-          }
-        },
-        "tab_D3gCBB": {
-          "type": "tab",
-          "settings": {
-            "tab_id": "flower",
-            "tab_title": "Flower"
+            "question": "Lights Out Collection: THCH + THCJD",
+            "answer": "<p>Lights Out Collection: THCH + THCJD<br/>Lights Out Collection: THCH + THCJD<br/>Lights Out Collection: THCH + THCJD<br/>Lights Out Collection: THCH + THCJD<br/><br/></p>"
           }
         }
       },
       "block_order": [
-        "tab_wcmUcq",
-        "accordion_t936VW",
-        "accordion_DYfWB6",
-        "tab_UpWGQ8",
-        "tab_APeUxW",
-        "tab_D3gCBB"
+        "accordion_qPNnA3",
+        "accordion_J74Rpz",
+        "accordion_nbUKiU",
+        "accordion_mVagAH"
       ],
       "settings": {}
     },
