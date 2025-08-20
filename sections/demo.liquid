@@ -3,7 +3,8 @@
     padding-bottom: 27px;
   }
   .faq-section .container {
-    max-width:1400px;
+    max-width: 1400px;
+    margin: 0 auto;
   }
   .faq-details {
     display: flex;
@@ -13,72 +14,69 @@
   }
   .faq-details h2 {
     color: #000;
-    font-family: 'Lato' ,sans-serif;
+    font-family: 'Lato', sans-serif;
     font-size: 38px;
-    font-style: normal;
     font-weight: 500;
     line-height: normal;
   }
   section.faq-section nav.breadcrumb.inherit {
     color: #000;
-    font-family: 'Lato' ,sans-serif;
+    font-family: 'Lato', sans-serif;
     font-size: 18px;
-    font-style: normal;
     font-weight: 500;
     line-height: normal;
     padding-top: 10px;
   }
   section.faq-section .breadcrumb span {
-    margin-left: 0px !important;
+    margin-left: 0 !important;
   }
   .question {
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: #000;
-    font-family: 'Lato' ,sans-serif;
+    font-family: 'Lato', sans-serif;
     font-size: 16px;
-    font-style: normal;
     font-weight: 600;
     line-height: normal;
     cursor: pointer;
     border-top: 1px solid rgba(0, 0, 0, 0.15);
     padding: 24px 15px 25px;
   }
-  .answer{
-    display: block;
+  .answer {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.5s ease-out;
   }
-  .answer p, .answer ul{
+  .answer p,
+  .answer ul {
     color: #575757;
-    font-family: 'Lato' ,sans-serif;
+    font-family: 'Lato', sans-serif;
     font-size: 14px;
-    font-style: normal;
     font-weight: 400;
     line-height: 40px;
     padding: 0 15px 20px;
   }
   .question.active .arrow {
     transform: rotate(180deg);
-    transition: all .5s;
   }
-  .question.active , .question .arrow {
+  .question .arrow {
     display: flex;
     align-items: center;
-    transition: all .5s;
+    transition: transform 0.5s;
+    width: 20px;
+    height: 20px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z" fill="%23000"/></svg>') no-repeat center;
   }
   .tablinks.active_tab {
-    color: #376ECA;
+    color: #376eca;
   }
-  li.tablinks {
-    border-left: 1px solid #A8A8A8;
+  .tablinks {
+    border-left: 1px solid #a8a8a8;
     padding-left: 20px;
-    color: #A8A8A8;
-    font-family: 'Lato' ,sans-serif;
+    color: #a8a8a8;
+    font-family: 'Lato', sans-serif;
     font-size: 20px;
-    font-style: normal;
     font-weight: 700;
     line-height: normal;
     cursor: pointer;
@@ -89,8 +87,10 @@
     padding-bottom: 70px;
     gap: 30px;
   }
-  .faq-sections .faq-sections:first-child .question {
-    border-top: 0px solid transparent;
+  .faq-sections.order-questions .question:first-child,
+  .faq-sections.miscellaneous-questions .question:first-child,
+  .faq-sections.jewelry-questions .question:first-child {
+    border-top: none;
   }
   .answer ul {
     list-style: disc;
@@ -100,57 +100,52 @@
   .answer ul li {
     list-style: disc;
   }
-  .faq-sections.order-questions ~ .faq-sections.miscellaneous-questions > .question,
-  .faq-sections.miscellaneous-questions ~ .faq-sections.jewelry-questions > .question,
-  ul.tab li:first-child {
-    border: none;
+  ul.tab li.tablinks:first-child {
+    border-left: none;
   }
-  .faq-sections.order-questions ~ .faq-sections.miscellaneous-questions ~ .faq-sections.miscellaneous-questions > .question,
-  .faq-sections.miscellaneous-questions ~ .faq-sections.jewelry-questions ~ .faq-sections.jewelry-questions > .question {
-    border-top: 1px solid rgba(0, 0, 0, 0.15);
-  }
-    
-  @media screen and (max-width: 1024px){
+
+  @media screen and (max-width: 1024px) {
     .faq-details h2 {
       font-size: 34px;
     }
-    .question , .answer p, .answer ul {
+    .question,
+    .answer p,
+    .answer ul {
       margin: 0 15px;
     }
     .faq-details {
       padding: 60px 0 49px;
     }
   }
-    
-  @media screen and (max-width: 767px){
-    li.tablinks {
+
+  @media screen and (max-width: 767px) {
+    .tablinks {
       font-size: 18px;
       padding: 10px 0;
       border: none;
     }
     ul.tab li.tablinks:nth-child(2) {
-      border-top: 1px solid #A8A8A8;
-      border-bottom: 1px solid #A8A8A8;
+      border-top: 1px solid #a8a8a8;
+      border-bottom: 1px solid #a8a8a8;
     }
     ul.tab {
       gap: 0;
+      padding-bottom: 10px;
+      flex-direction: column;
+      align-items: center;
     }
     .faq-details h2 {
       font-size: 30px;
     }
     .question {
       font-size: 15px;
-      padding: 25px 8px 25px;
-    }
-    ul.tab {
-      padding-bottom: 10px;
-      flex-direction: column;
-      align-items: center;
+      padding: 25px 8px;
     }
     .faq-details {
       padding: 40px 0;
     }
-    .answer p, .answer ul {
+    .answer p,
+    .answer ul {
       line-height: 30px;
     }
   }
@@ -162,118 +157,121 @@
       <h2>{{ section.settings.main_title }}</h2>
     </div>
     <ul class="tab">
-      <li class="tablinks active_tab" data-tab="order-questions" id="defaultOpen">Order Questions</li>
+      <li class="tablinks active_tab" data-tab="order-questions">Order Questions</li>
       <li class="tablinks" data-tab="miscellaneous-questions">Miscellaneous Questions</li>
       <li class="tablinks" data-tab="jewelry-questions">Jewelry Questions</li>
     </ul>
-    <div class="faq-sections"style="display:none;">
-      {% for block in section.blocks %}
-        {%- case block.type -%}
-          {%- when 'order_questions' -%}
-            <div class="faq-sections order-questions">
-              <div class="question">
-                <p>{{ block.settings.questions_question }}</p>
-                <div class="arrow"></div>
-              </div>
-              <div class="answer">
-                {{ block.settings.questions_answer }}
-              </div>
+    <div class="faq-tabs-content">
+      <div class="faq-sections order-questions">
+        {% for block in section.blocks %}
+          {% if block.type == 'order_questions' %}
+            <div class="question">
+              <p>{{ block.settings.questions_question }}</p>
+              <div class="arrow"></div>
             </div>
-          {%- when 'miscellaneous_questions' -%}
-            <div class="faq-sections miscellaneous-questions">
-              <div class="question">
-                <p>{{ block.settings.miscellaneous_question }}</p>
-                <div class="arrow"></div>
-              </div>
-              <div class="answer">
-                {{ block.settings.miscellaneous_answer }}
-              </div>
+            <div class="answer">
+              {{ block.settings.questions_answer }}
             </div>
-          {%- when 'jewelry_questions' -%}
-            <div class="faq-sections jewelry-questions">
-              <div class="question">
-                <p>{{ block.settings.jewelry_question }}</p>
-                <div class="arrow"></div>
-              </div>
-              <div class="answer">
-                {{ block.settings.jewelry_answer }}
-              </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="faq-sections miscellaneous-questions" style="display: none;">
+        {% for block in section.blocks %}
+          {% if block.type == 'miscellaneous_questions' %}
+            <div class="question">
+              <p>{{ block.settings.miscellaneous_question }}</p>
+              <div class="arrow"></div>
             </div>
-          {% else %}
-            test 123
-        {%- endcase -%}
-      {% endfor %}
+            <div class="answer">
+              {{ block.settings.miscellaneous_answer }}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="faq-sections jewelry-questions" style="display: none;">
+        {% for block in section.blocks %}
+          {% if block.type == 'jewelry_questions' %}
+            <div class="question">
+              <p>{{ block.settings.jewelry_question }}</p>
+              <div class="arrow"></div>
+            </div>
+            <div class="answer">
+              {{
+
+ block.settings.jewelry_answer }}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
     </div>
   </div>
 </section>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-      document.querySelector('.faq-sections').style.display = 'block';
-      function showTab(tabClass) {
-          const sections = document.querySelectorAll('.faq-sections > .faq-sections');
-          sections.forEach(section => {
-              section.style.display = 'none';
-              if (section.classList.contains(tabClass)) {
-                  section.style.display = 'block';
-              }
-          });
-      }
-      function setActiveTab(clickedTab) {
-          const tabs = document.querySelectorAll('.tablinks');
-          tabs.forEach(tab => {
-              if (tab === clickedTab) {
-                  tab.classList.add('active_tab');
-              } else {
-                  tab.classList.remove('active_tab');
-              }
-          });
-      }
-      showTab('order-questions');
-      const tabs = document.querySelectorAll('.tablinks');
-      tabs.forEach(tab => {
-          tab.addEventListener('click', function() {
-              const tabClass = this.getAttribute('data-tab');
-              showTab(tabClass);
-              setActiveTab(this);
-          });
+  document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.tablinks');
+    const sections = document.querySelectorAll('.faq-sections');
+    const questions = document.querySelectorAll('.question');
+
+    // Show/hide tabs
+    function showTab(tabClass) {
+      sections.forEach(section => {
+        section.style.display = section.classList.contains(tabClass) ? 'block' : 'none';
       });
-       var acc = document.querySelectorAll('.question');
-     for (var i = 0; i < acc.length; i++) {
-         acc[i].addEventListener('click', function() {
-             var panel = this.nextElementSibling;
-             var isActive = this.classList.contains('active');
-             closeAllPanelsExcept(panel);
-             this.classList.toggle('active');
-             if (isActive) {
-                 panel.style.maxHeight = null;
-             } else {
-                 panel.style.maxHeight = panel.scrollHeight + 'px';
-             }
-         });
-     }
-     function closeAllPanelsExcept(currentPanel) {
-         acc.forEach(function(element) {
-             if (element.nextElementSibling !== currentPanel) {
-                 element.classList.remove('active');
-                 element.nextElementSibling.style.maxHeight = null;
-             }
-         });
-     }
+    }
+
+    // Set active tab
+    function setActiveTab(clickedTab) {
+      tabs.forEach(tab => {
+        tab.classList.toggle('active_tab', tab === clickedTab);
+      });
+    }
+
+    // Initialize default tab
+    showTab('order-questions');
+
+    // Tab click handler
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const tabClass = tab.getAttribute('data-tab');
+        showTab(tabClass);
+        setActiveTab(tab);
+      });
+    });
+
+    // Accordion handler
+    questions.forEach(question => {
+      question.addEventListener('click', () => {
+        const answer = question.nextElementSibling;
+        const isActive = question.classList.contains('active');
+
+        // Close all other answers
+        questions.forEach(q => {
+          if (q !== question) {
+            q.classList.remove('active');
+            q.nextElementSibling.style.maxHeight = null;
+          }
+        });
+
+        // Toggle current answer
+        question.classList.toggle('active');
+        answer.style.maxHeight = isActive ? null : `${answer.scrollHeight}px`;
+      });
+    });
   });
 </script>
 
 {% schema %}
-  {
-    "name": "Faq With tabbing",
-    "settings": [
-      {
+{
+  "name": "Faq With tabbing",
+  "settings": [
+    {
       "type": "text",
       "id": "main_title",
       "label": "Title"
     }
-    ],
-    "blocks": [
+  ],
+  "blocks": [
     {
       "type": "order_questions",
       "name": "Order Questions",
@@ -323,7 +321,7 @@
       ]
     }
   ],
-    "presets": [
+  "presets": [
     {
       "name": "Faq With tabbing"
     }
