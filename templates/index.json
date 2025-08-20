@@ -16,17 +16,17 @@
           "type": "tab",
           "settings": {
             "tab_title": "New Tab",
-            "tab_id": "tab-1"
+            "tab_id": "Flower"
           }
         },
         "accordion_t4DnYJ": {
           "type": "accordion",
           "settings": {
             "accordion_title": "Accordion Title",
-            "parent_tab": "cartridges",
+            "parent_tab": "flower",
             "result_title_1": "Product Batch Name",
-            "result_url_1": "",
-            "result_title_2": "",
+            "result_url_1": "shopify://pages/test",
+            "result_title_2": "AS",
             "result_url_2": "",
             "result_title_3": "",
             "result_url_3": "",
