@@ -12,45 +12,48 @@
     "demo_J3R7PF": {
       "type": "demo",
       "blocks": {
-        "tab_KqfXzr": {
+        "tab_fnJtCP": {
           "type": "tab",
           "settings": {
-            "tab_title": "sfsdf"
+            "tab_id": "tab_1",
+            "tab_title": "tab 1"
           }
         },
-        "accordion_qQqrFF": {
+        "accordion_nD6zRk": {
           "type": "accordion",
           "settings": {
-            "accordion_title": "sdf",
-            "accordion_content": "sdfsdf"
+            "accordion_title": "asd",
+            "accordion_content": "ad"
           }
         },
-        "accordion_8fmCQW": {
+        "accordion_JacAnR": {
           "type": "accordion",
           "settings": {
-            "accordion_title": "",
-            "accordion_content": "sdf"
+            "accordion_title": "asdas",
+            "accordion_content": "asdasd"
           }
         },
-        "tab_gFHwzd": {
+        "tab_kdi9dr": {
           "type": "tab",
           "settings": {
-            "tab_title": "sfsdfsdf"
+            "tab_id": "tab_2",
+            "tab_title": "tab 2"
           }
         },
-        "tab_ap6n34": {
-          "type": "tab",
+        "accordion_w49gyq": {
+          "type": "accordion",
           "settings": {
-            "tab_title": "sdfef"
+            "accordion_title": "Accordion Title",
+            "accordion_content": "Accordion Title Accordion Title Accordion Title"
           }
         }
       },
       "block_order": [
-        "tab_KqfXzr",
-        "accordion_qQqrFF",
-        "accordion_8fmCQW",
-        "tab_gFHwzd",
-        "tab_ap6n34"
+        "tab_fnJtCP",
+        "accordion_nD6zRk",
+        "accordion_JacAnR",
+        "tab_kdi9dr",
+        "accordion_w49gyq"
       ],
       "settings": {}
     },
