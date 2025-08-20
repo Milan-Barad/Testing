@@ -81,7 +81,6 @@
 
 <div class="tab-container">
   
-  <!-- Tab Buttons -->
   <div class="tab-buttons">
     {% for block in section.blocks %}
       {% if block.type == 'tab' %}
@@ -92,7 +91,6 @@
     {% endfor %}
   </div>
 
-  <!-- Tab Content + Accordions (single loop, new approach) -->
   {% for block in section.blocks %}
     {% if block.type == 'tab' %}
       <div id="tab-{{ block.settings.tab_id }}" class="tab-content">
@@ -109,36 +107,30 @@
               </div>
             {% endif %}
           {% endfor %}
-        </div> <!-- /.accordion -->
-      </div> <!-- /.tab-content -->
+        </div> 
+      </div> 
     {% endif %}
   {% endfor %}
-
 </div>
 
 <script>
-  // Tabs
   function openTab(evt, tabName) {
     var tabContent = document.getElementsByClassName("tab-content");
     var tabButtons = document.getElementsByClassName("tab-button");
     var panels = document.getElementsByClassName("accordion-panel");
     var headers = document.getElementsByClassName("accordion-header");
 
-    // Hide all tabs
     for (var i = 0; i < tabContent.length; i++) {
       tabContent[i].classList.remove("active");
     }
 
-    // Reset all buttons
     for (var i = 0; i < tabButtons.length; i++) {
       tabButtons[i].classList.remove("active");
     }
 
-    // Show current tab
     document.getElementById(tabName).classList.add("active");
     evt.currentTarget.classList.add("active");
 
-    // Close all accordions
     for (var i = 0; i < panels.length; i++) {
       panels[i].classList.remove("active");
       panels[i].style.maxHeight = null;
@@ -146,7 +138,6 @@
     }
   }
 
-  // Accordion
   function toggleAccordion(panelId) {
     var panel = document.getElementById(panelId);
     var header = panel.previousElementSibling;
@@ -170,12 +161,6 @@
       panel.style.maxHeight = panel.scrollHeight + "px";
     }
   }
-
-  // Open first tab by default
-  document.addEventListener("DOMContentLoaded", function() {
-    var firstButton = document.querySelector(".tab-button");
-    if (firstButton) firstButton.click();
-  });
 </script>
 
 {% schema %}
