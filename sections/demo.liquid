@@ -93,7 +93,9 @@
     <ul class="tab">
       {% for block in section.blocks %}
         {% if block.type == 'tabbing' %}
-          <li class="tablinks {% if forloop.first %}active_tab{% endif %}" data-tab="tab-{{ block.id }}">{{ block.settings.tab_title }}</li>
+          <li class="tablinks {% if forloop.first %}active_tab{% endif %}" data-tab="tab-{{ block.id }}">
+            {{ block.settings.tab_title }}
+          </li>
         {% endif %}
       {% endfor %}
     </ul>
@@ -121,11 +123,11 @@
 
 <script>
   // Tab switching functionality
-  document.querySelectorAll('.tablinks').forEach(tab => {
-    tab.addEventListener('click', function() {
+  document.querySelectorAll('.tablinks').forEach((tab) => {
+    tab.addEventListener('click', function () {
       // Remove active classes from all tabs and sections
-      document.querySelectorAll('.tablinks').forEach(t => t.classList.remove('active_tab'));
-      document.querySelectorAll('.faq-sections').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.tablinks').forEach((t) => t.classList.remove('active_tab'));
+      document.querySelectorAll('.faq-sections').forEach((s) => s.classList.remove('active'));
 
       // Add active class to clicked tab and corresponding section
       this.classList.add('active_tab');
@@ -133,22 +135,22 @@
       if (tabContent) {
         tabContent.classList.add('active');
         // Close all accordions in the newly active tab
-        tabContent.querySelectorAll('.question').forEach(q => q.classList.remove('active'));
-        tabContent.querySelectorAll('.answer').forEach(a => a.classList.remove('active'));
+        tabContent.querySelectorAll('.question').forEach((q) => q.classList.remove('active'));
+        tabContent.querySelectorAll('.answer').forEach((a) => a.classList.remove('active'));
       }
     });
   });
 
   // Accordion functionality for questions
-  document.querySelectorAll('.question').forEach(question => {
-    question.addEventListener('click', function() {
+  document.querySelectorAll('.question').forEach((question) => {
+    question.addEventListener('click', function () {
       const answer = this.nextElementSibling;
       const isActive = this.classList.contains('active');
       const parentTab = this.closest('.faq-sections');
 
       // Close all other answers within the same tab
-      parentTab.querySelectorAll('.question').forEach(q => q.classList.remove('active'));
-      parentTab.querySelectorAll('.answer').forEach(a => a.classList.remove('active'));
+      parentTab.querySelectorAll('.question').forEach((q) => q.classList.remove('active'));
+      parentTab.querySelectorAll('.answer').forEach((a) => a.classList.remove('active'));
 
       // Toggle current answer
       if (!isActive) {
@@ -162,15 +164,28 @@
 {% schema %}
 {
   "name": "Faq With Tabbing",
-  "settings": [    {      "type": "text",      "id": "main_title",      "label": "Title",      "default": "Frequently Asked Questions"    }  ],
-  "blocks": [    {      "type": "tabbing",      "name": "Tab",      "settings": [        {          "type": "text",          "id": "tab_title",          "label": "Tab Title",          "default": "Tab Title"        }      ]
+  "settings": [{ "type": "text", "id": "main_title", "label": "Title", "default": "Frequently Asked Questions" }],
+  "blocks": [
+    {
+      "type": "tabbing",
+      "name": "Tab",
+      "settings": [{ "type": "text", "id": "tab_title", "label": "Tab Title", "default": "Tab Title" }]
     },
     {
       "type": "accordion",
       "name": "Accordion",
-      "settings": [        {          "type": "text",          "id": "tab_id",          "label": "Tab ID",          "info": "Enter the ID of the tab this accordion belongs to (e.g., tab-1234567890abcdef)"        },        {          "type": "text",          "id": "questions_question",          "label": "Question",          "default": "Your Question"        },        {          "type": "richtext",          "id": "questions_answer",          "label": "Answer",          "default": "<p>Your answer goes here.</p>"        }      ]
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_id",
+          "label": "Tab ID",
+          "info": "Enter the ID of the tab this accordion belongs to (e.g., tab-1234567890abcdef)"
+        },
+        { "type": "text", "id": "questions_question", "label": "Question", "default": "Your Question" },
+        { "type": "richtext", "id": "questions_answer", "label": "Answer", "default": "<p>Your answer goes here.</p>" }
+      ]
     }
   ],
-  "presets": [    {      "name": "Faq With Tabbing"    }  ]
+  "presets": [{ "name": "Faq With Tabbing" }]
 }
 {% endschema %}
