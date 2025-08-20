@@ -11,6 +11,26 @@
   "sections": {
     "demo_J3R7PF": {
       "type": "demo",
+      "blocks": {
+        "tab_wcmUcq": {
+          "type": "tab",
+          "settings": {
+            "tab_id": "cartridges",
+            "tab_title": "Cartridges"
+          }
+        },
+        "tab_UpWGQ8": {
+          "type": "tab",
+          "settings": {
+            "tab_id": "disposables",
+            "tab_title": "Disposables"
+          }
+        }
+      },
+      "block_order": [
+        "tab_wcmUcq",
+        "tab_UpWGQ8"
+      ],
       "settings": {}
     },
     "1621243260e1af0c20": {
