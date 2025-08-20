@@ -1,3 +1,69 @@
+{% schema %}
+{
+  "name": "Tabs with ",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        { "type": "text", "id": "tab_id", "label": "Tab ID (unique, e.g. cartridges)" },
+        { "type": "text", "id": "tab_title", "label": "Tab Title" }
+      ]
+    },
+    {
+      "type": "accordion",
+      "name": "Accordion",
+      "settings": [
+        { "type": "text", "id": "accordion_title", "label": "Accordion Title" },
+        { "type": "textarea", "id": "accordion_content", "label": "Accordion Content" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Tabs with " }
+  ]
+}
+{% endschema %}
+
+<div class="tab-container">
+  <!-- Tab Buttons -->
+  <div class="tab-buttons">
+    {% for block in section.blocks %}
+      {% if block.type == 'tab' %}
+        <button class="tab-button" onclick="openTab(event, 'tab-{{ block.settings.tab_id }}')">
+          {{ block.settings.tab_title }}
+        </button>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <!-- Tab Content + Accordions (single loop) -->
+  {% assign current_tab = '' %}
+  {% for block in section.blocks %}
+    {% if block.type == 'tab' %}
+      {% if current_tab != '' %}
+        </div></div> <!-- close previous accordion + tab -->
+      {% endif %}
+      <div id="tab-{{ block.settings.tab_id }}" class="tab-content">
+        <div class="accordion">
+      {% assign current_tab = block.settings.tab_id %}
+    {% elsif block.type == 'accordion' and current_tab != '' %}
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion('accordion-{{ block.id }}')">
+          {{ block.settings.accordion_title }}
+        </div>
+        <div id="accordion-{{ block.id }}" class="accordion-panel">
+          {{ block.settings.accordion_content }}
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+  {% if current_tab != '' %}
+    </div></div> <!-- close last accordion + tab -->
+  {% endif %}
+</div>
+
 <style>
   .tab-container { max-width: 600px; margin: 20px auto; border: 1px solid #ccc; font-family: Arial, sans-serif; }
   .tab-buttons { display: flex; border-bottom: 1px solid #ccc; }
@@ -17,41 +83,7 @@
   .accordion-panel.active { opacity: 1; }
 </style>
 
-<div class="tab-container">
-  <div class="tab-buttons">
-    {% for block in section.blocks %}
-      {% if block.type == 'tab' %}
-        <button class="tab-button" onclick="openTab(event, 'tab-{{ block.id }}')">
-          {{ block.settings.tab_title }}
-        </button>
-      {% endif %}
-    {% endfor %}
-  </div>
-
-  {% for block in section.blocks %}
-    {% if block.type == 'tab' %}
-      <div id="tab-{{ block.id }}" class="tab-content">
-        <div class="accordion">
-          {% for subblock in block.blocks %}
-            {% if subblock.type == 'accordion' %}
-              <div class="accordion-item">
-                <div class="accordion-header" onclick="toggleAccordion('accordion-{{ subblock.id }}')">
-                  {{ subblock.settings.accordion_title }}
-                </div>
-                <div id="accordion-{{ subblock.id }}" class="accordion-panel">
-                  {{ subblock.settings.accordion_content }}
-                </div>
-              </div>
-            {% endif %}
-          {% endfor %}
-        </div>
-      </div>
-    {% endif %}
-  {% endfor %}
-</div>
-
 <script>
-  // Tabs
   function openTab(evt, tabName) {
     var i, tabContent, tabButtons;
     tabContent = document.getElementsByClassName("tab-content");
@@ -74,7 +106,6 @@
     }
   }
 
-  // Accordion
   function toggleAccordion(panelId) {
     var panel = document.getElementById(panelId);
     var header = panel.previousElementSibling;
@@ -97,40 +128,8 @@
     }
   }
 
-  // Open first tab by default
   document.addEventListener("DOMContentLoaded", function() {
     var firstButton = document.querySelector(".tab-button");
     if(firstButton) firstButton.click();
   });
 </script>
-
-{% schema %}
-{
-  "name": "Tabs with Accordions",
-  "settings": [],
-  "blocks": [
-    {
-      "type": "tab",
-      "name": "Tab",
-      "settings": [
-        { 
-          "type": "text", "id": "tab_title", "label": "Tab Title"
-        }
-      ],
-    },
-    {
-      "type": "accordion",
-      "name": "Accordion",
-      "settings": [
-        { "type": "text", "id": "accordion_title", "label": "Accordion Title" },
-        { "type": "textarea", "id": "accordion_content", "label": "Accordion Content" }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "Tabs with Accordions"
-    }
-  ]
-}
-{% endschema %}
