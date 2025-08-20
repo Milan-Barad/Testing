@@ -34,9 +34,9 @@
             "accordion_content_1": "<p>Details about accordion item 1.</p>",
             "accordion_title_2": "Accordion Item 2",
             "accordion_content_2": "<p>Details about accordion item 2.</p>",
-            "accordion_title_3": "Accordion Item 3",
-            "accordion_content_3": "<p>Details about accordion item 3.</p>",
-            "accordion_title_4": "Accordion Item 4",
+            "accordion_title_3": "",
+            "accordion_content_3": "",
+            "accordion_title_4": "",
             "accordion_content_4": "<p>Details about accordion item 4.</p>"
           }
         }
