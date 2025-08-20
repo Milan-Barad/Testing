@@ -80,7 +80,6 @@
 </style>
 
 <div class="tab-container">
-  
   <div class="tab-buttons">
     {% for block in section.blocks %}
       {% if block.type == 'tab' %}
@@ -102,18 +101,18 @@
       
       <div id="tab-{{ block.settings.tab_id }}" class="tab-content">
         <div class="accordion">
-      {% assign current_tab = block.settings.tab_id %}
-    
-    {% elsif block.type == 'accordion' and current_tab != '' %}
-      <div class="accordion-item">
-        <div class="accordion-header" onclick="toggleAccordion('accordion-{{ block.id }}')">
-          {{ block.settings.accordion_title }}
-        </div>
-        <div id="accordion-{{ block.id }}" class="accordion-panel">
-          {{ block.settings.accordion_content }}
-        </div>
-      </div>
-    {% endif %}
+        {% assign current_tab = block.settings.tab_id %}
+        
+        {% elsif block.type == 'accordion' and current_tab != '' %}
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion('accordion-{{ block.id }}')">
+              {{ block.settings.accordion_title }}
+            </div>
+            <div id="accordion-{{ block.id }}" class="accordion-panel">
+              {{ block.settings.accordion_content }}
+            </div>
+          </div>
+        {% endif %}
   
   {% endfor %}
   
@@ -121,7 +120,6 @@
         </div>
       </div>
   {% endif %}
-
 </div>
 
 <script>
