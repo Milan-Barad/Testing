@@ -12,28 +12,25 @@
     "demo_J3R7PF": {
       "type": "demo",
       "blocks": {
-        "tabbing_MXgApF": {
-          "type": "tabbing",
+        "tab_7VKtEP": {
+          "type": "tab",
           "settings": {
-            "tab_title": "Tab Title"
-          }
-        },
-        "accordion_RAhnrH": {
-          "type": "accordion",
-          "settings": {
-            "tab_id": "",
-            "questions_question": "Your Question",
-            "questions_answer": "<p>Your answer goes here.</p>"
+            "tab_title": "Tab",
+            "accordion_title_1": "Accordion Item 1",
+            "accordion_content_1": "<p>Details about accordion item 1.</p>",
+            "accordion_title_2": "Accordion Item 2",
+            "accordion_content_2": "<p>Details about accordion item 2.</p>",
+            "accordion_title_3": "Accordion Item 3",
+            "accordion_content_3": "<p>Details about accordion item 3.</p>",
+            "accordion_title_4": "Accordion Item 4",
+            "accordion_content_4": "<p>Details about accordion item 4.</p>"
           }
         }
       },
       "block_order": [
-        "tabbing_MXgApF",
-        "accordion_RAhnrH"
+        "tab_7VKtEP"
       ],
-      "settings": {
-        "main_title": "Frequently Asked Questions"
-      }
+      "settings": {}
     },
     "1621243260e1af0c20": {
       "type": "slider",
