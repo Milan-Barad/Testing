@@ -11,6 +11,18 @@
   "sections": {
     "demo_J3R7PF": {
       "type": "demo",
+      "blocks": {
+        "tab_47jwHU": {
+          "type": "tab",
+          "settings": {
+            "tab_id": "",
+            "tab_title": ""
+          }
+        }
+      },
+      "block_order": [
+        "tab_47jwHU"
+      ],
       "settings": {}
     },
     "1621243260e1af0c20": {
