@@ -19,17 +19,49 @@
             "tab_title": "Cartridges"
           }
         },
+        "accordion_t936VW": {
+          "type": "accordion",
+          "settings": {
+            "accordion_title": "Adios Blend: THCA + Delta-9P Live Resin",
+            "accordion_content": "Adios Blend: THCA + Delta-9P Live Resin\nApple Fritter Batch AF0824 –"
+          }
+        },
+        "accordion_DYfWB6": {
+          "type": "accordion",
+          "settings": {
+            "accordion_title": "Adios MF Blend: THCA Live Sugar",
+            "accordion_content": "Adios MF Blend: THCA Live Sugar\nGSC Batch 112435 –"
+          }
+        },
         "tab_UpWGQ8": {
           "type": "tab",
           "settings": {
             "tab_id": "disposables",
             "tab_title": "Disposables"
           }
+        },
+        "tab_APeUxW": {
+          "type": "tab",
+          "settings": {
+            "tab_id": "edibles",
+            "tab_title": "Edibles"
+          }
+        },
+        "tab_D3gCBB": {
+          "type": "tab",
+          "settings": {
+            "tab_id": "flower",
+            "tab_title": "Flower"
+          }
         }
       },
       "block_order": [
         "tab_wcmUcq",
-        "tab_UpWGQ8"
+        "accordion_t936VW",
+        "accordion_DYfWB6",
+        "tab_UpWGQ8",
+        "tab_APeUxW",
+        "tab_D3gCBB"
       ],
       "settings": {}
     },
