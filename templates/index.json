@@ -12,48 +12,43 @@
     "demo_J3R7PF": {
       "type": "demo",
       "blocks": {
-        "text_wdCdje": {
-          "type": "text",
+        "tab_settings_LeMJgm": {
+          "type": "tab_settings",
           "settings": {
-            "tab_title": "tab 1"
+            "title": "tab 1",
+            "data_tab": "tab_1"
           }
         },
-        "accordion_73hRLA": {
-          "type": "accordion",
+        "tab_settings_qtbpcq": {
+          "type": "tab_settings",
           "settings": {
-            "accordion_title": "Accordion 1",
-            "content": "Real whole-food nutrition to power your metabolism, energy and gut health in one scoop."
+            "title": "tab 2",
+            "data_tab": "tab_2"
           }
         },
-        "accordion_rzDmNc": {
-          "type": "accordion",
+        "tab_settings_JbUEVj": {
+          "type": "tab_settings",
           "settings": {
-            "accordion_title": "Accordion 2",
-            "content": "Real whole-food nutrition to power your metabolism, energy and gut health in one scoop."
+            "title": "tab 3",
+            "data_tab": "tab_3"
           }
         },
-        "text_eJpCDw": {
-          "type": "text",
+        "order_questions_dFqdbk": {
+          "type": "order_questions",
           "settings": {
-            "tab_title": "tab 2"
-          }
-        },
-        "text_QnTntr": {
-          "type": "text",
-          "settings": {
-            "tab_title": "tab 3"
+            "questions_question": "",
+            "questions_answer": ""
           }
         }
       },
       "block_order": [
-        "text_wdCdje",
-        "accordion_73hRLA",
-        "accordion_rzDmNc",
-        "text_eJpCDw",
-        "text_QnTntr"
+        "tab_settings_LeMJgm",
+        "tab_settings_qtbpcq",
+        "tab_settings_JbUEVj",
+        "order_questions_dFqdbk"
       ],
       "settings": {
-        "title": "What is Lorem Ipsum?"
+        "main_title": ""
       }
     },
     "1621243260e1af0c20": {
