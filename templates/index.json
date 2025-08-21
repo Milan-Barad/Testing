@@ -15,29 +15,33 @@
         "accordion_qPNnA3": {
           "type": "accordion",
           "settings": {
-            "question": "Adios Blend: THCA + Delta-9P Live Resin",
-            "answer": "<p>If you’ve minified some code for your website or web app, you should have kept the original, unminified code for future reference. If you accidentally lost the originals or are reverse-engineering some code from another developer, you might need to unminify some already minified code. That’s where our totally free unminify tool comes in!<br/><br/></p>"
+            "tab_target": "tab1",
+            "title": "Product / Blend title",
+            "batch_list_html": "<li>Batch CODE – <a href=\"/files/sample.pdf\" target=\"_blank\">Lab Results</a>\n</li>"
           }
         },
         "accordion_J74Rpz": {
           "type": "accordion",
           "settings": {
-            "question": "Adios MF Blend: THCA Live Sugar",
-            "answer": "<p>When a developer writes code, they will usually write for their own eyes to read it. They’ll make notes to themselves, split out the code onto multiple lines so it’s easier to read, and even write out explanations of what’s happening so they can reference it later.<br/><br/></p>"
+            "tab_target": "tab1",
+            "title": "Product / Blend title",
+            "batch_list_html": "<li>Batch CODE – <a href=\"/files/sample.pdf\" target=\"_blank\">Lab Results</a>\n</li>"
           }
         },
         "accordion_nbUKiU": {
           "type": "accordion",
           "settings": {
-            "question": "Wreck’d Series: THCA + THCP + THCJD",
-            "answer": "<p>This unminifying tool will take minified code and expand it so it is easier for humans to read. It can do this with files or with copied code snippets. It supports JavaScript (JS), CSS, HTML, XML, and JSON code.<br/><br/></p>"
+            "tab_target": "tab1",
+            "title": "Product / Blend title",
+            "batch_list_html": "<li>Batch CODE – <a href=\"/files/sample.pdf\" target=\"_blank\">Lab Results</a>\n</li>"
           }
         },
         "accordion_mVagAH": {
           "type": "accordion",
           "settings": {
-            "question": "Lights Out Collection: THCH + THCJD",
-            "answer": "<p>However, this unminifying tool will only parse out the code based on the minified code. It will not restore a minified file to its original state. In other words, if the person who wrote the code added lots of notes and superfluous information in the original file, this will not restore those notes as they would have been discarded during the minification process. It will only take the code you give it and deobfuscate or unpack it.<br/><br/></p>"
+            "tab_target": "tab1",
+            "title": "Product / Blend title",
+            "batch_list_html": "<li>Batch CODE – <a href=\"/files/sample.pdf\" target=\"_blank\">Lab Results</a>\n</li>"
           }
         }
       },
@@ -47,7 +51,22 @@
         "accordion_nbUKiU",
         "accordion_mVagAH"
       ],
-      "settings": {}
+      "settings": {
+        "heading": "Check Out Our Lab Test Results:",
+        "tab1_label": "Cartridges",
+        "tab2_label": "Disposables",
+        "tab3_label": "Edibles",
+        "tab4_label": "Flower",
+        "custom_class": "",
+        "page_width": 1330,
+        "background_color": "",
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "tablet_padding_top": 36,
+        "tablet_padding_bottom": 36,
+        "mobile_padding_top": 36,
+        "mobile_padding_bottom": 36
+      }
     },
     "1621243260e1af0c20": {
       "type": "slider",
