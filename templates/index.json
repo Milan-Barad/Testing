@@ -44,8 +44,8 @@
           "settings": {
             "tab_target": "tab3",
             "tab_label": "Tab 3",
-            "title": "Product / Blend title",
-            "batch_list_html": "<li>Batch CODE – <a href=\"/files/sample.pdf\" target=\"_blank\">Lab Results</a>\n</li>"
+            "title": "Product / Blend title Product / Blend title",
+            "batch_list_html": "<li>Batch CODE – <a href=\"/files/sample.pdf\" target=\"_blank\">Lab Results</a>\n</li> <li>Batch CODE – <a href=\"/files/sample.pdf\" target=\"_blank\">Lab Results</a>\n</li>"
           }
         },
         "accordion_mVagAH": {
