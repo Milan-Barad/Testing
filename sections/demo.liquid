@@ -295,7 +295,7 @@
 
 {% schema %}
   {
-    "name": "Lab Test Results",
+    "name": "Tab with accordion",
     "settings": [
       {
         "type": "text",
@@ -303,147 +303,38 @@
         "label": "Heading",
         "default": "Check Out Our Lab Test Results:"
       },
-      {
-        "type": "header",
-        "content": "General Settings"
-      },
-      {
-        "type": "text",
-        "id": "custom_class",
-        "label": "Custom Class"
-      },
-      {
-        "type": "number",
-        "id": "page_width",
-        "label": "Page Width",
-        "info": "Add PX Number",
-        "default": 1200
-      },
-      {
-        "type": "color",
-        "id": "background_color",
-        "label": "Background Color"
-      },
-      {
-        "type": "image_picker",
-        "id": "bg_image",
-        "label": "Desktop Background Image"
-      },
-      {
-        "type": "image_picker",
-        "id": "mobile_bg_image",
-        "label": "Mobile Background Image"
-      },
-      {
-        "type": "header",
-        "content": "Desktop Section Padding"
-      },
-      {
-        "type": "range",
-        "id": "padding_top",
-        "min": 0,
-        "max": 100,
-        "step": 1,
-        "unit": "px",
-        "label": "Top Padding",
-        "default": 36
-      },
-      {
-        "type": "range",
-        "id": "padding_bottom",
-        "min": 0,
-        "max": 100,
-        "step": 1,
-        "unit": "px",
-        "label": "Bottom Padding",
-        "default": 36
-      },
-      {
-        "type": "header",
-        "content": "Tablet Section Padding"
-      },
-      {
-        "type": "range",
-        "id": "tablet_padding_top",
-        "min": 0,
-        "max": 100,
-        "step": 1,
-        "unit": "px",
-        "label": "Top Padding",
-        "default": 36
-      },
-      {
-        "type": "range",
-        "id": "tablet_padding_bottom",
-        "min": 0,
-        "max": 100,
-        "step": 1,
-        "unit": "px",
-        "label": "Bottom Padding",
-        "default": 36
-      },
-      {
-        "type": "header",
-        "content": "Mobile Section Padding"
-      },
-      {
-        "type": "range",
-        "id": "mobile_padding_top",
-        "min": 0,
-        "max": 100,
-        "step": 1,
-        "unit": "px",
-        "label": "Top Padding",
-        "default": 36
-      },
-      {
-        "type": "range",
-        "id": "mobile_padding_bottom",
-        "min": 0,
-        "max": 100,
-        "step": 1,
-        "unit": "px",
-        "label": "Bottom Padding",
-        "default": 36 
-      }
     ],
     "blocks": [
       {
         "type": "accordion",
-        "name": "Accordion group",
+        "name": "Accordion",
         "settings": [
           {
             "type": "text",
             "id": "tab_target",
-            "label": "Tab identifier",
-            "info": "Unique identifier for the tab (e.g., cartridges, disposables)",
-            "default": "tab1"
+            "label": "Tab ID"
           },
           {
             "type": "text",
             "id": "tab_label",
-            "label": "Tab label",
-            "info": "Label displayed for the tab",
-            "default": "Tab 1"
+            "label": "Tab title"
           },
           {
             "type": "text",
             "id": "title",
-            "label": "Accordion title",
-            "default": "Product / Blend title"
+            "label": "Question"
           },
           {
-            "type": "textarea",
+            "type": "richtext",
             "id": "batch_list_html",
-            "label": "Batch list (HTML <li> items)",
-            "default": "<li>Batch CODE – <a href=\"/files/sample.pdf\" target=\"_blank\">Lab Results</a></li>"
+            "label": "Answer"
           }
         ]
       }
     ],
     "presets": [
       {
-        "name": "Lab Test Results"
+        "name": "Tab with accordion"
       }
     ]
   }
