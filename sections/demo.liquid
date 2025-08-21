@@ -1,10 +1,19 @@
 {% style %}
   #lab-results-{{ section.id }} {
-    padding-top: 100px;
-    padding-bottom: 100px;
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    {% if section.settings.background_color != blank %}
+      background-color: {{ section.settings.background_color }};
+    {% endif %}
+    {% if section.settings.bg_image != blank %}
+      background-image: url({{ section.settings.bg_image | image_url }});
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    {% endif %}
   }
   #lab-results-{{ section.id }} .page-width {
-    max-width: 1330px;
+    max-width: {{ section.settings.page_width }}px;
     padding: 0 15px;
     margin: 0 auto;
     width: 100%;
@@ -126,7 +135,7 @@
   }
 {% endstyle %}
 
-<section class="lab-results">
+<section id="lab-results-{{ section.id }}" class="lab-results {{ section.settings.custom_class }}">
   <div class="page-width">
     <div class="lab-results-details">
       {% if section.settings.heading != blank %}
