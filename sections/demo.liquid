@@ -242,19 +242,16 @@
   (function() {
     var root = document.getElementById('lab-results-{{ section.id }}');
     if (!root) return;
-    // Tabs
     var tabs = root.querySelectorAll('.lr-tab');
     var panels = root.querySelectorAll('.lr-panel');
     tabs.forEach(function(tab) {
       tab.addEventListener('click', function() {
-        // tabs
         tabs.forEach(function(t) {
           t.classList.remove('is-active');
           t.setAttribute('aria-selected', 'false');
         });
         tab.classList.add('is-active');
         tab.setAttribute('aria-selected', 'true');
-        // panels
         var target = tab.getAttribute('data-tab');
         panels.forEach(function(p) {
           p.classList.remove('is-active');
@@ -263,7 +260,7 @@
         if (panel) panel.classList.add('is-active');
       });
     });
-    // Accordions
+
     root.querySelectorAll('.lr-accordion').forEach(function(acc) {
       var btn = acc.querySelector('.lr-accordion__header');
       var content = acc.querySelector('.lr-accordion__content');
@@ -280,9 +277,10 @@
     });
   })();
 </script>
+
 {% schema %}
   {
-    "name": "Lab Test Results",
+    "name": "Tab with accordion",
     "settings": [
       {
         "type": "text",
@@ -423,7 +421,7 @@
     ],
     "presets": [
       {
-        "name": "Lab Test Results"
+        "name": "Tab with accordion"
       }
     ]
   }
