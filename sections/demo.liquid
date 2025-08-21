@@ -1,15 +1,15 @@
 {% style %}
-  .lab-results {
+  .tab-with-accordion {
     padding-top: 100px;
     padding-bottom: 100px;
   }
-  .lab-results .page-width {
+  .tab-with-accordion .page-width {
     max-width: 1300px;
     padding: 0 15px;
     margin: 0 auto;
     width: 100%;
   }
-  .lab-results .lab-results__heading {
+  .tab-with-accordion .lab-results__heading {
     font-family: "Bakbak One", sans-serif;
     font-size: 28px;
     font-weight: 700;
@@ -19,16 +19,16 @@
     padding-bottom: 30px;
     margin: 0;
   }
-  .lab-results .lr-tabs {
+  .tab-with-accordion .lr-tabs {
     display: flex;
     border: 1px solid #000;
     border-bottom: none;
     background: #fff;
   }
-  .lab-results .lr-tabs button.lr-tab.is-active {
+  .tab-with-accordion .lr-tabs button.lr-tab.is-active {
     background: #c8b9b9;
   }
-  .lab-results .lr-tab {
+  .tab-with-accordion .lr-tab {
     padding: 16px;
     cursor: pointer;
     font-weight: 700;
@@ -40,20 +40,20 @@
     border: none;
     border-right: 1px solid #000;
   }
-  .lab-results .lr-panel {
+  .tab-with-accordion .lr-panel {
     display: none;
     border: 1px solid #000;
     padding: 16px;
     background: #fff;
   }
-  .lab-results .lr-panel.is-active {
+  .tab-with-accordion .lr-panel.is-active {
     display: block;
   }
-  .lab-results .lr-accordion {
+  .tab-with-accordion .lr-accordion {
     border: 1px solid #000;
     margin: 20px auto;      
   }
-  .lab-results .lr-accordion__header {
+  .tab-with-accordion .lr-accordion__header {
     width: 100%;
     text-align: left;
     padding: 18px 24px;
@@ -79,23 +79,23 @@
   button.lr-accordion__header[aria-expanded="true"]::after {
     transform: rotate(225deg) translate(0%, -45%);
   }
-  .lab-results .lr-accordion__title {
+  .tab-with-accordion .lr-accordion__title {
     font-weight: 500;
     font-size: 18px;
     font-family: "Bakbak One", sans-serif;
     letter-spacing: 0;
     line-height: 100%;
   }   
-  .lab-results .lr-accordion__content {
+  .tab-with-accordion .lr-accordion__content {
     padding: 18px 24px;
     border-top: 1px solid #000;
   }
-  .lab-results .lr-batch-list {
+  .tab-with-accordion .lr-batch-list {
     list-style: none;
     padding: 0;
     margin: 0;
   }
-  .lab-results .lr-batch-list li {
+  .tab-with-accordion .lr-batch-list li {
     margin-bottom: 30px;
     font-weight: 500;
     font-size: 18px;
@@ -104,11 +104,11 @@
     letter-spacing: 0;
     line-height: 100%;
   }
-  .lab-results .lr-batch-list a {
+  .tab-with-accordion .lr-batch-list a {
     color: #000;
     font-weight: 700;
   }
-  .lab-results .lr-empty {
+  .tab-with-accordion .lr-empty {
     margin: 10px 0 0;
     opacity: 0.7;
     font-size: 14px;
@@ -122,7 +122,7 @@
   }
 {% endstyle %}
 
-<section id="lab-results-{{ section.id }}" class="lab-results">
+<section id="lab-results-{{ section.id }}" class="tab-with-accordion">
   <div class="page-width">
     <div class="lab-results-details">
       {% if section.settings.heading != blank %}
