@@ -53,8 +53,8 @@
           "settings": {
             "tab_target": "tab2",
             "tab_label": "Second tab",
-            "title": "",
-            "batch_list_html": ""
+            "title": "There are many variations",
+            "batch_list_html": "<p>Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful</p>"
           }
         },
         "accordion_qEhbP8": {
@@ -62,8 +62,8 @@
           "settings": {
             "tab_target": "tab2",
             "tab_label": "Second tab",
-            "title": "",
-            "batch_list_html": ""
+            "title": "The standard chunk",
+            "batch_list_html": "<p>essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>"
           }
         },
         "accordion_PETn4F": {
@@ -71,8 +71,8 @@
           "settings": {
             "tab_target": "tab2",
             "tab_label": "Second tab",
-            "title": "",
-            "batch_list_html": ""
+            "title": "established fact that",
+            "batch_list_html": "<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>"
           }
         },
         "accordion_AGneyh": {
@@ -80,8 +80,8 @@
           "settings": {
             "tab_target": "tab3",
             "tab_label": "Third tab",
-            "title": "",
-            "batch_list_html": ""
+            "title": "discovered the undoubtable",
+            "batch_list_html": "<p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>"
           }
         },
         "accordion_NPci4N": {
@@ -89,8 +89,8 @@
           "settings": {
             "tab_target": "tab3",
             "tab_label": "Third tab",
-            "title": "",
-            "batch_list_html": ""
+            "title": "undoubtable source",
+            "batch_list_html": "<p>essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>"
           }
         },
         "accordion_yXfgnV": {
@@ -98,8 +98,8 @@
           "settings": {
             "tab_target": "tab4",
             "tab_label": "Fourth tab",
-            "title": "",
-            "batch_list_html": ""
+            "title": "Ipsum is not simply",
+            "batch_list_html": "<p>there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence</p>"
           }
         },
         "accordion_4BneRr": {
@@ -107,8 +107,8 @@
           "settings": {
             "tab_target": "tab4",
             "tab_label": "Fourth tab",
-            "title": "",
-            "batch_list_html": ""
+            "title": "Where does it come from?",
+            "batch_list_html": "<p><strong>Lorem Ipsum</strong>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>"
           }
         },
         "accordion_EtPLBm": {
@@ -116,8 +116,8 @@
           "settings": {
             "tab_target": "tab4",
             "tab_label": "Fourth tab",
-            "title": "",
-            "batch_list_html": ""
+            "title": "standard chunk of Lorem",
+            "batch_list_html": "<p>words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem<br/><br/></p>"
           }
         }
       },
