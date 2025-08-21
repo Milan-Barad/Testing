@@ -232,12 +232,10 @@
           </div>
         {% endif %}
       {% endfor %}
-      {% if unique_tabs_array.size == 0 %}
-        <p class="lr-empty">No lab results added yet.</p>
-      {% endif %}
     </div>
   </div>
 </section>
+
 <script>
   (function() {
     var root = document.getElementById('lab-results-{{ section.id }}');
