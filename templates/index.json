@@ -57,6 +57,15 @@
             "batch_list_html": "<p>scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with</p>"
           }
         },
+        "accordion_qW4DHe": {
+          "type": "accordion",
+          "settings": {
+            "tab_target": "tab4",
+            "tab_label": "",
+            "title": "Various versions have",
+            "batch_list_html": "<p>many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet<br/><br/></p>"
+          }
+        },
         "accordion_drf9N3": {
           "type": "accordion",
           "settings": {
@@ -82,6 +91,7 @@
         "accordion_pDfJ4t",
         "accordion_6fVPrD",
         "accordion_9rpp9V",
+        "accordion_qW4DHe",
         "accordion_drf9N3",
         "accordion_EqeQyj"
       ],
