@@ -229,16 +229,6 @@
                 </div>
               {% endif %}
             {% endfor %}
-            {% assign has_any = false %}
-            {% for block in section.blocks %}
-              {% if block.type == 'accordion' and block.settings.tab_target == tab %}
-                {% assign has_any = true %}
-                {% break %}
-              {% endif %}
-            {% endfor %}
-            {% unless has_any %}
-              <p class="lr-empty">No lab results added for {{ tab_label }} yet.</p>
-            {% endunless %}
           </div>
         {% endif %}
       {% endfor %}
