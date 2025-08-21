@@ -42,8 +42,8 @@
         "accordion_nbUKiU": {
           "type": "accordion",
           "settings": {
-            "tab_target": "tab1",
-            "tab_label": "Tab 1",
+            "tab_target": "tab3",
+            "tab_label": "Tab 3",
             "title": "Product / Blend title",
             "batch_list_html": "<li>Batch CODE – <a href=\"/files/sample.pdf\" target=\"_blank\">Lab Results</a>\n</li>"
           }
