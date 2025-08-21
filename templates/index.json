@@ -63,7 +63,16 @@
             "tab_target": "tab4",
             "tab_label": "",
             "title": "Various versions have",
-            "batch_list_html": "<p>many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet<br/><br/></p>"
+            "batch_list_html": "<p>many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet</p>"
+          }
+        },
+        "accordion_4hme7Q": {
+          "type": "accordion",
+          "settings": {
+            "tab_target": "tab4",
+            "tab_label": "",
+            "title": "treatise on the theory",
+            "batch_list_html": "<p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>"
           }
         },
         "accordion_drf9N3": {
@@ -92,6 +101,7 @@
         "accordion_6fVPrD",
         "accordion_9rpp9V",
         "accordion_qW4DHe",
+        "accordion_4hme7Q",
         "accordion_drf9N3",
         "accordion_EqeQyj"
       ],
