@@ -9,6 +9,117 @@
  */
 {
   "sections": {
+    "demo_ikwzat": {
+      "type": "demo",
+      "blocks": {
+        "accordion_PwtPJ6": {
+          "type": "accordion",
+          "settings": {
+            "tab_target": "tab1",
+            "tab_label": "First tab",
+            "title": "",
+            "batch_list_html": ""
+          }
+        },
+        "accordion_WAEpky": {
+          "type": "accordion",
+          "settings": {
+            "tab_target": "tab1",
+            "tab_label": "First tab",
+            "title": "",
+            "batch_list_html": ""
+          }
+        },
+        "accordion_xdkg7z": {
+          "type": "accordion",
+          "settings": {
+            "tab_target": "tab1",
+            "tab_label": "First tab",
+            "title": "",
+            "batch_list_html": ""
+          }
+        },
+        "accordion_XVrzjG": {
+          "type": "accordion",
+          "settings": {
+            "tab_target": "tab1",
+            "tab_label": "First tab",
+            "title": "",
+            "batch_list_html": ""
+          }
+        },
+        "accordion_4KVCVR": {
+          "type": "accordion",
+          "settings": {
+            "tab_target": "tab2",
+            "tab_label": "Second tab",
+            "title": "",
+            "batch_list_html": ""
+          }
+        },
+        "accordion_qEhbP8": {
+          "type": "accordion",
+          "settings": {
+            "tab_target": "tab2",
+            "tab_label": "Second tab",
+            "title": "",
+            "batch_list_html": ""
+          }
+        },
+        "accordion_PETn4F": {
+          "type": "accordion",
+          "settings": {
+            "tab_target": "tab2",
+            "tab_label": "Second tab",
+            "title": "",
+            "batch_list_html": ""
+          }
+        },
+        "accordion_AGneyh": {
+          "type": "accordion",
+          "settings": {
+            "tab_target": "tab3",
+            "tab_label": "Third tab",
+            "title": "",
+            "batch_list_html": ""
+          }
+        },
+        "accordion_NPci4N": {
+          "type": "accordion",
+          "settings": {
+            "tab_target": "tab3",
+            "tab_label": "Third tab",
+            "title": "",
+            "batch_list_html": ""
+          }
+        },
+        "accordion_yXfgnV": {
+          "type": "accordion",
+          "settings": {
+            "tab_target": "tab4",
+            "tab_label": "Fourth tab",
+            "title": "",
+            "batch_list_html": ""
+          }
+        }
+      },
+      "block_order": [
+        "accordion_PwtPJ6",
+        "accordion_WAEpky",
+        "accordion_xdkg7z",
+        "accordion_XVrzjG",
+        "accordion_4KVCVR",
+        "accordion_qEhbP8",
+        "accordion_PETn4F",
+        "accordion_AGneyh",
+        "accordion_NPci4N",
+        "accordion_yXfgnV"
+      ],
+      "name": "Tab with accordion",
+      "settings": {
+        "heading": "Check Out Our Lab Test Results:"
+      }
+    },
     "1621243260e1af0c20": {
       "type": "slider",
       "blocks": {
@@ -1224,6 +1335,7 @@
     }
   },
   "order": [
+    "demo_ikwzat",
     "1621243260e1af0c20",
     "16225316461d1cff80",
     "162251092958fcda7c",
