@@ -1,10 +1,19 @@
 {% style %}
   #lab-results-{{ section.id }} {
-    padding-top: 100px;
-    padding-bottom: 100px;
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    {% if section.settings.background_color != blank %}
+      background-color: {{ section.settings.background_color }};
+    {% endif %}
+    {% if section.settings.bg_image != blank %}
+      background-image: url({{ section.settings.bg_image | image_url }});
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    {% endif %}
   }
   #lab-results-{{ section.id }} .page-width {
-    max-width: 1300px;
+    max-width: {{ section.settings.page_width }}px;
     padding: 0 15px;
     margin: 0 auto;
     width: 100%;
@@ -26,7 +35,7 @@
     background: #fff;
   }
   #lab-results-{{ section.id }} .lr-tabs button.lr-tab.is-active {
-      background: #c8b9b9;
+    background: #c8b9b9;
   }
   #lab-results-{{ section.id }} .lr-tab {
     padding: 16px;
@@ -115,21 +124,60 @@
     color: #000;
     font-weight: 700;
   }
+  #lab-results-{{ section.id }} .lr-batch-list a:hover {
+    text-decoration: underline;
+  }
   #lab-results-{{ section.id }} .lr-empty {
     margin: 10px 0 0;
     opacity: 0.7;
     font-size: 14px;
   }
-
   @media screen and (max-width: 1024px) {
-    
+    #lab-results-{{ section.id }} {
+      padding-top: {{ section.settings.tablet_padding_top }}px;
+      padding-bottom: {{ section.settings.tablet_padding_bottom }}px;
+    }
   }
   @media screen and (max-width: 767px) {
-    
+    #lab-results-{{ section.id }} {
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+      {% if section.settings.mobile_bg_image != blank %}
+        background-image: url({{ section.settings.mobile_bg_image | image_url }});
+      {% endif %}
+    }
+    #lab-results-{{ section.id }} .lr-tabs {
+      display: none;
+    }
+    #lab-results-{{ section.id }} .lr-panel {
+      display: block;
+      border: none;
+      padding: 0;
+      background: transparent;
+    }
+    #lab-results-{{ section.id }} .lr-accordion {
+      border: 1px solid #000;
+      margin: 12px 0;
+    }
+    #lab-results-{{ section.id }} .lr-accordion__header {
+      padding: 14px 16px;
+      font-size: 16px;
+    }
+    #lab-results-{{ section.id }} .lr-accordion__content {
+      padding: 12px 16px;
+    }
+    #lab-results-{{ section.id }} .lr-batch-list li {
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+    #lab-results-{{ section.id }} .lab-results__heading {
+      font-size: 22px;
+      padding-bottom: 18px;
+    }
   }
 {% endstyle %}
 
-<section id="lab-results-{{ section.id }}" class="lab-results">
+<section id="lab-results-{{ section.id }}" class="lab-results {{ section.settings.custom_class }}">
   <div class="page-width">
     <div class="lab-results-details">
       {% if section.settings.heading != blank %}
@@ -187,9 +235,22 @@
                 </div>
               {% endif %}
             {% endfor %}
+            {% assign has_any = false %}
+            {% for block in section.blocks %}
+              {% if block.type == 'accordion' and block.settings.tab_target == tab %}
+                {% assign has_any = true %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+            {% unless has_any %}
+              <p class="lr-empty">No lab results added for {{ current_tab_label }} yet.</p>
+            {% endunless %}
           </div>
         {% endif %}
       {% endfor %}
+      {% if unique_tabs_array.size == 0 %}
+        <p class="lr-empty">No lab results added yet.</p>
+      {% endif %}
     </div>
   </div>
 </section>
@@ -198,6 +259,7 @@
   (function() {
     var root = document.getElementById('lab-results-{{ section.id }}');
     if (!root) return;
+
     // Tabs
     var tabs = root.querySelectorAll('.lr-tab');
     var panels = root.querySelectorAll('.lr-panel');
@@ -217,19 +279,35 @@
         if (panel) panel.classList.add('is-active');
       });
     });
+
     // Accordions
-    root.querySelectorAll('.lr-accordion').forEach(function(acc) {
-      var btn = acc.querySelector('.lr-accordion__header');
-      var content = acc.querySelector('.lr-accordion__content');
-      if (!btn || !content) return;
-      btn.addEventListener('click', function() {
-        var expanded = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', String(!expanded));
-        if (expanded) {
-          content.setAttribute('hidden', '');
-        } else {
-          content.removeAttribute('hidden');
-        }
+    root.querySelectorAll('.lr-panel').forEach(function(panel) {
+      var accordions = panel.querySelectorAll('.lr-accordion');
+      accordions.forEach(function(acc) {
+        var btn = acc.querySelector('.lr-accordion__header');
+        var content = acc.querySelector('.lr-accordion__content');
+        if (!btn || !content) return;
+        btn.addEventListener('click', function() {
+          var expanded = btn.getAttribute('aria-expanded') === 'true';
+          // Close all other accordions in the same panel
+          accordions.forEach(function(otherAcc) {
+            if (otherAcc !== acc) {
+              var otherBtn = otherAcc.querySelector('.lr-accordion__header');
+              var otherContent = otherAcc.querySelector('.lr-accordion__content');
+              if (otherBtn && otherContent) {
+                otherBtn.setAttribute('aria-expanded', 'false');
+                otherContent.setAttribute('hidden', '');
+              }
+            }
+          });
+          // Toggle the current accordion
+          btn.setAttribute('aria-expanded', String(!expanded));
+          if (expanded) {
+            content.setAttribute('hidden', '');
+          } else {
+            content.removeAttribute('hidden');
+          }
+        });
       });
     });
   })();
@@ -237,7 +315,7 @@
 
 {% schema %}
   {
-    "name": "Tab with accordion",
+    "name": "Lab Test Results",
     "settings": [
       {
         "type": "text",
@@ -245,38 +323,147 @@
         "label": "Heading",
         "default": "Check Out Our Lab Test Results:"
       },
+      {
+        "type": "header",
+        "content": "General Settings"
+      },
+      {
+        "type": "text",
+        "id": "custom_class",
+        "label": "Custom Class"
+      },
+      {
+        "type": "number",
+        "id": "page_width",
+        "label": "Page Width",
+        "info": "Add PX Number",
+        "default": 1300
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color"
+      },
+      {
+        "type": "image_picker",
+        "id": "bg_image",
+        "label": "Desktop Background Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "mobile_bg_image",
+        "label": "Mobile Background Image"
+      },
+      {
+        "type": "header",
+        "content": "Desktop Section Padding"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Top Padding",
+        "default": 100
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Bottom Padding",
+        "default": 100
+      },
+      {
+        "type": "header",
+        "content": "Tablet Section Padding"
+      },
+      {
+        "type": "range",
+        "id": "tablet_padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Top Padding",
+        "default": 50
+      },
+      {
+        "type": "range",
+        "id": "tablet_padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Bottom Padding",
+        "default": 50
+      },
+      {
+        "type": "header",
+        "content": "Mobile Section Padding"
+      },
+      {
+        "type": "range",
+        "id": "mobile_padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Top Padding",
+        "default": 30
+      },
+      {
+        "type": "range",
+        "id": "mobile_padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Bottom Padding",
+        "default": 30 
+      }
     ],
     "blocks": [
       {
         "type": "accordion",
-        "name": "Accordion",
+        "name": "Accordion group",
         "settings": [
           {
             "type": "text",
             "id": "tab_target",
-            "label": "Tab ID"
+            "label": "Tab identifier",
+            "info": "Unique identifier for the tab (e.g., cartridges, disposables)",
+            "default": "tab1"
           },
           {
             "type": "text",
             "id": "tab_label",
-            "label": "Tab title"
+            "label": "Tab label",
+            "info": "Label displayed for the tab",
+            "default": "Tab 1"
           },
           {
             "type": "text",
             "id": "title",
-            "label": "Question"
+            "label": "Accordion title",
+            "default": "Product / Blend title"
           },
           {
-            "type": "richtext",
+            "type": "textarea",
             "id": "batch_list_html",
-            "label": "Answer"
+            "label": "Batch list (HTML <li> items)",
+            "default": "<li>Batch CODE – <a href=\"/files/sample.pdf\" target=\"_blank\">Lab Results</a></li>"
           }
         ]
       }
     ],
     "presets": [
       {
-        "name": "Tab with accordion"
+        "name": "Lab Test Results"
       }
     ]
   }
