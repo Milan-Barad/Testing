@@ -9,75 +9,6 @@
  */
 {
   "sections": {
-    "demo_J3R7PF": {
-      "type": "demo",
-      "blocks": {
-        "accordion_mGDNpq": {
-          "type": "accordion",
-          "settings": {
-            "tab_target": "tab1",
-            "tab_label": "Tab 1",
-            "title": "Product / Blend title",
-            "batch_list_html": "<li>Batch CODE – <a href=\"/files/sample.pdf\" target=\"_blank\">Lab Results</a>\n</li>"
-          }
-        },
-        "accordion_qPNnA3": {
-          "type": "accordion",
-          "settings": {
-            "tab_target": "tab2",
-            "tab_label": "Tab 2",
-            "title": "Product / Blend title",
-            "batch_list_html": "<li>Batch CODE – <a href=\"/files/sample.pdf\" target=\"_blank\">Lab Results</a>\n</li>"
-          }
-        },
-        "accordion_J74Rpz": {
-          "type": "accordion",
-          "settings": {
-            "tab_target": "tab1",
-            "tab_label": "Tab 1",
-            "title": "Product / Blend title",
-            "batch_list_html": "<li>Batch CODE – <a href=\"/files/sample.pdf\" target=\"_blank\">Lab Results</a>\n</li>"
-          }
-        },
-        "accordion_nbUKiU": {
-          "type": "accordion",
-          "settings": {
-            "tab_target": "tab3",
-            "tab_label": "Tab 3",
-            "title": "Product / Blend title Product / Blend title",
-            "batch_list_html": "<li>Batch CODE – <a href=\"/files/sample.pdf\" target=\"_blank\">Lab Results</a>\n</li> <li>Batch CODE – <a href=\"/files/sample.pdf\" target=\"_blank\">Lab Results</a>\n</li>"
-          }
-        },
-        "accordion_mVagAH": {
-          "type": "accordion",
-          "settings": {
-            "tab_target": "tab1",
-            "tab_label": "Tab 1",
-            "title": "Product / Blend title",
-            "batch_list_html": "<li>Batch CODE – <a href=\"/files/sample.pdf\" target=\"_blank\">Lab Results</a>\n</li>"
-          }
-        }
-      },
-      "block_order": [
-        "accordion_mGDNpq",
-        "accordion_qPNnA3",
-        "accordion_J74Rpz",
-        "accordion_nbUKiU",
-        "accordion_mVagAH"
-      ],
-      "settings": {
-        "heading": "Check Out Our Lab Test Results:",
-        "custom_class": "",
-        "page_width": 1330,
-        "background_color": "",
-        "padding_top": 100,
-        "padding_bottom": 100,
-        "tablet_padding_top": 36,
-        "tablet_padding_bottom": 36,
-        "mobile_padding_top": 36,
-        "mobile_padding_bottom": 36
-      }
-    },
     "1621243260e1af0c20": {
       "type": "slider",
       "blocks": {
@@ -1293,7 +1224,6 @@
     }
   },
   "order": [
-    "demo_J3R7PF",
     "1621243260e1af0c20",
     "16225316461d1cff80",
     "162251092958fcda7c",
