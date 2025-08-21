@@ -3,7 +3,7 @@
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
     {% if section.settings.background_color != blank %}
-      background-color:{{ section.settings.background_color }};
+      background-color: {{ section.settings.background_color }};
     {% endif %}
     {% if section.settings.bg_image != blank %}
       background-image: url({{ section.settings.bg_image | image_url }});
@@ -134,14 +134,14 @@
     font-size: 14px;
   }
   @media screen and (max-width: 1024px) {
-    #{{ section.id }} {
+    #lab-results-{{ section.id }} {
       padding-top: {{ section.settings.tablet_padding_top }}px;
       padding-bottom: {{ section.settings.tablet_padding_bottom }}px;
     }
   }
   
   @media screen and (max-width: 767px) {
-    #{{ section.id }} {
+    #lab-results-{{ section.id }} {
       padding-top: {{ section.settings.mobile_padding_top }}px;
       padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
       {% if section.settings.mobile_bg_image != blank %}
@@ -157,7 +157,6 @@
       padding: 0;
       background: transparent;
     }
-    /* reduce padding in accordion for mobile */
     #lab-results-{{ section.id }} .lr-accordion {
       border: 1px solid #000;
       margin: 12px 0;
@@ -179,60 +178,74 @@
     }
   }
 {% endstyle %}
-<section id="lab-results-{{ section.id }}" class="lab-results {{ section.settings.custome_class }}">
+<section id="lab-results-{{ section.id }}" class="lab-results {{ section.settings.custom_class }}">
   <div class="page-width">
-   <div class="lab-results-details">
-    {% if section.settings.heading != blank %}
+    <div class="lab-results-details">
+      {% if section.settings.heading != blank %}
         <h2 class="lab-results__heading">{{ section.settings.heading }}</h2>
-    {% endif %}
-    {%- assign tab1_label = section.settings.tab1_label | default: 'Cartridges' -%}
-    {%- assign tab2_label = section.settings.tab2_label | default: 'Disposables' -%}
-    {%- assign tab3_label = section.settings.tab3_label | default: 'Edibles' -%}
-    {%- assign tab4_label = section.settings.tab4_label | default: 'Flower' -%}
-    {%- assign tabs = 
-        tab1_label | append: '||' | append: tab2_label | append: '||' | append: tab3_label | append: '||' | append: tab4_label
-    -%}
-    {%- assign tab_keys = 'tab1||tab2||tab3||tab4' -%}
-    <!-- Tabs -->
-    <div class="lr-tabs" role="tablist" aria-label="Lab result categories">
-        <button class="lr-tab is-active" role="tab" aria-selected="true" aria-controls="lr-{{ section.id }}-tab1" data-tab="tab1">{{ tab1_label }}</button>
-        <button class="lr-tab" role="tab" aria-selected="false" aria-controls="lr-{{ section.id }}-tab2" data-tab="tab2">{{ tab2_label }}</button>
-        <button class="lr-tab" role="tab" aria-selected="false" aria-controls="lr-{{ section.id }}-tab3" data-tab="tab3">{{ tab3_label }}</button>
-        <button class="lr-tab" role="tab" aria-selected="false" aria-controls="lr-{{ section.id }}-tab4" data-tab="tab4">{{ tab4_label }}</button>
+      {% endif %}
+      <!-- Dynamic Tabs -->
+      {% assign unique_tabs = '' %}
+      {% for block in section.blocks %}
+        {% if block.type == 'accordion' %}
+          {% assign tab_target = block.settings.tab_target %}
+          {% unless unique_tabs contains tab_target %}
+            {% assign unique_tabs = unique_tabs | append: tab_target | append: '||' %}
+          {% endunless %}
+        {% endif %}
+      {% endfor %}
+      {% assign unique_tabs_array = unique_tabs | split: '||' | uniq %}
+      {% if unique_tabs_array.size > 0 %}
+        <div class="lr-tabs" role="tablist" aria-label="Lab result categories">
+          {% for tab in unique_tabs_array %}
+            {% if tab != blank %}
+              {% assign tab_label = tab %}
+              {% for block in section.blocks %}
+                {% if block.type == 'accordion' and block.settings.tab_target == tab %}
+                  {% assign tab_label = block.settings.tab_label | default: tab %}
+                  {% break %}
+                {% endif %}
+              {% endfor %}
+              <button class="lr-tab{% if forloop.first %} is-active{% endif %}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="lr-{{ section.id }}-{{ tab }}" data-tab="{{ tab }}">{{ tab_label }}</button>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+      <!-- Tab Panels -->
+      {% for tab in unique_tabs_array %}
+        {% if tab != blank %}
+          <div id="lr-{{ section.id }}-{{ tab }}" class="lr-panel{% if forloop.first %} is-active{% endif %}" role="tabpanel" tabindex="0">
+            {% for block in section.blocks %}
+              {% if block.type == 'accordion' and block.settings.tab_target == tab %}
+                <div class="lr-accordion" {{ block.shopify_attributes }}>
+                  <button class="lr-accordion__header" type="button" aria-expanded="false">
+                    <span class="lr-accordion__title">{{ block.settings.title | escape }}</span>
+                  </button>
+                  <div class="lr-accordion__content" hidden>
+                    <ul class="lr-batch-list">
+                      {{ block.settings.batch_list_html }}
+                    </ul>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+            {% assign has_any = false %}
+            {% for block in section.blocks %}
+              {% if block.type == 'accordion' and block.settings.tab_target == tab %}
+                {% assign has_any = true %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+            {% unless has_any %}
+              <p class="lr-empty">No lab results added for {{ tab_label }} yet.</p>
+            {% endunless %}
+          </div>
+        {% endif %}
+      {% endfor %}
+      {% if unique_tabs_array.size == 0 %}
+        <p class="lr-empty">No lab results added yet.</p>
+      {% endif %}
     </div>
-    <!-- Tab Panels -->
-    {%- assign tab_keys_arr = tab_keys | split: '||' -%}
-    {%- assign tab_labels = tabs | split: '||' -%}
-    {%- for key in tab_keys_arr -%}
-    {%- assign idx = forloop.index0 -%}
-    {%- assign label = tab_labels[idx] -%}
-    <div id="lr-{{ section.id }}-{{ key }}" class="lr-panel{% if forloop.first %} is-active{% endif %}" role="tabpanel" tabindex="0">
-        {%- for b in section.blocks -%}
-        {%- if b.type == 'accordion' and b.settings.tab_target == key -%}
-            <div class="lr-accordion" {{ b.shopify_attributes }}>
-            <button class="lr-accordion__header" type="button" aria-expanded="false">
-                <span class="lr-accordion__title">{{ b.settings.title | escape }}</span>
-            </button>
-            <div class="lr-accordion__content" hidden>
-                <ul class="lr-batch-list">
-                {{ b.settings.batch_list_html }}
-                </ul>
-            </div>
-            </div>
-        {%- endif -%}
-        {%- endfor -%}
-        {%- assign has_any = false -%}
-        {%- for b in section.blocks -%}
-        {%- if b.type == 'accordion' and b.settings.tab_target == key -%}
-            {%- assign has_any = true -%}{% break %}
-        {%- endif -%}
-        {%- endfor -%}
-        {%- unless has_any -%}
-        <p class="lr-empty">No lab results added for {{ label }} yet.</p>
-        {%- endunless -%}
-    </div>
-    {%- endfor -%}
-   </div>
   </div>
 </section>
 <script>
@@ -281,36 +294,12 @@
   {
     "name": "Lab Test Results",
     "settings": [
-        {
+      {
         "type": "text",
         "id": "heading",
         "label": "Heading",
         "default": "Check Out Our Lab Test Results:"
-        },
-        {
-        "type": "text",
-        "id": "tab1_label",
-        "label": "Tab 1 label",
-        "default": "Cartridges"
-        },
-        {
-        "type": "text",
-        "id": "tab2_label",
-        "label": "Tab 2 label",
-        "default": "Disposables"
-        },
-        {
-        "type": "text",
-        "id": "tab3_label",
-        "label": "Tab 3 label",
-        "default": "Edibles"
-        },
-        {
-        "type": "text",
-        "id": "tab4_label",
-        "label": "Tab 4 label",
-        "default": "Flower"
-        },
+      },
       {
         "type": "header",
         "content": "General Settings"
@@ -342,8 +331,8 @@
         "label": "Mobile Background Image"
       },
       {
-        "type" : "header",
-        "content" : "Desktop Section Padding"
+        "type": "header",
+        "content": "Desktop Section Padding"
       },
       {
         "type": "range",
@@ -366,8 +355,8 @@
         "default": 36
       },
       {
-        "type" : "header",
-        "content" : "Tablet Section Padding"
+        "type": "header",
+        "content": "Tablet Section Padding"
       },
       {
         "type": "range",
@@ -390,8 +379,8 @@
         "default": 36
       },
       {
-        "type" : "header",
-        "content" : "Mobile Section Padding"
+        "type": "header",
+        "content": "Mobile Section Padding"
       },
       {
         "type": "range",
@@ -420,29 +409,31 @@
         "name": "Accordion group",
         "settings": [
           {
-            "type": "select",
+            "type": "text",
             "id": "tab_target",
-            "label": "Show in tab",
-            "default": "tab1",
-            "options": [
-                { "value": "tab1", "label": "Tab 1" },
-                { "value": "tab2", "label": "Tab 2" },
-                { "value": "tab3", "label": "Tab 3" },
-                { "value": "tab4", "label": "Tab 4" }
-            ]
-        },
-        {
+            "label": "Tab identifier",
+            "info": "Unique identifier for the tab (e.g., cartridges, disposables)",
+            "default": "tab1"
+          },
+          {
+            "type": "text",
+            "id": "tab_label",
+            "label": "Tab label",
+            "info": "Label displayed for the tab",
+            "default": "Tab 1"
+          },
+          {
             "type": "text",
             "id": "title",
             "label": "Accordion title",
             "default": "Product / Blend title"
-        },
-        {
+          },
+          {
             "type": "textarea",
             "id": "batch_list_html",
             "label": "Batch list (HTML <li> items)",
             "default": "<li>Batch CODE – <a href=\"/files/sample.pdf\" target=\"_blank\">Lab Results</a></li>"
-        }
+          }
         ]
       }
     ],
