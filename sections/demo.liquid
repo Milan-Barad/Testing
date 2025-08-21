@@ -1,145 +1,455 @@
-
-<style>
-  .accordion-section {
-    background: #faebd7;
-    padding: 100px 0;
+{% style %}
+  #{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    {% if section.settings.background_color != blank %}
+      background-color:{{ section.settings.background_color }};
+    {% endif %}
+    {% if section.settings.bg_image != blank %}
+      background-image: url({{ section.settings.bg_image | image_url }});
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    {% endif %}
   }
-  .accordion-section .page-with {
-    max-width: 1200px;
+  #{{ section.id }} .page-width {
+    max-width: {{ section.settings.page_width }}px;
     padding: 0 15px;
     margin: 0 auto;
     width: 100%;
+  }
+  #lab-results-{{ section.id }} .lab-results__heading {
+    font-family: "Bakbak One", sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.4em;
+    letter-spacing: 0;
+    text-transform: none;
+    padding-bottom: 30px;
+    margin: 0;
+  }
+  #lab-results-{{ section.id }} .lr-tabs {
+    display: flex;
+    border: 1px solid #000;
+    border-bottom: none;
+    background: #fff;
+  }
+  #lab-results-{{ section.id }} .lr-tab {
+    padding: 16px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 18px;
+    font-family: "Bakbak One", sans-serif;
+    background: #fff;
+    transition: background 0.3s;
+    appearance: none;
+    border: none;
+    border-right: 1px solid #000;
+  }
+  #lab-results-{{ section.id }} .lr-tab:last-child {
+    border-right: none;
+  }
+  /* Panels */
+  #lab-results-{{ section.id }} .lr-panel {
+    display: none;
+    border: 1px solid #000;
+    padding: 16px;
+    background: #fff;
+  }
+  #lab-results-{{ section.id }} .lr-panel.is-active {
     display: block;
   }
-  .accordion-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease;
+  /* Accordion */
+  #lab-results-{{ section.id }} .lr-accordion {
+    border: 1px solid #000;
+    margin: 20px auto;      
   }
-  .accordion-header {
+  #lab-results-{{ section.id }} .lr-accordion__header {
+    width: 100%;
+    text-align: left;
+    padding: 18px 24px;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-weight: bold;
+    background: transparent;
+    border: none;
+    position: relative;
   }
-  .accordion-header svg {
-    transition: transform 0.3s ease;
+  .lr-accordion__header:after {
+    content: "";
+    justify-self: end;
+    align-self: center;
+    border-right: 2px solid #000;
+    border-bottom: 2px solid #000;
+    width: 8px;
+    height: 8px;
+    transform: rotate(45deg) translate(-25%, 0%);
   }
-</style>
-
+  button.lr-accordion__header[aria-expanded="true"]::after {
+    transform: rotate(225deg) translate(0%, -45%);
+  }
+  #lab-results-{{ section.id }} .lr-accordion__title {
+    font-weight: 500;
+    font-size: 18px;
+    font-family: "Bakbak One", sans-serif;
+    letter-spacing: 0;
+    line-height: 100%;
+  }   
+  #lab-results-{{ section.id }} .lr-accordion__content {
+    padding: 18px 24px;
+    border-top: 1px solid #000;
+  }
+  /* Batch list */
+  #lab-results-{{ section.id }} .lr-batch-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  #lab-results-{{ section.id }} .lr-batch-list li {
+    margin-bottom: 30px;
+    font-weight: 500;
+    font-size: 18px;
+    font-family: "Bakbak One", sans-serif;
+    color: #000;
+    letter-spacing: 0;
+    line-height: 100%;
+  }
+  #lab-results-{{ section.id }} .lr-batch-list li:last-child {
+    border-bottom: none;
+    margin: 0;
+  }
+  #lab-results-{{ section.id }} .lr-batch-list a {
+    color: #000;
+    font-weight: 700;
+  }
+  #lab-results-{{ section.id }} .lr-batch-list a:hover {
+    text-decoration: underline;
+  }
+  /* Empty state */
+  #lab-results-{{ section.id }} .lr-empty {
+    margin: 10px 0 0;
+    opacity: 0.7;
+    font-size: 14px;
+  }
+  @media screen and (max-width: 1024px) {
+    #{{ section.id }} {
+      padding-top: {{ section.settings.tablet_padding_top }}px;
+      padding-bottom: {{ section.settings.tablet_padding_bottom }}px;
+    }
+  }
   
-
-<section class="accordion-section">
-  <div class="page-with">
-    <div class="section-title">
-      <h2>{{ section.settings.title }}</h2>
+  @media screen and (max-width: 767px) {
+    #{{ section.id }} {
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+      {% if section.settings.mobile_bg_image != blank %}
+        background-image: url({{ section.settings.mobile_bg_image | image_url }});
+      {% endif %}
+    }
+    #lab-results-{{ section.id }} .lr-tabs {
+        display: none;
+    }
+    #lab-results-{{ section.id }} .lr-panel {
+      display: block;
+      border: none;
+      padding: 0;
+      background: transparent;
+    }
+    /* reduce padding in accordion for mobile */
+    #lab-results-{{ section.id }} .lr-accordion {
+      border: 1px solid #000;
+      margin: 12px 0;
+    }
+    #lab-results-{{ section.id }} .lr-accordion__header {
+      padding: 14px 16px;
+      font-size: 16px;
+    }
+    #lab-results-{{ section.id }} .lr-accordion__content {
+      padding: 12px 16px;
+    }
+    #lab-results-{{ section.id }} .lr-batch-list li {
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+    #lab-results-{{ section.id }} .lab-results__heading {
+      font-size: 22px;
+      padding-bottom: 18px;
+    }
+  }
+{% endstyle %}
+<section id="lab-results-{{ section.id }}" class="lab-results {{ section.settings.custome_class }}">
+  <div class="page-width">
+   <div class="lab-results-details">
+    {% if section.settings.heading != blank %}
+        <h2 class="lab-results__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+    {%- assign tab1_label = section.settings.tab1_label | default: 'Cartridges' -%}
+    {%- assign tab2_label = section.settings.tab2_label | default: 'Disposables' -%}
+    {%- assign tab3_label = section.settings.tab3_label | default: 'Edibles' -%}
+    {%- assign tab4_label = section.settings.tab4_label | default: 'Flower' -%}
+    {%- assign tabs = 
+        tab1_label | append: '||' | append: tab2_label | append: '||' | append: tab3_label | append: '||' | append: tab4_label
+    -%}
+    {%- assign tab_keys = 'tab1||tab2||tab3||tab4' -%}
+    <!-- Tabs -->
+    <div class="lr-tabs" role="tablist" aria-label="Lab result categories">
+        <button class="lr-tab is-active" role="tab" aria-selected="true" aria-controls="lr-{{ section.id }}-tab1" data-tab="tab1">{{ tab1_label }}</button>
+        <button class="lr-tab" role="tab" aria-selected="false" aria-controls="lr-{{ section.id }}-tab2" data-tab="tab2">{{ tab2_label }}</button>
+        <button class="lr-tab" role="tab" aria-selected="false" aria-controls="lr-{{ section.id }}-tab3" data-tab="tab3">{{ tab3_label }}</button>
+        <button class="lr-tab" role="tab" aria-selected="false" aria-controls="lr-{{ section.id }}-tab4" data-tab="tab4">{{ tab4_label }}</button>
     </div>
-    <div class="accordion-list">
-      {% for block in section.blocks %}
-        {% if block.settings.question != blank %}
-          <div class="accordion-box">
-              <h6 class="accordion-header">
-                {{ block.settings.question }}
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none">
-                  <path class="vertical-line" d="M8 14.3734C7.46055 14.3734 7.02344 13.9363 7.02344 13.3969V0.976562C7.02344 0.437109 7.46055 0 8 0C8.53945 0 8.97656 0.437109 8.97656 0.976562V13.3969C8.97656 13.9363 8.53945 14.3734 8 14.3734Z" fill="black"/>
-                  <path d="M14.2094 8.16309H1.78906C1.24961 8.16309 0.8125 7.72598 0.8125 7.18652C0.8125 6.64707 1.24961 6.20996 1.78906 6.20996H14.2094C14.7488 6.20996 15.1859 6.64707 15.1859 7.18652C15.1859 7.72598 14.7488 8.16309 14.2094 8.16309Z" fill="black"/>
-                </svg>
-              </h6>
-              <div class="accordion-content">
-                {{ block.settings.answer }}
-              </div>
+    <!-- Tab Panels -->
+    {%- assign tab_keys_arr = tab_keys | split: '||' -%}
+    {%- assign tab_labels = tabs | split: '||' -%}
+    {%- for key in tab_keys_arr -%}
+    {%- assign idx = forloop.index0 -%}
+    {%- assign label = tab_labels[idx] -%}
+    <div id="lr-{{ section.id }}-{{ key }}" class="lr-panel{% if forloop.first %} is-active{% endif %}" role="tabpanel" tabindex="0">
+        {%- for b in section.blocks -%}
+        {%- if b.type == 'accordion' and b.settings.tab_target == key -%}
+            <div class="lr-accordion" {{ b.shopify_attributes }}>
+            <button class="lr-accordion__header" type="button" aria-expanded="false">
+                <span class="lr-accordion__title">{{ b.settings.title | escape }}</span>
+            </button>
+            <div class="lr-accordion__content" hidden>
+                <ul class="lr-batch-list">
+                {{ b.settings.batch_list_html }}
+                </ul>
             </div>
-        {% endif %}
-      {% endfor %}
+            </div>
+        {%- endif -%}
+        {%- endfor -%}
+        {%- assign has_any = false -%}
+        {%- for b in section.blocks -%}
+        {%- if b.type == 'accordion' and b.settings.tab_target == key -%}
+            {%- assign has_any = true -%}{% break %}
+        {%- endif -%}
+        {%- endfor -%}
+        {%- unless has_any -%}
+        <p class="lr-empty">No lab results added for {{ label }} yet.</p>
+        {%- endunless -%}
     </div>
+    {%- endfor -%}
+   </div>
   </div>
 </section>
-
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const headers = document.querySelectorAll(".accordion-header");
-    
-      if (headers.length) {
-        const firstContent = headers[0].nextElementSibling;
-        headers[0].classList.add("active");
-        firstContent.style.maxHeight = firstContent.scrollHeight + "px";
-        toggleSvgIcon(headers[0], true);
-      }
-    
-      headers.forEach(header => {
-        header.addEventListener("click", function () {
-          const content = this.nextElementSibling;
-          const isOpen = this.classList.contains("active");
-    
-          document.querySelectorAll(".accordion-content").forEach(c => {
-            c.style.maxHeight = null;
-            toggleSvgIcon(c.previousElementSibling, false);
-            c.previousElementSibling.classList.remove("active");
-          });
-    
-          if (!isOpen) {
-            this.classList.add("active");
-            content.style.maxHeight = content.scrollHeight + "px";
-            toggleSvgIcon(this, true);
-          } else {
-            this.classList.remove("active");
-            content.style.maxHeight = null;
-            toggleSvgIcon(this, false);
-          }
+  (function() {
+    var root = document.getElementById('lab-results-{{ section.id }}');
+    if (!root) return;
+    // Tabs
+    var tabs = root.querySelectorAll('.lr-tab');
+    var panels = root.querySelectorAll('.lr-panel');
+    tabs.forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        // tabs
+        tabs.forEach(function(t) {
+          t.classList.remove('is-active');
+          t.setAttribute('aria-selected', 'false');
         });
+        tab.classList.add('is-active');
+        tab.setAttribute('aria-selected', 'true');
+        // panels
+        var target = tab.getAttribute('data-tab');
+        panels.forEach(function(p) {
+          p.classList.remove('is-active');
+        });
+        var panel = root.querySelector('#lr-{{ section.id }}-' + target);
+        if (panel) panel.classList.add('is-active');
       });
-    
-      function toggleSvgIcon(header, isOpen) {
-        const verticalLine = header.querySelector("path.vertical-line");
-        if (verticalLine) {
-          verticalLine.style.opacity = isOpen ? "0" : "1";
-        }
-      }
     });
+    // Accordions
+    root.querySelectorAll('.lr-accordion').forEach(function(acc) {
+      var btn = acc.querySelector('.lr-accordion__header');
+      var content = acc.querySelector('.lr-accordion__content');
+      if (!btn || !content) return;
+      btn.addEventListener('click', function() {
+        var expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!expanded));
+        if (expanded) {
+          content.setAttribute('hidden', '');
+        } else {
+          content.removeAttribute('hidden');
+        }
+      });
+    });
+  })();
 </script>
-
 {% schema %}
-{
-  "name": "Tabs with Accordions",
-  "settings": [],
-  "blocks": [
-    {
-      "type": "tab",
-      "name": "Tab",
-      "settings": [
-        { 
-          "type": "text", 
-          "id": "tab_id", 
-          "label": "Tab ID " 
-        },
-        { 
-          "type": "text", 
-          "id": "tab_title", 
-          "label": "Tab Title"
-        }
-      ]
-    },
-    {
-      "type": "accordion",
-      "name": "Accordion",
-      "settings": [
+  {
+    "name": "Lab Test Results",
+    "settings": [
         {
-          "type": "text",
-          "id": "question",
-          "label": "Question"
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Check Out Our Lab Test Results:"
         },
         {
-          "type": "richtext",
-          "id": "answer",
-          "label": "Answer"
+        "type": "text",
+        "id": "tab1_label",
+        "label": "Tab 1 label",
+        "default": "Cartridges"
+        },
+        {
+        "type": "text",
+        "id": "tab2_label",
+        "label": "Tab 2 label",
+        "default": "Disposables"
+        },
+        {
+        "type": "text",
+        "id": "tab3_label",
+        "label": "Tab 3 label",
+        "default": "Edibles"
+        },
+        {
+        "type": "text",
+        "id": "tab4_label",
+        "label": "Tab 4 label",
+        "default": "Flower"
+        },
+      {
+        "type": "header",
+        "content": "General Settings"
+      },
+      {
+        "type": "text",
+        "id": "custom_class",
+        "label": "Custom Class"
+      },
+      {
+        "type": "number",
+        "id": "page_width",
+        "label": "Page Width",
+        "info": "Add PX Number"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color"
+      },
+      {
+        "type": "image_picker",
+        "id": "bg_image",
+        "label": "Desktop Background Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "mobile_bg_image",
+        "label": "Mobile Background Image"
+      },
+      {
+        "type" : "header",
+        "content" : "Desktop Section Padding"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Top Padding",
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Bottom Padding",
+        "default": 36
+      },
+      {
+        "type" : "header",
+        "content" : "Tablet Section Padding"
+      },
+      {
+        "type": "range",
+        "id": "tablet_padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Top Padding",
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "tablet_padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Bottom Padding",
+        "default": 36
+      },
+      {
+        "type" : "header",
+        "content" : "Mobile Section Padding"
+      },
+      {
+        "type": "range",
+        "id": "mobile_padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Top Padding",
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "mobile_padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "unit": "px",
+        "label": "Bottom Padding",
+        "default": 36 
+      }
+    ],
+    "blocks": [
+      {
+        "type": "accordion",
+        "name": "Accordion group",
+        "settings": [
+          {
+            "type": "select",
+            "id": "tab_target",
+            "label": "Show in tab",
+            "default": "tab1",
+            "options": [
+                { "value": "tab1", "label": "Tab 1" },
+                { "value": "tab2", "label": "Tab 2" },
+                { "value": "tab3", "label": "Tab 3" },
+                { "value": "tab4", "label": "Tab 4" }
+            ]
+        },
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Accordion title",
+            "default": "Product / Blend title"
+        },
+        {
+            "type": "textarea",
+            "id": "batch_list_html",
+            "label": "Batch list (HTML <li> items)",
+            "default": "<li>Batch CODE – <a href=\"/files/sample.pdf\" target=\"_blank\">Lab Results</a></li>"
         }
-      ]
-    }
-  ],
-  "presets": [
-    { 
-      "name": "Tabs with Accordions" 
-    }
-  ]
-}
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Lab Test Results"
+      }
+    ]
+  }
 {% endschema %}
