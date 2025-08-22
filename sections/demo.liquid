@@ -120,6 +120,7 @@
     
   }
 {% endstyle %}
+
 <section id="lab-results-{{ section.id }}" class="tab-with-accordion">
   <div class="page-width">
     <div class="lab-results-details">
@@ -184,6 +185,7 @@
     </div>
   </div>
 </section>
+
 <script>
   (function() {
     var root = document.getElementById('lab-results-{{ section.id }}');
@@ -235,6 +237,7 @@
     });
   })();
 </script>
+
 {% schema %}
   {
     "name": "Tab with accordion",
