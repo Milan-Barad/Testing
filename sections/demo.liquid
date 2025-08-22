@@ -52,42 +52,9 @@
   .tab-with-accordion .lr-accordion {
     border: 1px solid #000;
     margin: 20px auto;
-  }
-  .tab-with-accordion .lr-accordion__header {
-    width: 100%;
-    text-align: left;
     padding: 18px 24px;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: bold;
-    background: transparent;
-    border: none;
-    position: relative;
-  }
-  .lr-accordion__header:after {
-    content: "";
-    justify-self: end;
-    align-self: center;
-    border-right: 2px solid #000;
-    border-bottom: 2px solid #000;
-    width: 8px;
-    height: 8px;
-    transform: rotate(45deg) translate(-25%, 0%);
-  }
-  button.lr-accordion__header[aria-expanded="true"]::after {
-    transform: rotate(225deg) translate(0%, -45%);
-  }
-  .tab-with-accordion .lr-accordion__title {
-    font-weight: 500;
-    font-size: 18px;
-    font-family: "Bakbak One", sans-serif;
-    letter-spacing: 0;
-    line-height: 100%;
   }
   .tab-with-accordion .lr-accordion__content {
-    padding: 18px 24px;
     border-top: 1px solid #000;
   }
   .tab-with-accordion .lr-accordion__content h3 {
@@ -142,10 +109,7 @@
           {% for block in section.blocks %}
             {% if block.type == 'accordion' and block.settings.tab_title == tab %}
               <div class="lr-accordion" {{ block.shopify_attributes }}>
-                <button class="lr-accordion__header" aria-expanded="false">
-                  <span class="lr-accordion__title">{{ block.settings.title | escape }}</span>
-                </button>
-                <div class="lr-accordion__content" hidden>
+                <div class="lr-accordion__content">
                   {{ block.settings.batch_list_html }}
                 </div>
               </div>
@@ -179,33 +143,6 @@
         if (panel) panel.classList.add('is-active');
       });
     });
-    root.querySelectorAll('.lr-panel').forEach(function(panel) {
-      var accordions = panel.querySelectorAll('.lr-accordion');
-      accordions.forEach(function(acc) {
-        var btn = acc.querySelector('.lr-accordion__header');
-        var content = acc.querySelector('.lr-accordion__content');
-        if (!btn || !content) return;
-        btn.addEventListener('click', function() {
-          var expanded = btn.getAttribute('aria-expanded') === 'true';
-          accordions.forEach(function(otherAcc) {
-            if (otherAcc !== acc) {
-              var otherBtn = otherAcc.querySelector('.lr-accordion__header');
-              var otherContent = otherAcc.querySelector('.lr-accordion__content');
-              if (otherBtn && otherContent) {
-                otherBtn.setAttribute('aria-expanded', 'false');
-                otherContent.setAttribute('hidden', '');
-              }
-            }
-          });
-          btn.setAttribute('aria-expanded', String(!expanded));
-          if (expanded) {
-            content.setAttribute('hidden', '');
-          } else {
-            content.removeAttribute('hidden');
-          }
-        });
-      });
-    });
   })();
 </script>
 
@@ -231,14 +168,9 @@
             "label": "Tab Title"
           },
           {
-            "type": "text",
-            "id": "title",
-            "label": "Accordion Header Question"
-          },
-          {
             "type": "richtext",
             "id": "batch_list_html",
-            "label": "Accordion Content (Use H3 for Question, P for Answer)"
+            "label": "Content (Use H3 for Question, P for Answer)"
           }
         ]
       }
