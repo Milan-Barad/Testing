@@ -1,95 +1,125 @@
-<style>
-  .lab-results-section {
-    padding: 80px 15px;
-    max-width: 1300px;
-    margin: 0 auto;
+{% style %}
+  .tab-with-accordion {
+    padding-top: 100px;
+    padding-bottom: 100px;
   }
-  .lab-results-section__heading {
+  .tab-with-accordion .page-width {
+    max-width: 1300px;
+    padding: 0 15px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .tab-with-accordion .lab-results__heading {
     font-family: "Bakbak One", sans-serif;
     font-size: 28px;
     font-weight: 700;
-    padding-bottom: 20px;
+    line-height: 1.4em;
+    letter-spacing: 0;
+    text-transform: none;
+    padding-bottom: 30px;
+    margin: 0;
   }
-  .lab-results-section__tabs {
+  .tab-with-accordion .lr-tabs {
     display: flex;
     border: 1px solid #000;
     border-bottom: none;
     background: #fff;
   }
-  .lab-results-section__tab {
-    padding: 12px;
-    cursor: pointer;
-    font: 700 18px "Bakbak One", sans-serif;
-    background: #fff;
-    border: none;
-    border-right: 1px solid #000;
-    transition: background 0.3s;
-  }
-  .lab-results-section__tab.is-active {
+  .tab-with-accordion .lr-tabs button.lr-tab.is-active {
     background: #c8b9b9;
   }
-  .lab-results-section__panel {
+  .tab-with-accordion .lr-tab {
+    padding: 16px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 18px;
+    font-family: "Bakbak One", sans-serif;
+    background: #fff;
+    transition: background 0.3s;
+    appearance: none;
+    border: none;
+    border-right: 1px solid #000;
+  }
+  .tab-with-accordion .lr-panel {
     display: none;
     border: 1px solid #000;
-    padding: 12px;
+    padding: 16px;
     background: #fff;
   }
-  .lab-results-section__panel.is-active {
+  .tab-with-accordion .lr-panel.is-active {
     display: block;
   }
-  .lab-results-section__accordion {
+  .tab-with-accordion .lr-accordion {
     border: 1px solid #000;
-    margin: 15px 0;
+    margin: 20px auto;      
   }
-  .lab-results-section__accordion-header {
+  .tab-with-accordion .lr-accordion__header {
     width: 100%;
     text-align: left;
-    padding: 15px;
+    padding: 18px 24px;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     font-weight: bold;
     background: transparent;
     border: none;
+    position: relative;
   }
-  .lab-results-section__accordion-header:after {
+  .lr-accordion__header:after {
     content: "";
-    border: solid #000;
-    border-width: 0 2px 2px 0;
+    justify-self: end;
+    align-self: center;
+    border-right: 2px solid #000;
+    border-bottom: 2px solid #000;
     width: 8px;
     height: 8px;
-    transform: rotate(45deg);
+    transform: rotate(45deg) translate(-25%, 0%);
   }
-  .lab-results-section__accordion-header[aria-expanded="true"]::after {
-    transform: rotate(225deg);
+  button.lr-accordion__header[aria-expanded="true"]::after {
+    transform: rotate(225deg) translate(0%, -45%);
   }
-  .lab-results-section__accordion-title {
-    font: 500 18px "Bakbak One", sans-serif;
-  }
-  .lab-results-section__accordion-content {
-    padding: 15px;
+  .tab-with-accordion .lr-accordion__title {
+    font-weight: 500;
+    font-size: 18px;
+    font-family: "Bakbak One", sans-serif;
+    letter-spacing: 0;
+    line-height: 100%;
+  }   
+  .tab-with-accordion .lr-accordion__content {
+    padding: 18px 24px;
     border-top: 1px solid #000;
   }
-  .lab-results-section__batch-list {
+  .tab-with-accordion .lr-batch-list {
     list-style: none;
-    margin: 0;
     padding: 0;
+    margin: 0;
   }
-  .lab-results-section__batch-list li {
-    margin-bottom: 20px;
-    font: 500 18px "Bakbak One", sans-serif;
+  .tab-with-accordion .lr-batch-list li {
+    margin-bottom: 30px;
+    font-weight: 500;
+    font-size: 18px;
+    font-family: "Bakbak One", sans-serif;
+    color: #000;
+    letter-spacing: 0;
+    line-height: 100%;
   }
-  .lab-results-section__batch-list a {
+  .tab-with-accordion .lr-batch-list a {
     color: #000;
     font-weight: 700;
   }
-  .lab-results-section__empty {
-    margin-top: 10px;
+  .tab-with-accordion .lr-empty {
+    margin: 10px 0 0;
     opacity: 0.7;
     font-size: 14px;
   }
-</style>
-
+  @media screen and (max-width: 1024px) {
+    
+  }
+  @media screen and (max-width: 767px) {
+    
+  }
+{% endstyle %}
 <section id="lab-results-{{ section.id }}" class="tab-with-accordion">
   <div class="page-width">
     <div class="lab-results-details">
@@ -154,7 +184,6 @@
     </div>
   </div>
 </section>
-
 <script>
   (function() {
     var root = document.getElementById('lab-results-{{ section.id }}');
@@ -206,7 +235,6 @@
     });
   })();
 </script>
-
 {% schema %}
   {
     "name": "Tab with accordion",
