@@ -116,14 +116,14 @@
                 {% break %}
               {% endif %}
             {% endfor %}
-            <button class="lab-results-section__tab{% if forloop.first %} is-active{% endif %}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="lr-{{ section.id }}-{{ tab }}" data-tab="{{ tab }}">{{ tab_label }}</button>
+            <button class="lab-results-section__tab{% if forloop.first %} is-active{% endif %}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="lr-{{ section.id }}-{{ tab | handleize }}" data-tab="{{ tab | handleize }}">{{ tab_label }}</button>
           {% endif %}
         {% endfor %}
       </div>
     {% endif %}
     {% for tab in unique_tabs_array %}
       {% if tab != blank %}
-        <div id="lr-{{ section.id }}-{{ tab }}" class="lab-results-section__panel{% if forloop.first %} is-active{% endif %}" role="tabpanel" tabindex="0">
+        <div id="lr-{{ section.id }}-{{ tab | handleize }}" class="lab-results-section__panel{% if forloop.first %} is-active{% endif %}" role="tabpanel" tabindex="0">
           {% for block in section.blocks %}
             {% if block.type == 'accordion' and block.settings.tab_target == tab %}
               <div class="lab-results-section__accordion" {{ block.shopify_attributes }}>
@@ -147,10 +147,15 @@
 <script>
   (function() {
     const root = document.getElementById('lab-results-{{ section.id }}');
-    if (!root) return;
+    if (!root) {
+      console.error('Root element not found for section: lab-results-{{ section.id }}');
+      return;
+    }
 
     const tabs = root.querySelectorAll('.lab-results-section__tab');
     const panels = root.querySelectorAll('.lab-results-section__panel');
+    console.log('Found tabs:', tabs.length, 'Found panels:', panels.length);
+
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
         tabs.forEach(t => {
@@ -160,17 +165,28 @@
         tab.classList.add('is-active');
         tab.setAttribute('aria-selected', 'true');
         panels.forEach(p => p.classList.remove('is-active'));
-        root.querySelector(`#lr-{{ section.id }}-${tab.getAttribute('data-tab')}`).classList.add('is-active');
+        const panel = root.querySelector(`#lr-{{ section.id }}-${tab.getAttribute('data-tab')}`);
+        if (panel) {
+          panel.classList.add('is-active');
+        } else {
+          console.error('Panel not found for tab:', tab.getAttribute('data-tab'));
+        }
       });
     });
 
     panels.forEach(panel => {
-      panel.querySelectorAll('.lab-results-section__accordion').forEach(acc => {
+      const accordions = panel.querySelectorAll('.lab-results-section__accordion');
+      console.log('Found accordions in panel:', accordions.length, 'Panel ID:', panel.id);
+      accordions.forEach(acc => {
         const btn = acc.querySelector('.lab-results-section__accordion-header');
         const content = acc.querySelector('.lab-results-section__accordion-content');
-        if (!btn || !content) return;
+        if (!btn || !content) {
+          console.error('Accordion button or content missing in:', acc);
+          return;
+        }
         btn.addEventListener('click', () => {
           const expanded = btn.getAttribute('aria-expanded') === 'true';
+          console.log('Accordion clicked:', btn.querySelector('.lab-results-section__accordion-title').textContent, 'Expanded:', expanded);
           acc.parentElement.querySelectorAll('.lab-results-section__accordion').forEach(otherAcc => {
             if (otherAcc !== acc) {
               otherAcc.querySelector('.lab-results-section__accordion-header').setAttribute('aria-expanded', 'false');
