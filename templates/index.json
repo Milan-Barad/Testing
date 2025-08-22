@@ -19,113 +19,33 @@
             "batch_list_html": "<h3><strong>Lorem Ipsum</strong>is simply</h3><p><strong>Lorem Ipsum</strong>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>"
           }
         },
-        "accordion_WAEpky": {
-          "type": "accordion",
-          "settings": {
-            "tab_title": "First Tab",
-            "batch_list_html": "<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here,</p>"
-          }
-        },
-        "accordion_xdkg7z": {
-          "type": "accordion",
-          "settings": {
-            "tab_title": "First Tab",
-            "batch_list_html": "<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing</p>"
-          }
-        },
-        "accordion_XVrzjG": {
-          "type": "accordion",
-          "settings": {
-            "tab_title": "First Tab",
-            "batch_list_html": "<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock,</p>"
-          }
-        },
-        "accordion_4KVCVR": {
+        "accordion_nPh7Fc": {
           "type": "accordion",
           "settings": {
             "tab_title": "Second Tab",
-            "batch_list_html": "<p>Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful</p>"
+            "batch_list_html": "<h3><strong>Lorem Ipsum</strong>is simply</h3><p><strong>Lorem Ipsum</strong>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>"
           }
         },
-        "accordion_qEhbP8": {
-          "type": "accordion",
-          "settings": {
-            "tab_title": "Second Tab",
-            "batch_list_html": "<p>essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>"
-          }
-        },
-        "accordion_PETn4F": {
-          "type": "accordion",
-          "settings": {
-            "tab_title": "Second Tab",
-            "batch_list_html": "<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.</p>"
-          }
-        },
-        "accordion_KxBt8e": {
-          "type": "accordion",
-          "settings": {
-            "tab_title": "Second Tab",
-            "batch_list_html": "<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing</p>"
-          }
-        },
-        "accordion_cYAgjA": {
+        "accordion_9zJTJW": {
           "type": "accordion",
           "settings": {
             "tab_title": "Third Tab",
-            "batch_list_html": "<p><strong>Lorem Ipsum</strong>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>"
+            "batch_list_html": "<h3><strong>Lorem Ipsum</strong>is simply</h3><p><strong>Lorem Ipsum</strong>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>"
           }
         },
-        "accordion_AGneyh": {
+        "accordion_Jp9Dqt": {
           "type": "accordion",
           "settings": {
-            "tab_title": "Third Tab",
-            "batch_list_html": "<p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>"
-          }
-        },
-        "accordion_NPci4N": {
-          "type": "accordion",
-          "settings": {
-            "tab_title": "Third Tab",
-            "batch_list_html": "<p>essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>"
-          }
-        },
-        "accordion_yXfgnV": {
-          "type": "accordion",
-          "settings": {
-            "tab_title": "Third Tab",
-            "batch_list_html": "<p>there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence</p>"
-          }
-        },
-        "accordion_4BneRr": {
-          "type": "accordion",
-          "settings": {
-            "tab_title": "Fourh Tab",
-            "batch_list_html": "<p><strong>Lorem Ipsum</strong>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>"
-          }
-        },
-        "accordion_EtPLBm": {
-          "type": "accordion",
-          "settings": {
-            "tab_title": "Fourh Tab",
-            "batch_list_html": "<p>words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem</p>"
+            "tab_title": "Fourth Tab",
+            "batch_list_html": "<h3><strong>Lorem Ipsum</strong>is simply</h3><p><strong>Lorem Ipsum</strong>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>"
           }
         }
       },
       "block_order": [
         "accordion_PwtPJ6",
-        "accordion_WAEpky",
-        "accordion_xdkg7z",
-        "accordion_XVrzjG",
-        "accordion_4KVCVR",
-        "accordion_qEhbP8",
-        "accordion_PETn4F",
-        "accordion_KxBt8e",
-        "accordion_cYAgjA",
-        "accordion_AGneyh",
-        "accordion_NPci4N",
-        "accordion_yXfgnV",
-        "accordion_4BneRr",
-        "accordion_EtPLBm"
+        "accordion_nPh7Fc",
+        "accordion_9zJTJW",
+        "accordion_Jp9Dqt"
       ],
       "name": "Tab with accordion",
       "settings": {
