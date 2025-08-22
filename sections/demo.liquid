@@ -90,23 +90,19 @@
     padding: 18px 24px;
     border-top: 1px solid #000;
   }
-  .tab-with-accordion .lr-batch-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .tab-with-accordion .lr-batch-list li {
-    margin-bottom: 30px;
-    font-weight: 500;
-    font-size: 18px;
+  .tab-with-accordion .lr-accordion__content h3 {
     font-family: "Bakbak One", sans-serif;
-    color: #000;
-    letter-spacing: 0;
-    line-height: 100%;
-  }
-  .tab-with-accordion .lr-batch-list a {
-    color: #000;
+    font-size: 18px;
     font-weight: 700;
+    margin: 0 0 10px;
+    color: #000;
+  }
+  .tab-with-accordion .lr-accordion__content p {
+    font-family: sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0;
+    color: #333;
   }
   .tab-with-accordion .lr-empty {
     margin: 10px 0 0;
@@ -150,9 +146,7 @@
                   <span class="lr-accordion__title">{{ block.settings.title | escape }}</span>
                 </button>
                 <div class="lr-accordion__content" hidden>
-                  <ul class="lr-batch-list">
-                    {{ block.settings.batch_list_html }}
-                  </ul>
+                  {{ block.settings.batch_list_html }}
                 </div>
               </div>
             {% endif %}
@@ -244,7 +238,7 @@
           {
             "type": "richtext",
             "id": "batch_list_html",
-            "label": "Answer"
+            "label": "Content (Use H3 for Question, P for Answer)"
           }
         ]
       }
