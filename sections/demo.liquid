@@ -142,7 +142,7 @@
       <!-- Tab Panels -->
       {% for tab in unique_tabs_array %}
         {% assign tab_id = tab | handleize %}
-        <div id="lr-{{ section.id }}-{{ tab_id }}" class="lr-panel{% if forloop.first %} is-active{% endif %}" tabindex="0">
+        <div id="lr-{{ section.id }}-{{ tab_id }}" class="lr-panel{% if forloop.first %} is-active{% endif %}">
           {% for block in section.blocks %}
             {% if block.type == 'accordion' and block.settings.tab_title == tab %}
               <div class="lr-accordion" {{ block.shopify_attributes }}>
