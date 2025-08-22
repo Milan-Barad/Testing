@@ -128,15 +128,24 @@
         <h2 class="lab-results__heading">{{ section.settings.heading }}</h2>
       {% endif %}
       <!-- Dynamic Tabs -->
-      {% assign unique_tabs_array = section.blocks | where: 'type', 'accordion' | map: 'settings.tab_target' | uniq %}
+      {% assign unique_tabs = '' %}
+      {% for block in section.blocks %}
+        {% if block.type == 'accordion' %}
+          {% assign tab_target = block.settings.tab_target %}
+          {% unless unique_tabs contains tab_target %}
+            {% assign unique_tabs = unique_tabs | append: tab_target | append: '||' %}
+          {% endunless %}
+        {% endif %}
+      {% endfor %}
+      {% assign unique_tabs_array = unique_tabs | split: '||' | uniq %}
       {% if unique_tabs_array.size > 0 %}
         <div class="lr-tabs" role="tablist" aria-label="Lab result categories">
           {% for tab in unique_tabs_array %}
             {% if tab != blank %}
               {% assign tab_label = tab %}
               {% for block in section.blocks %}
-                {% if block.type == 'accordion' and block.settings.tab_target == tab and block.settings.tab_label != blank %}
-                  {% assign tab_label = block.settings.tab_label %}
+                {% if block.type == 'accordion' and block.settings.tab_target == tab %}
+                  {% assign tab_label = block.settings.tab_label | default: tab %}
                   {% break %}
                 {% endif %}
               {% endfor %}
@@ -148,6 +157,13 @@
       <!-- Tab Panels -->
       {% for tab in unique_tabs_array %}
         {% if tab != blank %}
+          {% assign current_tab_label = tab %}
+          {% for block in section.blocks %}
+            {% if block.type == 'accordion' and block.settings.tab_target == tab %}
+              {% assign current_tab_label = block.settings.tab_label | default: tab %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
           <div id="lr-{{ section.id }}-{{ tab }}" class="lr-panel{% if forloop.first %} is-active{% endif %}" role="tabpanel" tabindex="0">
             {% for block in section.blocks %}
               {% if block.type == 'accordion' and block.settings.tab_target == tab %}
