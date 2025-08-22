@@ -146,7 +146,7 @@
           {% for block in section.blocks %}
             {% if block.type == 'accordion' and block.settings.tab_title == tab %}
               <div class="lr-accordion" {{ block.shopify_attributes }}>
-                <button class="lr-accordion__header" type="button" aria-expanded="false">
+                <button class="lr-accordion__header">
                   <span class="lr-accordion__title">{{ block.settings.title | escape }}</span>
                 </button>
                 <div class="lr-accordion__content" hidden>
