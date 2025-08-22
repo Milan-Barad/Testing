@@ -98,27 +98,34 @@
     {% assign unique_tabs = '' %}
     {% for block in section.blocks %}
       {% if block.type == 'accordion' %}
-        {% assign tab_label = block.settings.tab_label | default: block.settings.tab_target %}
-        {% unless unique_tabs contains tab_label %}
-          {% assign unique_tabs = unique_tabs | append: tab_label | append: '||' %}
+        {% assign tab_target = block.settings.tab_target %}
+        {% unless unique_tabs contains tab_target %}
+          {% assign unique_tabs = unique_tabs | append: tab_target | append: '||' %}
         {% endunless %}
       {% endif %}
     {% endfor %}
     {% assign unique_tabs_array = unique_tabs | split: '||' | uniq %}
     {% if unique_tabs_array.size > 0 %}
       <div class="lab-results-section__tabs" role="tablist">
-        {% for tab_label in unique_tabs_array %}
-          {% if tab_label != blank %}
-            <button class="lab-results-section__tab{% if forloop.first %} is-active{% endif %}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="lr-{{ section.id }}-{{ tab_label | handleize }}" data-tab="{{ tab_label | handleize }}">{{ tab_label }}</button>
+        {% for tab in unique_tabs_array %}
+          {% if tab != blank %}
+            {% assign tab_label = tab %}
+            {% for block in section.blocks %}
+              {% if block.type == 'accordion' and block.settings.tab_target == tab %}
+                {% assign tab_label = block.settings.tab_label | default: tab %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+            <button class="lab-results-section__tab{% if forloop.first %} is-active{% endif %}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="lr-{{ section.id }}-{{ tab }}" data-tab="{{ tab }}">{{ tab_label }}</button>
           {% endif %}
         {% endfor %}
       </div>
     {% endif %}
-    {% for tab_label in unique_tabs_array %}
-      {% if tab_label != blank %}
-        <div id="lr-{{ section.id }}-{{ tab_label | handleize }}" class="lab-results-section__panel{% if forloop.first %} is-active{% endif %}" role="tabpanel" tabindex="0">
+    {% for tab in unique_tabs_array %}
+      {% if tab != blank %}
+        <div id="lr-{{ section.id }}-{{ tab }}" class="lab-results-section__panel{% if forloop.first %} is-active{% endif %}" role="tabpanel" tabindex="0">
           {% for block in section.blocks %}
-            {% if block.type == 'accordion' and block.settings.tab_label == tab_label %}
+            {% if block.type == 'accordion' and block.settings.tab_target == tab %}
               <div class="lab-results-section__accordion" {{ block.shopify_attributes }}>
                 <button class="lab-results-section__accordion-header" type="button" aria-expanded="false">
                   <span class="lab-results-section__accordion-title">{{ block.settings.title | escape }}</span>
