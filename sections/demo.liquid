@@ -90,95 +90,117 @@
   }
 </style>
 
-<section id="lab-results-{{ section.id }}" class="lab-results-section">
-  <div class="lab-results-section__details">
-    {% if section.settings.heading != blank %}
-      <h2 class="lab-results-section__heading">{{ section.settings.heading }}</h2>
-    {% endif %}
-    {% assign unique_tabs_array = section.blocks | where: 'type', 'accordion' | map: 'settings.tab_target' | uniq %}
-    {% if unique_tabs_array.size > 0 %}
-      <div class="lab-results-section__tabs" role="tablist">
-        {% for tab in unique_tabs_array %}
-          {% if tab != blank %}
-            <button class="lab-results-section__tab{% if forloop.first %} is-active{% endif %}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="lr-{{ section.id }}-{{ tab | handleize }}" data-tab="{{ tab | handleize }}">{{ tab }}</button>
-          {% endif %}
-        {% endfor %}
-      </div>
-    {% endif %}
-    {% for tab in unique_tabs_array %}
-      {% if tab != blank %}
-        <div id="lr-{{ section.id }}-{{ tab | handleize }}" class="lab-results-section__panel{% if forloop.first %} is-active{% endif %}" role="tabpanel" tabindex="0">
-          {% for block in section.blocks %}
-            {% if block.type == 'accordion' and block.settings.tab_target == tab %}
-              <div class="lab-results-section__accordion" {{ block.shopify_attributes }}>
-                <button class="lab-results-section__accordion-header" type="button" aria-expanded="false">
-                  <span class="lab-results-section__accordion-title">{{ block.settings.title | escape }}</span>
-                </button>
-                <div class="lab-results-section__accordion-content" hidden>
-                  <ul class="lab-results-section__batch-list">
-                    {{ block.settings.batch_list_html }}
-                  </ul>
-                </div>
-              </div>
+<section id="lab-results-{{ section.id }}" class="tab-with-accordion">
+  <div class="page-width">
+    <div class="lab-results-details">
+      {% if section.settings.heading != blank %}
+        <h2 class="lab-results__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+      <!-- Dynamic Tabs -->
+      {% assign unique_tabs = '' %}
+      {% for block in section.blocks %}
+        {% if block.type == 'accordion' %}
+          {% assign tab_target = block.settings.tab_target %}
+          {% unless unique_tabs contains tab_target %}
+            {% assign unique_tabs = unique_tabs | append: tab_target | append: '||' %}
+          {% endunless %}
+        {% endif %}
+      {% endfor %}
+      {% assign unique_tabs_array = unique_tabs | split: '||' | uniq %}
+      {% if unique_tabs_array.size > 0 %}
+        <div class="lr-tabs" role="tablist" aria-label="Lab result categories">
+          {% for tab in unique_tabs_array %}
+            {% if tab != blank %}
+              {% assign tab_label = tab %}
+              {% for block in section.blocks %}
+                {% if block.type == 'accordion' and block.settings.tab_target == tab %}
+                  {% assign tab_label = block.settings.tab_label | default: tab %}
+                  {% break %}
+                {% endif %}
+              {% endfor %}
+              <button class="lr-tab{% if forloop.first %} is-active{% endif %}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="lr-{{ section.id }}-{{ tab }}" data-tab="{{ tab }}">{{ tab_label }}</button>
             {% endif %}
           {% endfor %}
         </div>
       {% endif %}
-    {% endfor %}
+      <!-- Tab Panels -->
+      {% for tab in unique_tabs_array %}
+        {% if tab != blank %}
+          {% assign current_tab_label = tab %}
+          {% for block in section.blocks %}
+            {% if block.type == 'accordion' and block.settings.tab_target == tab %}
+              {% assign current_tab_label = block.settings.tab_label | default: tab %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+          <div id="lr-{{ section.id }}-{{ tab }}" class="lr-panel{% if forloop.first %} is-active{% endif %}" role="tabpanel" tabindex="0">
+            {% for block in section.blocks %}
+              {% if block.type == 'accordion' and block.settings.tab_target == tab %}
+                <div class="lr-accordion" {{ block.shopify_attributes }}>
+                  <button class="lr-accordion__header" type="button" aria-expanded="false">
+                    <span class="lr-accordion__title">{{ block.settings.title | escape }}</span>
+                  </button>
+                  <div class="lr-accordion__content" hidden>
+                    <ul class="lr-batch-list">
+                      {{ block.settings.batch_list_html }}
+                    </ul>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
   </div>
 </section>
 
 <script>
   (function() {
-    const root = document.getElementById('lab-results-{{ section.id }}');
-    if (!root) {
-      console.error('Root element not found for section: lab-results-{{ section.id }}');
-      return;
-    }
-
-    const tabs = root.querySelectorAll('.lab-results-section__tab');
-    const panels = root.querySelectorAll('.lab-results-section__panel');
-    console.log('Found tabs:', tabs.length, 'Found panels:', panels.length);
-
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(t => {
+    var root = document.getElementById('lab-results-{{ section.id }}');
+    if (!root) return;
+    var tabs = root.querySelectorAll('.lr-tab');
+    var panels = root.querySelectorAll('.lr-panel');
+    tabs.forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        tabs.forEach(function(t) {
           t.classList.remove('is-active');
           t.setAttribute('aria-selected', 'false');
         });
         tab.classList.add('is-active');
         tab.setAttribute('aria-selected', 'true');
-        panels.forEach(p => p.classList.remove('is-active'));
-        const panel = root.querySelector(`#lr-{{ section.id }}-${tab.getAttribute('data-tab')}`);
-        if (panel) {
-          panel.classList.add('is-active');
-        } else {
-          console.error('Panel not found for tab:', tab.getAttribute('data-tab'));
-        }
+        var target = tab.getAttribute('data-tab');
+        panels.forEach(function(p) {
+          p.classList.remove('is-active');
+        });
+        var panel = root.querySelector('#lr-{{ section.id }}-' + target);
+        if (panel) panel.classList.add('is-active');
       });
     });
-
-    panels.forEach(panel => {
-      const accordions = panel.querySelectorAll('.lab-results-section__accordion');
-      console.log('Found accordions in panel:', accordions.length, 'Panel ID:', panel.id);
-      accordions.forEach(acc => {
-        const btn = acc.querySelector('.lab-results-section__accordion-header');
-        const content = acc.querySelector('.lab-results-section__accordion-content');
-        if (!btn || !content) {
-          console.error('Accordion button or content missing in:', acc);
-          return;
-        }
-        btn.addEventListener('click', () => {
-          const expanded = btn.getAttribute('aria-expanded') === 'true';
-          console.log('Accordion clicked:', btn.querySelector('.lab-results-section__accordion-title').textContent, 'Expanded:', expanded);
-          acc.parentElement.querySelectorAll('.lab-results-section__accordion').forEach(otherAcc => {
+    root.querySelectorAll('.lr-panel').forEach(function(panel) {
+      var accordions = panel.querySelectorAll('.lr-accordion');
+      accordions.forEach(function(acc) {
+        var btn = acc.querySelector('.lr-accordion__header');
+        var content = acc.querySelector('.lr-accordion__content');
+        if (!btn || !content) return;
+        btn.addEventListener('click', function() {
+          var expanded = btn.getAttribute('aria-expanded') === 'true';
+          accordions.forEach(function(otherAcc) {
             if (otherAcc !== acc) {
-              otherAcc.querySelector('.lab-results-section__accordion-header').setAttribute('aria-expanded', 'false');
-              otherAcc.querySelector('.lab-results-section__accordion-content').setAttribute('hidden', '');
+              var otherBtn = otherAcc.querySelector('.lr-accordion__header');
+              var otherContent = otherAcc.querySelector('.lr-accordion__content');
+              if (otherBtn && otherContent) {
+                otherBtn.setAttribute('aria-expanded', 'false');
+                otherContent.setAttribute('hidden', '');
+              }
             }
           });
-          btn.setAttribute('aria-expanded', !expanded);
-          content.toggleAttribute('hidden', expanded);
+          btn.setAttribute('aria-expanded', String(!expanded));
+          if (expanded) {
+            content.setAttribute('hidden', '');
+          } else {
+            content.removeAttribute('hidden');
+          }
         });
       });
     });
