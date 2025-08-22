@@ -23,7 +23,7 @@
     background: #fff;
     border: none;
     border-right: 1px solid #000;
-    transition: all 0.3s;
+    transition: background 0.3s;
   }
   .lab-results-section__tab.is-active {
     background: #c8b9b9;
@@ -111,7 +111,9 @@
           {% for block in section.blocks %}
             {% if block.type == 'accordion' and block.settings.tab_target == tab %}
               <div class="lab-results-section__accordion" {{ block.shopify_attributes }}>
-                <button class="lab-results-section__accordion-header" type="button" id="acc-{{ section.id }}-{{ forloop.index }}" aria-expanded="false">{{ block.settings.title | escape }}</button>
+                <button class="lab-results-section__accordion-header" type="button" aria-expanded="false">
+                  <span class="lab-results-section__accordion-title">{{ block.settings.title | escape }}</span>
+                </button>
                 <div class="lab-results-section__accordion-content" hidden>
                   <ul class="lab-results-section__batch-list">
                     {{ block.settings.batch_list_html }}
@@ -186,6 +188,11 @@
           {
             "type": "text",
             "id": "tab_target",
+            "label": "Tab ID"
+          },
+          {
+            "type": "text",
+            "id": "tab_label",
             "label": "Tab title"
           },
           {
