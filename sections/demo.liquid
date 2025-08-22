@@ -95,7 +95,7 @@
     {% if section.settings.heading != blank %}
       <h2 class="lab-results-section__heading">{{ section.settings.heading }}</h2>
     {% endif %}
-    {% assign unique_tabs_array = section.blocks | map: 'settings' | map: 'tab_target' | uniq %}
+    {% assign unique_tabs_array = section.blocks | map: 'settings.tab_target' | uniq %}
     {% if unique_tabs_array.size > 0 %}
       <div class="lab-results-section__tabs" role="tablist">
         {% for tab in unique_tabs_array %}
