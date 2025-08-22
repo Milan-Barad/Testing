@@ -95,26 +95,49 @@
     {% if section.settings.heading != blank %}
       <h2 class="lab-results-section__heading">{{ section.settings.heading }}</h2>
     {% endif %}
-    <div class="tabing-info" role="tablist">
-      {% for block in section.blocks %}
-        {% if block.type == 'accordion' and block.settings.city_name != blank %}
-          <button class="w3-bar-item w3-button{% if forloop.first %} is-active{% endif %}" onclick="openCity('{{ block.settings.city_name | escape }}')" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="lr-{{ section.id }}-{{ block.settings.city_name | escape }}" data-tab="{{ block.settings.city_name | escape }}">{{ block.settings.city_name }}</button>
-        {% endif %}
-      {% endfor %}
-    </div>
+    {% assign unique_tabs = '' %}
     {% for block in section.blocks %}
-      {% if block.type == 'accordion' and block.settings.city_name != blank %}
-        <div id="lr-{{ section.id }}-{{ block.settings.city_name | escape }}" class="lab-results-section__panel{% if forloop.first %} is-active{% endif %}" role="tabpanel" tabindex="0">
-          <div class="lab-results-section__accordion" {{ block.shopify_attributes }}>
-            <button class="lab-results-section__accordion-header" type="button" aria-expanded="false">
-              <span class="lab-results-section__accordion-title">{{ block.settings.title | escape }}</span>
-            </button>
-            <div class="lab-results-section__accordion-content" hidden>
-              <ul class="lab-results-section__batch-list">
-                {{ block.settings.batch_list_html }}
-              </ul>
-            </div>
-          </div>
+      {% if block.type == 'accordion' %}
+        {% assign tab_target = block.settings.tab_target %}
+        {% unless unique_tabs contains tab_target %}
+          {% assign unique_tabs = unique_tabs | append: tab_target | append: '||' %}
+        {% endunless %}
+      {% endif %}
+    {% endfor %}
+    {% assign unique_tabs_array = unique_tabs | split: '||' | uniq %}
+    {% if unique_tabs_array.size > 0 %}
+      <div class="lab-results-section__tabs" role="tablist">
+        {% for tab in unique_tabs_array %}
+          {% if tab != blank %}
+            {% assign tab_label = tab %}
+            {% for block in section.blocks %}
+              {% if block.type == 'accordion' and block.settings.tab_target == tab %}
+                {% assign tab_label = block.settings.tab_label | default: tab %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+            <button class="lab-results-section__tab{% if forloop.first %} is-active{% endif %}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="lr-{{ section.id }}-{{ tab }}" data-tab="{{ tab }}">{{ tab_label }}</button>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% for tab in unique_tabs_array %}
+      {% if tab != blank %}
+        <div id="lr-{{ section.id }}-{{ tab }}" class="lab-results-section__panel{% if forloop.first %} is-active{% endif %}" role="tabpanel" tabindex="0">
+          {% for block in section.blocks %}
+            {% if block.type == 'accordion' and block.settings.tab_target == tab %}
+              <div class="lab-results-section__accordion" {{ block.shopify_attributes }}>
+                <button class="lab-results-section__accordion-header" type="button" aria-expanded="false">
+                  <span class="lab-results-section__accordion-title">{{ block.settings.title | escape }}</span>
+                </button>
+                <div class="lab-results-section__accordion-content" hidden>
+                  <ul class="lab-results-section__batch-list">
+                    {{ block.settings.batch_list_html }}
+                  </ul>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
         </div>
       {% endif %}
     {% endfor %}
@@ -126,27 +149,21 @@
     const root = document.getElementById('lab-results-{{ section.id }}');
     if (!root) return;
 
-    // Tab switching function
-    window.openCity = function(tabName) {
-      const tabs = root.querySelectorAll('.w3-bar-item.w3-button');
-      const panels = root.querySelectorAll('.lab-results-section__panel');
-      tabs.forEach(tab => {
-        tab.classList.remove('is-active');
-        tab.setAttribute('aria-selected', 'false');
-      });
-      panels.forEach(panel => panel.classList.remove('is-active'));
-      
-      const selectedTab = root.querySelector(`button[data-tab="${tabName}"]`);
-      const selectedPanel = root.querySelector(`#lr-{{ section.id }}-${tabName}`);
-      if (selectedTab && selectedPanel) {
-        selectedTab.classList.add('is-active');
-        selectedTab.setAttribute('aria-selected', 'true');
-        selectedPanel.classList.add('is-active');
-      }
-    };
-
-    // Accordion functionality
+    const tabs = root.querySelectorAll('.lab-results-section__tab');
     const panels = root.querySelectorAll('.lab-results-section__panel');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => {
+          t.classList.remove('is-active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('is-active');
+        tab.setAttribute('aria-selected', 'true');
+        panels.forEach(p => p.classList.remove('is-active'));
+        root.querySelector(`#lr-{{ section.id }}-${tab.getAttribute('data-tab')}`).classList.add('is-active');
+      });
+    });
+
     panels.forEach(panel => {
       panel.querySelectorAll('.lab-results-section__accordion').forEach(acc => {
         const btn = acc.querySelector('.lab-results-section__accordion-header');
@@ -154,6 +171,12 @@
         if (!btn || !content) return;
         btn.addEventListener('click', () => {
           const expanded = btn.getAttribute('aria-expanded') === 'true';
+          acc.parentElement.querySelectorAll('.lab-results-section__accordion').forEach(otherAcc => {
+            if (otherAcc !== acc) {
+              otherAcc.querySelector('.lab-results-section__accordion-header').setAttribute('aria-expanded', 'false');
+              otherAcc.querySelector('.lab-results-section__accordion-content').setAttribute('hidden', '');
+            }
+          });
           btn.setAttribute('aria-expanded', !expanded);
           content.toggleAttribute('hidden', expanded);
         });
