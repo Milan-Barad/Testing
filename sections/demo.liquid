@@ -127,58 +127,39 @@
       {% if section.settings.heading != blank %}
         <h2 class="lab-results__heading">{{ section.settings.heading }}</h2>
       {% endif %}
-      <!-- Dynamic Tabs -->
-      {% assign unique_tabs = '' %}
-      {% for block in section.blocks %}
-        {% if block.type == 'accordion' %}
-          {% assign tab_target = block.settings.tab_target %}
-          {% unless unique_tabs contains tab_target %}
-            {% assign unique_tabs = unique_tabs | append: tab_target | append: '||' %}
-          {% endunless %}
-        {% endif %}
-      {% endfor %}
-      {% assign unique_tabs_array = unique_tabs | split: '||' | uniq %}
-      {% if unique_tabs_array.size > 0 %}
+
+      <!-- Tabs -->
+      {% if section.blocks.size > 0 %}
         <div class="lr-tabs" role="tablist" aria-label="Lab result categories">
-          {% for tab in unique_tabs_array %}
-            {% if tab != blank %}
-              {% assign tab_label = tab %}
-              {% for block in section.blocks %}
-                {% if block.type == 'accordion' and block.settings.tab_target == tab %}
-                  {% assign tab_label = block.settings.tab_label | default: tab %}
-                  {% break %}
-                {% endif %}
-              {% endfor %}
-              <button class="lr-tab{% if forloop.first %} is-active{% endif %}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="lr-{{ section.id }}-{{ tab }}" data-tab="{{ tab }}">{{ tab_label }}</button>
+          {% for block in section.blocks %}
+            {% if block.type == 'accordion' %}
+              <button 
+                class="lr-tab{% if forloop.first %} is-active{% endif %}" 
+                role="tab" 
+                aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" 
+                aria-controls="lr-{{ section.id }}-{{ block.settings.tab_target }}" 
+                data-tab="{{ block.settings.tab_target }}">
+                {{ block.settings.tab_label | default: block.settings.tab_target }}
+              </button>
             {% endif %}
           {% endfor %}
         </div>
       {% endif %}
-      <!-- Tab Panels -->
-      {% for tab in unique_tabs_array %}
-        {% if tab != blank %}
-          {% assign current_tab_label = tab %}
-          {% for block in section.blocks %}
-            {% if block.type == 'accordion' and block.settings.tab_target == tab %}
-              {% assign current_tab_label = block.settings.tab_label | default: tab %}
-              {% break %}
-            {% endif %}
-          {% endfor %}
-          <div id="lr-{{ section.id }}-{{ tab }}" class="lr-panel{% if forloop.first %} is-active{% endif %}" role="tabpanel" tabindex="0">
-            {% for block in section.blocks %}
-              {% if block.type == 'accordion' and block.settings.tab_target == tab %}
-                <div class="lr-accordion" {{ block.shopify_attributes }}>
-                  <button class="lr-accordion__header" type="button" aria-expanded="false">
-                    <span class="lr-accordion__title">{{ block.settings.title | escape }}</span>
-                  </button>
-                  <div class="lr-accordion__content" hidden>
-                    <ul class="lr-batch-list">
-                      {{ block.settings.batch_list_html }}
-                    </ul>
-                  </div>
-                </div>
-              {% endif %}
-            {% endfor %}
+
+      <!-- Panels -->
+      {% for block in section.blocks %}
+        {% if block.type == 'accordion' %}
+          <div id="lr-{{ section.id }}-{{ block.settings.tab_target }}" class="lr-panel{% if forloop.first %} is-active{% endif %}" role="tabpanel" tabindex="0">
+            <div class="lr-accordion" {{ block.shopify_attributes }}>
+              <button class="lr-accordion__header" type="button" aria-expanded="false">
+                <span class="lr-accordion__title">{{ block.settings.title | escape }}</span>
+              </button>
+              <div class="lr-accordion__content" hidden>
+                <ul class="lr-batch-list">
+                  {{ block.settings.batch_list_html }}
+                </ul>
+              </div>
+            </div>
           </div>
         {% endif %}
       {% endfor %}
