@@ -128,34 +128,36 @@
         <h2 class="lab-results__heading">{{ section.settings.heading }}</h2>
       {% endif %}
       <!-- Dynamic Tabs -->
-      {% assign unique_tabs_array = section.blocks | where: "type", "accordion" | map: "settings" | map: "tab_target" | uniq %}
+      {% assign unique_tabs_array = section.blocks | where: "type", "accordion" | map: "settings" | map: "tab_title" | uniq %}
       {% if unique_tabs_array.size > 0 %}
         <div class="lr-tabs" role="tablist" aria-label="Lab result categories">
           {% for tab in unique_tabs_array %}
-              <button class="lr-tab{% if forloop.first %} is-active{% endif %}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="lr-{{ section.id }}-{{ tab }}" data-tab="{{ tab }}">
-                {{ tab }}
-              </button>
+            {% assign tab_id = tab | handleize %}
+            <button class="lr-tab{% if forloop.first %} is-active{% endif %}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="lr-{{ section.id }}-{{ tab_id }}" data-tab="{{ tab_id }}">
+              {{ tab }}
+            </button>
           {% endfor %}
         </div>
       {% endif %}
       <!-- Tab Panels -->
       {% for tab in unique_tabs_array %}
-          <div id="lr-{{ section.id }}-{{ tab }}" class="lr-panel{% if forloop.first %} is-active{% endif %}" role="tabpanel" tabindex="0">
-            {% for block in section.blocks %}
-              {% if block.type == 'accordion' and block.settings.tab_target == tab %}
-                <div class="lr-accordion" {{ block.shopify_attributes }}>
-                  <button class="lr-accordion__header" type="button" aria-expanded="false">
-                    <span class="lr-accordion__title">{{ block.settings.title | escape }}</span>
-                  </button>
-                  <div class="lr-accordion__content" hidden>
-                    <ul class="lr-batch-list">
-                      {{ block.settings.batch_list_html }}
-                    </ul>
-                  </div>
+        {% assign tab_id = tab | handleize %}
+        <div id="lr-{{ section.id }}-{{ tab_id }}" class="lr-panel{% if forloop.first %} is-active{% endif %}" role="tabpanel" tabindex="0">
+          {% for block in section.blocks %}
+            {% if block.type == 'accordion' and block.settings.tab_title == tab %}
+              <div class="lr-accordion" {{ block.shopify_attributes }}>
+                <button class="lr-accordion__header" type="button" aria-expanded="false">
+                  <span class="lr-accordion__title">{{ block.settings.title | escape }}</span>
+                </button>
+                <div class="lr-accordion__content" hidden>
+                  <ul class="lr-batch-list">
+                    {{ block.settings.batch_list_html }}
+                  </ul>
                 </div>
-              {% endif %}
-            {% endfor %}
-          </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
       {% endfor %}
     </div>
   </div>
@@ -231,8 +233,8 @@
         "settings": [
           {
             "type": "text",
-            "id": "tab_target",
-            "label": "Tab ID and Title"
+            "id": "tab_title",
+            "label": "Tab Title"
           },
           {
             "type": "text",
