@@ -77,25 +77,10 @@
     font-size: 14px;
   }
   @media screen and (max-width: 1024px) {
-    .tab-with-accordion .lr-tabs {
-      flex-direction: column;
-    }
-    .tab-with-accordion .lr-tab {
-      border-right: none;
-      border-bottom: 1px solid #000;
-    }
+    
   }
   @media screen and (max-width: 767px) {
-    .tab-with-accordion .lab-results__heading {
-      font-size: 24px;
-    }
-    .tab-with-accordion .lr-tab {
-      font-size: 16px;
-      padding: 12px;
-    }
-    .tab-with-accordion .lr-accordion {
-      padding: 12px 16px;
-    }
+    
   }
 {% endstyle %}
 
@@ -120,18 +105,12 @@
       <!-- Tab Panels -->
       {% for tab in unique_tabs_array %}
         {% assign tab_id = tab | handleize %}
-        <div id="lr-{{ section.id }}-{{ tab_id }}" class="lr-panel{% if forloop.first %} is-active{% endif %}" role="tabpanel">
+        <div id="lr-{{ section.id }}-{{ tab_id }}" class="lr-panel{% if forloop.first %} is-active{% endif %}">
           {% for block in section.blocks %}
             {% if block.type == 'accordion' and block.settings.tab_title == tab %}
               <div class="lr-accordion" {{ block.shopify_attributes }}>
-                <div class="lr-accordion__content" role="region" aria-labelledby="accordion-heading-{{ block.id }}">
-                  {% if block.settings.batch_list_html != blank %}
-                    {{ block.settings.batch_list_html }}
-                  {% else %}
-                    <!-- Example content with h3 for question and p for answer -->
-                    <h3 id="accordion-heading-{{ block.id }}">Lorem Ipsum is simply</h3>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                  {% endif %}
+                <div class="lr-accordion__content">
+                  {{ block.settings.batch_list_html }}
                 </div>
               </div>
             {% endif %}
