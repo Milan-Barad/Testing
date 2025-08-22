@@ -133,12 +133,7 @@
         <div class="lr-tabs" role="tablist" aria-label="Lab result categories">
           {% for tab in unique_tabs_array %}
               <button class="lr-tab{% if forloop.first %} is-active{% endif %}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="lr-{{ section.id }}-{{ tab }}" data-tab="{{ tab }}">
-                {% for block in section.blocks %}
-                  {% if block.type == 'accordion' and block.settings.tab_target == tab %}
-                    {{ block.settings.tab_label | default: tab }}
-                    {% break %}
-                  {% endif %}
-                {% endfor %}
+                {{ tab }}
               </button>
           {% endfor %}
         </div>
@@ -237,12 +232,7 @@
           {
             "type": "text",
             "id": "tab_target",
-            "label": "Tab ID"
-          },
-          {
-            "type": "text",
-            "id": "tab_label",
-            "label": "Tab title"
+            "label": "Tab ID and Title"
           },
           {
             "type": "text",
