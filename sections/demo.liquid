@@ -1,240 +1,184 @@
 <style>
-  .tab-with-accordion {
-    padding-top: 100px;
-    padding-bottom: 100px;
-  }
-  .tab-with-accordion .page-width {
+  .lab-results-section {
+    padding: 80px 15px;
     max-width: 1300px;
-    padding: 0 15px;
     margin: 0 auto;
-    width: 100%;
   }
-  .tab-with-accordion .lab-results__heading {
+  .lab-results-section__heading {
     font-family: "Bakbak One", sans-serif;
     font-size: 28px;
     font-weight: 700;
-    line-height: 1.4em;
-    letter-spacing: 0;
-    text-transform: none;
-    padding-bottom: 30px;
-    margin: 0;
+    padding-bottom: 20px;
   }
-  .tab-with-accordion .lr-tabs {
+  .lab-results-section__tabs {
     display: flex;
     border: 1px solid #000;
     border-bottom: none;
     background: #fff;
   }
-  .tab-with-accordion .lr-tabs button.lr-tab.is-active {
-    background: #c8b9b9;
-  }
-  .tab-with-accordion .lr-tab {
-    padding: 16px;
+  .lab-results-section__tab {
+    padding: 12px;
     cursor: pointer;
-    font-weight: 700;
-    font-size: 18px;
-    font-family: "Bakbak One", sans-serif;
+    font: 700 18px "Bakbak One", sans-serif;
     background: #fff;
-    transition: all 0.3s;
-    appearance: none;
     border: none;
     border-right: 1px solid #000;
+    transition: background 0.3s;
   }
-  .tab-with-accordion .lr-panel {
+  .lab-results-section__tab.is-active {
+    background: #c8b9b9;
+  }
+  .lab-results-section__panel {
     display: none;
     border: 1px solid #000;
-    padding: 16px;
+    padding: 12px;
     background: #fff;
   }
-  .tab-with-accordion .lr-panel.is-active {
+  .lab-results-section__panel.is-active {
     display: block;
   }
-  .tab-with-accordion .lr-accordion {
+  .lab-results-section__accordion {
     border: 1px solid #000;
-    margin: 20px auto;      
+    margin: 15px 0;
   }
-  .tab-with-accordion .lr-accordion__header {
+  .lab-results-section__accordion-header {
     width: 100%;
     text-align: left;
-    padding: 18px 24px;
+    padding: 15px;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
-    align-items: center;
     font-weight: bold;
     background: transparent;
     border: none;
-    position: relative;
   }
-  .lr-accordion__header:after {
+  .lab-results-section__accordion-header:after {
     content: "";
-    justify-self: end;
-    align-self: center;
-    border-right: 2px solid #000;
-    border-bottom: 2px solid #000;
+    border: solid #000;
+    border-width: 0 2px 2px 0;
     width: 8px;
     height: 8px;
-    transform: rotate(45deg) translate(-25%, 0%);
+    transform: rotate(45deg);
   }
-  button.lr-accordion__header[aria-expanded="true"]::after {
-    transform: rotate(225deg) translate(0%, -45%);
+  .lab-results-section__accordion-header[aria-expanded="true"]::after {
+    transform: rotate(225deg);
   }
-  .tab-with-accordion .lr-accordion__title {
-    font-weight: 500;
-    font-size: 18px;
-    font-family: "Bakbak One", sans-serif;
-    letter-spacing: 0;
-    line-height: 100%;
-  }   
-  .tab-with-accordion .lr-accordion__content {
-    padding: 18px 24px;
+  .lab-results-section__accordion-title {
+    font: 500 18px "Bakbak One", sans-serif;
+  }
+  .lab-results-section__accordion-content {
+    padding: 15px;
     border-top: 1px solid #000;
   }
-  .tab-with-accordion .lr-batch-list {
+  .lab-results-section__batch-list {
     list-style: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
   }
-  .tab-with-accordion .lr-batch-list li {
-    margin-bottom: 30px;
-    font-weight: 500;
-    font-size: 18px;
-    font-family: "Bakbak One", sans-serif;
-    color: #000;
-    letter-spacing: 0;
-    line-height: 100%;
+  .lab-results-section__batch-list li {
+    margin-bottom: 20px;
+    font: 500 18px "Bakbak One", sans-serif;
   }
-  .tab-with-accordion .lr-batch-list a {
+  .lab-results-section__batch-list a {
     color: #000;
     font-weight: 700;
   }
-  .tab-with-accordion .lr-empty {
-    margin: 10px 0 0;
+  .lab-results-section__empty {
+    margin-top: 10px;
     opacity: 0.7;
     font-size: 14px;
   }
-
-  @media screen and (max-width: 1024px) {
-    
-  }
-  @media screen and (max-width: 767px) {
-    
-  }
 </style>
 
-<section id="lab-results-{{ section.id }}" class="tab-with-accordion">
-  <div class="page-width">
-    <div class="lab-results-details">
-      {% if section.settings.heading != blank %}
-        <h2 class="lab-results__heading">{{ section.settings.heading }}</h2>
+<section id="lab-results-{{ section.id }}" class="lab-results-section">
+  <div class="lab-results-section__details">
+    {% if section.settings.heading != blank %}
+      <h2 class="lab-results-section__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+    {% assign unique_tabs = '' %}
+    {% for block in section.blocks %}
+      {% if block.type == 'accordion' %}
+        {% assign tab_target = block.settings.tab_target %}
+        {% unless unique_tabs contains tab_target %}
+          {% assign unique_tabs = unique_tabs | append: tab_target | append: '||' %}
+        {% endunless %}
       {% endif %}
-      <!-- Dynamic Tabs -->
-      {% assign unique_tabs = '' %}
-      {% for block in section.blocks %}
-        {% if block.type == 'accordion' %}
-          {% assign tab_target = block.settings.tab_target %}
-          {% unless unique_tabs contains tab_target %}
-            {% assign unique_tabs = unique_tabs | append: tab_target | append: '||' %}
-          {% endunless %}
-        {% endif %}
-      {% endfor %}
-      {% assign unique_tabs_array = unique_tabs | split: '||' | uniq %}
-      {% if unique_tabs_array.size > 0 %}
-        <div class="lr-tabs" role="tablist" aria-label="Lab result categories">
-          {% for tab in unique_tabs_array %}
-            {% if tab != blank %}
-              {% assign tab_label = tab %}
-              {% for block in section.blocks %}
-                {% if block.type == 'accordion' and block.settings.tab_target == tab %}
-                  {% assign tab_label = block.settings.tab_label | default: tab %}
-                  {% break %}
-                {% endif %}
-              {% endfor %}
-              <button class="lr-tab{% if forloop.first %} is-active{% endif %}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="lr-{{ section.id }}-{{ tab }}" data-tab="{{ tab }}">{{ tab_label }}</button>
+    {% endfor %}
+    {% assign unique_tabs_array = unique_tabs | split: '||' | uniq %}
+    {% if unique_tabs_array.size > 0 %}
+      <div class="lab-results-section__tabs" role="tablist">
+        {% for tab in unique_tabs_array %}
+          {% if tab != blank %}
+            {% assign tab_label = tab %}
+            {% for block in section.blocks %}
+              {% if block.type == 'accordion' and block.settings.tab_target == tab %}
+                {% assign tab_label = block.settings.tab_label | default: tab %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+            <button class="lab-results-section__tab{% if forloop.first %} is-active{% endif %}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="lr-{{ section.id }}-{{ tab }}" data-tab="{{ tab }}">{{ tab_label }}</button>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% for tab in unique_tabs_array %}
+      {% if tab != blank %}
+        <div id="lr-{{ section.id }}-{{ tab }}" class="lab-results-section__panel{% if forloop.first %} is-active{% endif %}" role="tabpanel" tabindex="0">
+          {% for block in section.blocks %}
+            {% if block.type == 'accordion' and block.settings.tab_target == tab %}
+              <div class="lab-results-section__accordion" {{ block.shopify_attributes }}>
+                <button class="lab-results-section__accordion-header" type="button" aria-expanded="false">
+                  <span class="lab-results-section__accordion-title">{{ block.settings.title | escape }}</span>
+                </button>
+                <div class="lab-results-section__accordion-content" hidden>
+                  <ul class="lab-results-section__batch-list">
+                    {{ block.settings.batch_list_html }}
+                  </ul>
+                </div>
+              </div>
             {% endif %}
           {% endfor %}
         </div>
       {% endif %}
-      <!-- Tab Panels -->
-      {% for tab in unique_tabs_array %}
-        {% if tab != blank %}
-          {% assign current_tab_label = tab %}
-          {% for block in section.blocks %}
-            {% if block.type == 'accordion' and block.settings.tab_target == tab %}
-              {% assign current_tab_label = block.settings.tab_label | default: tab %}
-              {% break %}
-            {% endif %}
-          {% endfor %}
-          <div id="lr-{{ section.id }}-{{ tab }}" class="lr-panel{% if forloop.first %} is-active{% endif %}" role="tabpanel" tabindex="0">
-            {% for block in section.blocks %}
-              {% if block.type == 'accordion' and block.settings.tab_target == tab %}
-                <div class="lr-accordion" {{ block.shopify_attributes }}>
-                  <button class="lr-accordion__header" type="button" aria-expanded="false">
-                    <span class="lr-accordion__title">{{ block.settings.title | escape }}</span>
-                  </button>
-                  <div class="lr-accordion__content" hidden>
-                    <ul class="lr-batch-list">
-                      {{ block.settings.batch_list_html }}
-                    </ul>
-                  </div>
-                </div>
-              {% endif %}
-            {% endfor %}
-          </div>
-        {% endif %}
-      {% endfor %}
-    </div>
+    {% endfor %}
   </div>
 </section>
 
 <script>
   (function() {
-    var root = document.getElementById('lab-results-{{ section.id }}');
+    const root = document.getElementById('lab-results-{{ section.id }}');
     if (!root) return;
 
-    var tabs = root.querySelectorAll('.lr-tab');
-    var panels = root.querySelectorAll('.lr-panel');
-    tabs.forEach(function(tab) {
-      tab.addEventListener('click', function() {
-        tabs.forEach(function(t) {
+    const tabs = root.querySelectorAll('.lab-results-section__tab');
+    const panels = root.querySelectorAll('.lab-results-section__panel');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => {
           t.classList.remove('is-active');
           t.setAttribute('aria-selected', 'false');
         });
         tab.classList.add('is-active');
         tab.setAttribute('aria-selected', 'true');
-        var target = tab.getAttribute('data-tab');
-        panels.forEach(function(p) {
-          p.classList.remove('is-active');
-        });
-        var panel = root.querySelector('#lr-{{ section.id }}-' + target);
-        if (panel) panel.classList.add('is-active');
+        panels.forEach(p => p.classList.remove('is-active'));
+        root.querySelector(`#lr-{{ section.id }}-${tab.getAttribute('data-tab')}`).classList.add('is-active');
       });
     });
 
-    root.querySelectorAll('.lr-panel').forEach(function(panel) {
-      var accordions = panel.querySelectorAll('.lr-accordion');
-      accordions.forEach(function(acc) {
-        var btn = acc.querySelector('.lr-accordion__header');
-        var content = acc.querySelector('.lr-accordion__content');
+    panels.forEach(panel => {
+      panel.querySelectorAll('.lab-results-section__accordion').forEach(acc => {
+        const btn = acc.querySelector('.lab-results-section__accordion-header');
+        const content = acc.querySelector('.lab-results-section__accordion-content');
         if (!btn || !content) return;
-        btn.addEventListener('click', function() {
-          var expanded = btn.getAttribute('aria-expanded') === 'true';
-          accordions.forEach(function(otherAcc) {
+        btn.addEventListener('click', () => {
+          const expanded = btn.getAttribute('aria-expanded') === 'true';
+          acc.parentElement.querySelectorAll('.lab-results-section__accordion').forEach(otherAcc => {
             if (otherAcc !== acc) {
-              var otherBtn = otherAcc.querySelector('.lr-accordion__header');
-              var otherContent = otherAcc.querySelector('.lr-accordion__content');
-              if (otherBtn && otherContent) {
-                otherBtn.setAttribute('aria-expanded', 'false');
-                otherContent.setAttribute('hidden', '');
-              }
+              otherAcc.querySelector('.lab-results-section__accordion-header').setAttribute('aria-expanded', 'false');
+              otherAcc.querySelector('.lab-results-section__accordion-content').setAttribute('hidden', '');
             }
           });
-          btn.setAttribute('aria-expanded', String(!expanded));
-          if (expanded) {
-            content.setAttribute('hidden', '');
-          } else {
-            content.removeAttribute('hidden');
-          }
+          btn.setAttribute('aria-expanded', !expanded);
+          content.toggleAttribute('hidden', expanded);
         });
       });
     });
