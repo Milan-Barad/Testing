@@ -132,7 +132,6 @@
       {% if unique_tabs_array.size > 0 %}
         <div class="lr-tabs" role="tablist" aria-label="Lab result categories">
           {% for tab in unique_tabs_array %}
-            {% if tab != blank %}
               <button class="lr-tab{% if forloop.first %} is-active{% endif %}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="lr-{{ section.id }}-{{ tab }}" data-tab="{{ tab }}">
                 {% for block in section.blocks %}
                   {% if block.type == 'accordion' and block.settings.tab_target == tab %}
@@ -141,13 +140,11 @@
                   {% endif %}
                 {% endfor %}
               </button>
-            {% endif %}
           {% endfor %}
         </div>
       {% endif %}
       <!-- Tab Panels -->
       {% for tab in unique_tabs_array %}
-        {% if tab != blank %}
           <div id="lr-{{ section.id }}-{{ tab }}" class="lr-panel{% if forloop.first %} is-active{% endif %}" role="tabpanel" tabindex="0">
             {% for block in section.blocks %}
               {% if block.type == 'accordion' and block.settings.tab_target == tab %}
@@ -164,7 +161,6 @@
               {% endif %}
             {% endfor %}
           </div>
-        {% endif %}
       {% endfor %}
     </div>
   </div>
