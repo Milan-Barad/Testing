@@ -95,12 +95,28 @@
     {% if section.settings.heading != blank %}
       <h2 class="lab-results-section__heading">{{ section.settings.heading }}</h2>
     {% endif %}
-    {% assign unique_tabs_array = section.blocks | map: 'settings.tab_target' | uniq %}
+    {% assign unique_tabs = '' %}
+    {% for block in section.blocks %}
+      {% if block.type == 'accordion' %}
+        {% assign tab_target = block.settings.tab_target %}
+        {% unless unique_tabs contains tab_target %}
+          {% assign unique_tabs = unique_tabs | append: tab_target | append: '||' %}
+        {% endunless %}
+      {% endif %}
+    {% endfor %}
+    {% assign unique_tabs_array = unique_tabs | split: '||' | uniq %}
     {% if unique_tabs_array.size > 0 %}
       <div class="lab-results-section__tabs" role="tablist">
         {% for tab in unique_tabs_array %}
           {% if tab != blank %}
-            <button class="lab-results-section__tab{% if forloop.first %} is-active{% endif %}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="lr-{{ section.id }}-{{ tab }}" data-tab="{{ tab }}">{{ tab }}</button>
+            {% assign tab_label = tab %}
+            {% for block in section.blocks %}
+              {% if block.type == 'accordion' and block.settings.tab_target == tab %}
+                {% assign tab_label = block.settings.tab_label | default: tab %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+            <button class="lab-results-section__tab{% if forloop.first %} is-active{% endif %}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="lr-{{ section.id }}-{{ tab }}" data-tab="{{ tab }}">{{ tab_label }}</button>
           {% endif %}
         {% endfor %}
       </div>
