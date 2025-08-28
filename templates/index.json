@@ -19,7 +19,8 @@
         "button_text": "Learn More",
         "button_link": "shopify://collections/add-to-cart",
         "button_color": "#000000",
-        "custom_css": ".image-with-text { background-color: #A19898;}\n.image-with-text__content p {\n    color: #FFF;\n}"
+        "desktop_custom_css": ".image-with-text {\n    background: red;\n}",
+        "mobile_custom_css": "/* Add your mobile custom CSS here */"
       }
     },
     "demo_UWG8YT": {
@@ -32,7 +33,8 @@
         "button_text": "Learn More",
         "button_link": "shopify://collections/add-to-cart",
         "button_color": "#000000",
-        "custom_css": ".image-with-text__content p {\n    color: green;\n}\n.image-with-text { background-color: red;}"
+        "desktop_custom_css": ".image-with-text {\n    background: #FF5F;\n}",
+        "mobile_custom_css": "/* Add your mobile custom CSS here */"
       }
     },
     "1621243260e1af0c20": {
