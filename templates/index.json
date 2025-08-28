@@ -11,45 +11,14 @@
   "sections": {
     "demo_ikwzat": {
       "type": "demo",
-      "blocks": {
-        "accordion_PwtPJ6": {
-          "type": "accordion",
-          "settings": {
-            "tab_title": "First Tab",
-            "batch_list_html": "<h3><strong>Lorem Ipsum</strong>is simply</h3><p><strong>Lorem Ipsum</strong>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>"
-          }
-        },
-        "accordion_nPh7Fc": {
-          "type": "accordion",
-          "settings": {
-            "tab_title": "Second Tab",
-            "batch_list_html": "<h3><strong>Lorem Ipsum</strong>is simply</h3><p><strong>Lorem Ipsum</strong>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>"
-          }
-        },
-        "accordion_9zJTJW": {
-          "type": "accordion",
-          "settings": {
-            "tab_title": "Third Tab",
-            "batch_list_html": "<h3><strong>Lorem Ipsum</strong>is simply</h3><p><strong>Lorem Ipsum</strong>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>"
-          }
-        },
-        "accordion_Jp9Dqt": {
-          "type": "accordion",
-          "settings": {
-            "tab_title": "Fourth Tab",
-            "batch_list_html": "<h3><strong>Lorem Ipsum</strong>is simply</h3><p><strong>Lorem Ipsum</strong>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "accordion_PwtPJ6",
-        "accordion_nPh7Fc",
-        "accordion_9zJTJW",
-        "accordion_Jp9Dqt"
-      ],
       "name": "Tab with accordion",
       "settings": {
-        "heading": "Check Out Our Lab Test Results:"
+        "image": "shopify://shop_images/Rectangle_1_1.png",
+        "title": "Add navigation arrows.",
+        "content": "Do you want me to also add navigation arrows (next/prev buttons) along with pagination, or just pagination is enough? Do you want me to also add navigation arrows (next/prev buttons) along with pagination, or just pagination is enough?",
+        "button_text": "Learn More",
+        "button_link": "shopify://collections/add-to-cart",
+        "button_color": "#000000"
       }
     },
     "1621243260e1af0c20": {
