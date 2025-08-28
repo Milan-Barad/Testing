@@ -1,86 +1,69 @@
-<style>
-section.auto-scroll-section {
-    background: #E82C2A;
-    padding: 16px 0;
-}
-section.auto-scroll-section .scroll-list {
-    overflow: hidden;
-    white-space: nowrap;
-    margin: 0;
-}
-section.auto-scroll-section ul {
-    padding: 0;
-    list-style: none;
-    margin: 0;
-    display: inline-flex;
-    animation: marquee 15s linear infinite;
-}
-section.auto-scroll-section ul li {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 0 40px;
-    border-right: 1px solid #fff;
-    width: max-content;
-}
-section.auto-scroll-section .icon-text img {
-    margin: 0;
-}
-@keyframes marquee {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(-100%);
-    }
-}
-</style>
-<section class="auto-scroll-section">
-    <div class="scroll-list">
-        <ul>
-            {% for block in section.blocks %}
-                <li>
-                    <svg width="26" height="27" viewBox="0 0 26 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M13 0.5C5.83208 0.5 0 6.33208 0 13.5C0 20.6679 5.83208 26.5 13 26.5C20.1679 26.5 26 20.6679 26 13.5C26 6.33208 20.1679 0.5 13 0.5ZM20.2657 10.0789L11.9574 18.3221C11.4687 18.8108 10.6867 18.8434 10.1654 18.3546L5.76692 14.3471C5.24561 13.8584 5.21303 13.0439 5.66917 12.5226C6.1579 12.0013 6.97243 11.9687 7.49373 12.4574L10.98 15.6504L18.4085 8.22181C18.9298 7.7005 19.7444 7.7005 20.2657 8.22181C20.787 8.74311 20.787 9.55764 20.2657 10.0789Z" fill="white"/>
-                    </svg>
-                    {{ block.settings.text }}
-                </li>
-            {% endfor %}
-        </ul>
-        <ul>
-            {% for block in section.blocks %}
-                <li>
-                    <svg width="26" height="27" viewBox="0 0 26 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M13 0.5C5.83208 0.5 0 6.33208 0 13.5C0 20.6679 5.83208 26.5 13 26.5C20.1679 26.5 26 20.6679 26 13.5C26 6.33208 20.1679 0.5 13 0.5ZM20.2657 10.0789L11.9574 18.3221C11.4687 18.8108 10.6867 18.8434 10.1654 18.3546L5.76692 14.3471C5.24561 13.8584 5.21303 13.0439 5.66917 12.5226C6.1579 12.0013 6.97243 11.9687 7.49373 12.4574L10.98 15.6504L18.4085 8.22181C18.9298 7.7005 19.7444 7.7005 20.2657 8.22181C20.787 8.74311 20.787 9.55764 20.2657 10.0789Z" fill="white"/>
-                    </svg>
-                    {{ block.settings.text }}
-                </li>
-            {% endfor %}
-        </ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Text and Icon Marquee</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* Container for the marquee */
+        .marquee {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            background-color: #f0f0f0;
+            padding: 15px 0;
+        }
+
+        /* Wrapper for text and icons */
+        .marquee-content {
+            display: inline-flex;
+            align-items: center;
+            animation: marquee 15s linear infinite;
+        }
+
+        /* Individual item styling */
+        .marquee-item {
+            display: flex;
+            align-items: center;
+            margin-right: 30px; /* Space between items */
+            font-size: 20px;
+            color: #333;
+        }
+
+        /* Icon styling */
+        .marquee-item i {
+            margin-right: 8px;
+            color: #007bff; /* Icon color */
+            font-size: 22px;
+        }
+
+        /* Keyframes for the marquee animation */
+        @keyframes marquee {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Hover effect to pause animation */
+        .marquee:hover .marquee-content {
+            animation-play-state: paused;
+        }
+    </style>
+</head>
+<body>
+    <div class="marquee">
+        <div class="marquee-content">
+            <div class="marquee-item"><i class="fas fa-rocket"></i> Launching New Features!</div>
+            <div class="marquee-item"><i class="fas fa-star"></i> Rated 5 Stars!</div>
+            <div class="marquee-item"><i class="fas fa-globe"></i> Global Reach!</div>
+            <div class="marquee-item"><i class="fas fa-heart"></i> Made with Love!</div>
+            <div class="marquee-item"><i class="fas fa-bolt"></i> Fast Performance!</div>
+        </div>
     </div>
-</section>
-{% schema %}
-{
-    "name": "Auto Scroll Section",
-    "settings": [],
-    "blocks" : [
-        {
-            "type" : "text",
-            "name" : "Text",
-            "settings" : [
-                {
-                    "id" : "text",
-                    "type" : "text",
-                    "label" : "Text"
-                }
-            ]
-        }
-    ],
-    "presets": [
-        {
-            "name": "Auto Scroll Section",
-            "category": "Text"
-        }
-    ]
-}
-{% endschema %}
+</body>
+</html>
