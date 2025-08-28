@@ -32,7 +32,7 @@
         "button_text": "Learn More",
         "button_link": "shopify://collections/add-to-cart",
         "button_color": "#000000",
-        "custom_css": ""
+        "custom_css": ".image-with-text__content p {\n    color: red;\n}"
       }
     },
     "1621243260e1af0c20": {
