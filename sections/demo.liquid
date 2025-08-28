@@ -55,7 +55,7 @@
 <section class="image-with-text">
   <div class="image-with-text__image">
     {% if section.settings.image != blank %}
-      <img src="{{ section.settings.image | img_url: 'large' }}" alt="{{ section.settings.image.alt | escape }}">
+      <img src="{{ section.settings.image | image_url }}" height="auto" width="auto" alt="{{ section.settings.image.alt }}">
     {% else %}
       {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
     {% endif %}
