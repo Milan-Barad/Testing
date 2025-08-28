@@ -1,6 +1,10 @@
+{% comment %}
+  Section: Image with Text
+  Description: Displays an image on the left with title, content, and button on the right, with custom CSS option and unique ID.
+{% endcomment %}
 
 {%- style -%}
-  .image-with-text {
+  #shopify-section-{{ section.id }} .image-with-text {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -9,26 +13,26 @@
     max-width: 1200px;
     margin: 0 auto;
   }
-  .image-with-text__image {
+  #shopify-section-{{ section.id }} .image-with-text__image {
     flex: 1 1 40%;
     max-width: 500px;
   }
-  .image-with-text__image img {
+  #shopify-section-{{ section.id }} .image-with-text__image img {
     width: 100%;
     height: auto;
     object-fit: cover;
   }
-  .image-with-text__content {
+  #shopify-section-{{ section.id }} .image-with-text__content {
     flex: 1 1 50%;
   }
-  .image-with-text__title {
+  #shopify-section-{{ section.id }} .image-with-text__title {
     font-size: 2rem;
     margin-bottom: 1rem;
   }
-  .image-with-text__content p {
+  #shopify-section-{{ section.id }} .image-with-text__content p {
     margin-bottom: 1.5rem;
   }
-  .image-with-text__button {
+  #shopify-section-{{ section.id }} .image-with-text__button {
     display: inline-block;
     padding: 0.75rem 1.5rem;
     background-color: {{ section.settings.button_color }};
@@ -37,19 +41,22 @@
     border-radius: 4px;
   }
   @media (max-width: 768px) {
-    .image-with-text {
+    #shopify-section-{{ section.id }} .image-with-text {
       flex-direction: column;
       text-align: center;
     }
-    .image-with-text__image,
-    .image-with-text__content {
+    #shopify-section-{{ section.id }} .image-with-text__image,
+    #shopify-section-{{ section.id }} .image-with-text__content {
       flex: 1 1 100%;
     }
   }
-  {{ section.settings.custom_css }}
+  {% if section.settings.custom_css != blank %}
+    {% capture custom_css_scoped %}#shopify-section-{{ section.id }} {{ section.settings.custom_css | strip_newlines }}{% endcapture %}
+    {{ custom_css_scoped }}
+  {% endif %}
 {%- endstyle -%}
 
-<section class="image-with-text">
+<section class="image-with-text" id="shopify-section-{{ section.id }}">
   <div class="image-with-text__image">
     {% if section.settings.image != blank %}
       <img src="{{ section.settings.image | img_url: 'large' }}" alt="{{ section.settings.image.alt | escape }}">
