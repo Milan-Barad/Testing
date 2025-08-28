@@ -56,10 +56,14 @@
       padding: 0.5rem 1rem; /* Smaller button padding for mobile */
       font-size: 0.9rem; /* Smaller button text for mobile */
     }
+    {% if section.settings.mobile_custom_css != blank %}
+      {% capture mobile_custom_css_scoped %}#shopify-section-{{ section.id }} {{ section.settings.mobile_custom_css | strip_newlines }}{% endcapture %}
+      {{ mobile_custom_css_scoped }}
+    {% endif %}
   }
-  {% if section.settings.custom_css != blank %}
-    {% capture custom_css_scoped %}#shopify-section-{{ section.id }} {{ section.settings.custom_css | strip_newlines }}{% endcapture %}
-    {{ custom_css_scoped }}
+  {% if section.settings.desktop_custom_css != blank %}
+    {% capture desktop_custom_css_scoped %}#shopify-section-{{ section.id }} {{ section.settings.desktop_custom_css | strip_newlines }}{% endcapture %}
+    {{ desktop_custom_css_scoped }}
   {% endif %}
 {%- endstyle -%}
 
@@ -120,10 +124,17 @@
     },
     {
       "type": "textarea",
-      "id": "custom_css",
-      "label": "Custom CSS",
-      "info": "Add custom CSS to style this section further. Example: .image-with-text { background-color: #f5f5f5; }",
-      "default": "/* Add your custom CSS here */"
+      "id": "desktop_custom_css",
+      "label": "Desktop Custom CSS",
+      "info": "Add custom CSS for desktop. Example: .image-with-text { background-color: #f5f5f5; }",
+      "default": "/* Add your desktop custom CSS here */"
+    },
+    {
+      "type": "textarea",
+      "id": "mobile_custom_css",
+      "label": "Mobile Custom CSS",
+      "info": "Add custom CSS for mobile (applied within max-width: 768px). Example: .image-with-text { background-color: #f0f0f0; }",
+      "default": "/* Add your mobile custom CSS here */"
     }
   ],
   "presets": [
