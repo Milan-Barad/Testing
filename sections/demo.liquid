@@ -1,123 +1,57 @@
 <style>
-    img{
-        max-width: 100%;
-    }
-    .mobile-slider .marquee-wrapper .container{
-      overflow:hidden;
-    }
-    .mobile-slider .marquee-inner span{
-      float:left;
-      width:50%;
-    }
-    .mobile-slider .marquee-wrapper .marquee-block{
-      --total-marquee-items:9;
-      height: 340px;
-      width: calc(250px * (var(--total-marquee-items)));
-      overflow: hidden;
-      box-sizing: border-box;
-      position: relative;
-      margin: 20px auto;
-      padding: 0 0;
-    }
-    .mobile-slider .marquee-inner{
-      display: block;
-      width: 160%;
-      position: absolute;
-    }
-    .mobile-slider .marquee-inner.to-left{
-      animation: marqueeLeft 40s linear infinite;
-    }
-    .mobile-slider .marquee-item{
-      width: calc(11.11% - 20px);
-      height: auto;
-      display: inline-block;
-      margin: 0 10px;
-      float: left;
-      transition: all .2s ease-out;
-    }
-    .mobile-slider .marquee-item p{
-        margin: 0;
-        padding: 0;
-    }
-    .mobile-slider p.text-white img {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
-        height: 100%;
-    }
-    .mobile-slider p.text-white {
-        position: relative;
-        overflow: hidden;
-        z-index: 1;
-        padding: 190% 0 0 0;
-    }
-    @keyframes marqueeLeft{
-      0% {
-        left: 0;
-      }
-      100% {
-        left: -100%;
-      }
-    }
+section.auto-scroll-section {
+    background: #E82C2A;
+    padding: 16px 0;
+}
+section.auto-scroll-section ul {
+    padding: 0;
+    list-style: none;
+    margin: 0;
+}
+section.auto-scroll-section ul li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 40px;
+    border-right: 1px solid #fff;
+}
 </style>
-
-<div class="mobile-slider">
-    <div class="marquee-wrapper">
-        <div class="container">
-            <div class="marquee-block">
-                <div class="marquee-inner to-left">
-                    <span>
-                        <div class="marquee-item">
-                            <p class="text-white">
-                                <img src="https://storage.googleapis.com/msgsndr/JEJVFEoJTPegDayFNUPW/media/66053a0826422b4f961ac3e2.gif">
-                            </p>
-                        </div>
-                        <div class="marquee-item">
-                            <p class="text-white">
-                                <img src="https://storage.googleapis.com/msgsndr/JEJVFEoJTPegDayFNUPW/media/66053a473828fef9acd309df.gif">
-                            </p>
-                        </div>
-                        <div class="marquee-item">
-                            <p class="text-white">
-                                <img src="https://storage.googleapis.com/msgsndr/JEJVFEoJTPegDayFNUPW/media/66053a473828fe808bd309de.gif">
-                            </p>
-                        </div>
-                        <div class="marquee-item">
-                            <p class="text-white">
-                                <img src="https://storage.googleapis.com/msgsndr/JEJVFEoJTPegDayFNUPW/media/66053a474d7869861fd33e2a.gif">
-                            </p>
-                        </div>
-                        <div class="marquee-item">
-                            <p class="text-white">
-                                <img src="https://storage.googleapis.com/msgsndr/JEJVFEoJTPegDayFNUPW/media/66053a47a79bbe2b66be4bde.gif">
-                            </p>
-                        </div>
-                        <div class="marquee-item">
-                            <p class="text-white">
-                                <img src="https://storage.googleapis.com/msgsndr/JEJVFEoJTPegDayFNUPW/media/66053a4726422b837c1ac3ef.gif">
-                            </p>
-                        </div>
-                        <div class="marquee-item">
-                            <p class="text-white">
-                                <img src="https://storage.googleapis.com/msgsndr/JEJVFEoJTPegDayFNUPW/media/66053a473828fe29a4d309dd.gif">
-                            </p>
-                        </div>
-                        <div class="marquee-item">
-                            <p class="text-white">
-                                <img src="https://storage.googleapis.com/msgsndr/JEJVFEoJTPegDayFNUPW/media/66053a475badf3b055606cf0.gif">
-                            </p>
-                        </div>
-                        <div class="marquee-item">
-                            <p class="text-white">
-                                <img src="https://storage.googleapis.com/msgsndr/JEJVFEoJTPegDayFNUPW/media/66053a4726422b83f71ac3ee.gif">
-                            </p>
-                        </div>
-                    </span>
-                </div>
-            </div>
-        </div>
+<section class="auto-scroll-section">
+    <div class="scroll-list">
+        <ul>
+            {% for block in section.blocks %}
+                <li>
+                    <svg width="26" height="27" viewBox="0 0 26 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 0.5C5.83208 0.5 0 6.33208 0 13.5C0 20.6679 5.83208 26.5 13 26.5C20.1679 26.5 26 20.6679 26 13.5C26 6.33208 20.1679 0.5 13 0.5ZM20.2657 10.0789L11.9574 18.3221C11.4687 18.8108 10.6867 18.8434 10.1654 18.3546L5.76692 14.3471C5.24561 13.8584 5.21303 13.0439 5.66917 12.5226C6.1579 12.0013 6.97243 11.9687 7.49373 12.4574L10.98 15.6504L18.4085 8.22181C18.9298 7.7005 19.7444 7.7005 20.2657 8.22181C20.787 8.74311 20.787 9.55764 20.2657 10.0789Z" fill="white"/>
+                    </svg>
+                    {{ block.settings.text }}
+                </li>
+            {% endfor %}
+        </ul>
     </div>
-</div>
+</section>
+{% schema %}
+{
+    "name": "Auto Scroll Section",
+    "settings": [],
+    "blocks" : [
+        {
+            "type" : "text",
+            "name" : "Text",
+            "settings" : [
+                {
+                    "id" : "text",
+                    "type" : "text",
+                    "label" : "Text"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Auto Scroll Section",
+            "category": "Text"
+        }
+    ]
+}
+{% endschema %}
