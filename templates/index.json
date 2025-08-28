@@ -18,7 +18,8 @@
         "content": "Do you want me to also add navigation arrows (next/prev buttons) along with pagination, or just pagination is enough? Do you want me to also add navigation arrows (next/prev buttons) along with pagination, or just pagination is enough?",
         "button_text": "Learn More",
         "button_link": "shopify://collections/add-to-cart",
-        "button_color": "#000000"
+        "button_color": "#a19898",
+        "custom_css": ".image-with-text { background-color: #A19898;"
       }
     },
     "1621243260e1af0c20": {
