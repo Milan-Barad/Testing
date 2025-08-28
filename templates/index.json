@@ -11,31 +11,52 @@
   "sections": {
     "demo_ikwzat": {
       "type": "demo",
+      "blocks": {
+        "text_xfAXjb": {
+          "type": "text",
+          "settings": {
+            "text": "asdasdas"
+          }
+        },
+        "text_97r7Jy": {
+          "type": "text",
+          "settings": {
+            "text": "asdasdas asdasdas"
+          }
+        },
+        "text_kdRWwk": {
+          "type": "text",
+          "settings": {
+            "text": "asdg asdfgahsd"
+          }
+        },
+        "text_RA6aVy": {
+          "type": "text",
+          "settings": {
+            "text": "hello jpw are you"
+          }
+        },
+        "text_WEM7Rq": {
+          "type": "text",
+          "settings": {
+            "text": "asdasdas asdasdas"
+          }
+        }
+      },
+      "block_order": [
+        "text_xfAXjb",
+        "text_97r7Jy",
+        "text_kdRWwk",
+        "text_RA6aVy",
+        "text_WEM7Rq"
+      ],
       "name": "Tab with accordion",
-      "settings": {
-        "image": "shopify://shop_images/Rectangle_1_1.png",
-        "title": "Add navigation arrows.",
-        "content": "Do you want me to also add navigation arrows (next/prev buttons) along with pagination, or just pagination is enough? Do you want me to also add navigation arrows (next/prev buttons) along with pagination, or just pagination is enough?",
-        "button_text": "Learn More",
-        "button_link": "shopify://collections/add-to-cart",
-        "button_color": "#000000",
-        "desktop_custom_css": ".image-with-text {\n    background: red;\n}\n.image-with-text a {\n    color: yellow;\n}",
-        "mobile_custom_css": ".image-with-text p {\n    color: #FFF;\n}"
-      }
+      "settings": {}
     },
     "demo_UWG8YT": {
       "type": "demo",
       "name": "Tab with accordion",
-      "settings": {
-        "image": "shopify://shop_images/Rectangle_1_1.png",
-        "title": "Add navigation arrows.",
-        "content": "Do you want me to also add navigation arrows (next/prev buttons) along with pagination, or just pagination is en",
-        "button_text": "Learn More",
-        "button_link": "shopify://collections/add-to-cart",
-        "button_color": "#000000",
-        "desktop_custom_css": ".image-with-text {\n    background: #FF5F;\n}\n.image-with-text p {\n    color: red;\n}",
-        "mobile_custom_css": ".image-with-text p {\n    color: green;\n}\n.image-with-text a {\n    color: pink;\n}"
-      }
+      "settings": {}
     },
     "1621243260e1af0c20": {
       "type": "slider",
