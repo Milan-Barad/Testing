@@ -15,6 +15,44 @@ section.auto-scroll-section ul li {
     padding: 0 40px;
     border-right: 1px solid #fff;
 }
+.infinit-scrolling {
+    padding: 10px 0;
+}
+.infinit-scrolling .page-width {
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+}
+.infinit-scrolling .logos-slide {
+    display: inline-flex;
+    animation: 35s slider infinite linear;
+}
+.infinit-scrolling .logos {
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 50px 0;
+}
+.infinit-scrolling .logos-slide img {
+    margin: 0 40px;
+}
+.infinit-scrolling .icon-text img {
+    margin: 0;
+}
+.infinit-scrolling .icon-text {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    margin-right: 50px;
+    width: max-content;
+}
+@keyframes slider {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
 </style>
 <section class="auto-scroll-section">
     <div class="scroll-list">
