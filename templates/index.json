@@ -19,7 +19,7 @@
         "button_text": "Learn More",
         "button_link": "shopify://collections/add-to-cart",
         "button_color": "#000000",
-        "desktop_custom_css": ".image-with-text {\n    background: red;\n}",
+        "desktop_custom_css": ".image-with-text {\n    background: red;\n}\n.image-with-text a {\n    color: yellow;\n}",
         "mobile_custom_css": ".image-with-text p {\n    color: #FFF;\n}"
       }
     },
