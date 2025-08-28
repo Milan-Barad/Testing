@@ -1,147 +1,170 @@
-{%- style -%}
-  {% if section.settings.desktop_custom_css != blank %}
-    #shopify-section-{{ section.id }} {
-      {{ section.settings.desktop_custom_css | strip_newlines }}
+<style>
+    img{
+        max-width: 100%;
     }
-  {% endif %}
-  #shopify-section-{{ section.id }} .image-with-text {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 2rem;
-    padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  #shopify-section-{{ section.id }} .image-with-text__image {
-    flex: 1 1 40%;
-    max-width: 500px;
-  }
-  #shopify-section-{{ section.id }} .image-with-text__image img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-  #shopify-section-{{ section.id }} .image-with-text__content {
-    flex: 1 1 50%;
-  }
-  #shopify-section-{{ section.id }} .image-with-text__title {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
-  #shopify-section-{{ section.id }} .image-with-text__content p {
-    margin-bottom: 1.5rem;
-  }
-  #shopify-section-{{ section.id }} .image-with-text__button {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    background-color: {{ section.settings.button_color }};
-    color: #fff;
-    text-decoration: none;
-    border-radius: 4px;
-  }
-  @media (max-width: 768px) {
-    #shopify-section-{{ section.id }} .image-with-text {
-      flex-direction: column;
-      text-align: center;
-      padding: 1rem; /* Reduced padding for mobile */
+    .mobile-slider .marquee-wrapper .container{
+      overflow:hidden;
     }
-    #shopify-section-{{ section.id }} .image-with-text__image,
-    #shopify-section-{{ section.id }} .image-with-text__content {
-      flex: 1 1 100%;
+    .mobile-slider .marquee-inner span{
+      float:left;
+      width:50%;
     }
-    #shopify-section-{{ section.id }} .image-with-text__title {
-      font-size: 1.5rem; /* Smaller title font size for mobile */
+    .mobile-slider .marquee-wrapper .marquee-block{
+      --total-marquee-items:9;
+      height: 340px;
+      width: calc(250px * (var(--total-marquee-items)));
+      overflow: hidden;
+      box-sizing: border-box;
+      position: relative;
+      margin: 20px auto;
+      padding: 0 0;
     }
-    #shopify-section-{{ section.id }} .image-with-text__content p {
-      font-size: 0.9rem; /* Smaller paragraph font size for mobile */
-      margin-bottom: 1rem; /* Reduced margin for tighter spacing */
+    .mobile-slider .marquee-inner{
+      display: block;
+      width: 160%;
+      position: absolute;
     }
-    #shopify-section-{{ section.id }} .image-with-text__button {
-      padding: 0.5rem 1rem; /* Smaller button padding for mobile */
-      font-size: 0.9rem; /* Smaller button text for mobile */
+    .mobile-slider .marquee-inner.to-left{
+      animation: marqueeLeft 40s linear infinite;
     }
-    {% if section.settings.mobile_custom_css != blank %}
-      #shopify-section-{{ section.id }} {
-        {{ section.settings.mobile_custom_css | strip_newlines }}
+    .mobile-slider .marquee-item{
+      width: calc(11.11% - 20px);
+      height: auto;
+      display: inline-block;
+      margin: 0 10px;
+      float: left;
+      transition: all .2s ease-out;
+    }
+    .mobile-slider .marquee-item p{
+        margin: 0;
+        padding: 0;
+    }
+    .mobile-slider p.text-white img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .mobile-slider p.text-white {
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        padding: 190% 0 0 0;
+    }
+    @keyframes marqueeLeft{
+      0% {
+        left: 0;
       }
-    {% endif %}
-  }
-{%- endstyle -%}
-
-<section class="image-with-text" id="shopify-section-{{ section.id }}">
-  <div class="image-with-text__image">
-    {% if section.settings.image != blank %}
-      <img src="{{ section.settings.image | img_url: 'large' }}" alt="{{ section.settings.image.alt | escape }}">
-    {% else %}
-      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-    {% endif %}
-  </div>
-  <div class="image-with-text__content">
-    <h2 class="image-with-text__title">{{ section.settings.title | escape }}</h2>
-    <p>{{ section.settings.content }}</p>
-    {% if section.settings.button_text != blank and section.settings.button_link != blank %}
-      <a href="{{ section.settings.button_link }}" class="image-with-text__button">{{ section.settings.button_text }}</a>
-    {% endif %}
-  </div>
-</section>
-
-{% schema %}
-{
-  "name": "Image with Text",
-  "settings": [
-    {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Image"
-    },
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Title",
-      "default": "Your Title Here"
-    },
-    {
-      "type": "textarea",
-      "id": "content",
-      "label": "Content",
-      "default": "Add your content here."
-    },
-    {
-      "type": "text",
-      "id": "button_text",
-      "label": "Button Text",
-      "default": "Learn More"
-    },
-    {
-      "type": "url",
-      "id": "button_link",
-      "label": "Button Link"
-    },
-    {
-      "type": "color",
-      "id": "button_color",
-      "label": "Button Color",
-      "default": "#000000"
-    },
-    {
-      "type": "textarea",
-      "id": "desktop_custom_css",
-      "label": "Desktop Custom CSS",
-      "default": "/* Add your desktop custom CSS here */"
-    },
-    {
-      "type": "textarea",
-      "id": "mobile_custom_css",
-      "label": "Mobile Custom CSS",
-      "default": "/* Add your mobile custom CSS here */"
+      100% {
+        left: -100%;
+      }
     }
-  ],
-  "presets": [
-    {
-      "name": "Image with Text",
-      "category": "Custom"
-    }
-  ]
-}
-{% endschema %}
+</style>
+
+<div class="mobile-slider">
+    <div class="marquee-wrapper">
+        <div class="container">
+            <div class="marquee-block">
+                <div class="marquee-inner to-left">
+                    <span>
+                        <div class="marquee-item">
+                            <p class="text-white">
+                                <img src="https://storage.googleapis.com/msgsndr/JEJVFEoJTPegDayFNUPW/media/66053a0826422b4f961ac3e2.gif">
+                            </p>
+                        </div>
+                        <div class="marquee-item">
+                            <p class="text-white">
+                                <img src="https://storage.googleapis.com/msgsndr/JEJVFEoJTPegDayFNUPW/media/66053a473828fef9acd309df.gif">
+                            </p>
+                        </div>
+                        <div class="marquee-item">
+                            <p class="text-white">
+                                <img src="https://storage.googleapis.com/msgsndr/JEJVFEoJTPegDayFNUPW/media/66053a473828fe808bd309de.gif">
+                            </p>
+                        </div>
+                        <div class="marquee-item">
+                            <p class="text-white">
+                                <img src="https://storage.googleapis.com/msgsndr/JEJVFEoJTPegDayFNUPW/media/66053a474d7869861fd33e2a.gif">
+                            </p>
+                        </div>
+                        <div class="marquee-item">
+                            <p class="text-white">
+                                <img src="https://storage.googleapis.com/msgsndr/JEJVFEoJTPegDayFNUPW/media/66053a47a79bbe2b66be4bde.gif">
+                            </p>
+                        </div>
+                        <div class="marquee-item">
+                            <p class="text-white">
+                                <img src="https://storage.googleapis.com/msgsndr/JEJVFEoJTPegDayFNUPW/media/66053a4726422b837c1ac3ef.gif">
+                            </p>
+                        </div>
+                        <div class="marquee-item">
+                            <p class="text-white">
+                                <img src="https://storage.googleapis.com/msgsndr/JEJVFEoJTPegDayFNUPW/media/66053a473828fe29a4d309dd.gif">
+                            </p>
+                        </div>
+                        <div class="marquee-item">
+                            <p class="text-white">
+                                <img src="https://storage.googleapis.com/msgsndr/JEJVFEoJTPegDayFNUPW/media/66053a475badf3b055606cf0.gif">
+                            </p>
+                        </div>
+                        <div class="marquee-item">
+                            <p class="text-white">
+                                <img src="https://storage.googleapis.com/msgsndr/JEJVFEoJTPegDayFNUPW/media/66053a4726422b83f71ac3ee.gif">
+                            </p>
+                        </div>
+                    </span>
+                    <span>
+                        <div class="marquee-item">
+                            <p class="text-white">
+                                <img src="https://storage.googleapis.com/msgsndr/JEJVFEoJTPegDayFNUPW/media/66053a0826422b4f961ac3e2.gif">
+                            </p>
+                        </div>
+                        <div class="marquee-item">
+                            <p class="text-white">
+                                <img src="https://storage.googleapis.com/msgsndr/JEJVFEoJTPegDayFNUPW/media/66053a473828fef9acd309df.gif">
+                            </p>
+                        </div>
+                        <div class="marquee-item">
+                            <p class="text-white">
+                                <img src="https://storage.googleapis.com/msgsndr/JEJVFEoJTPegDayFNUPW/media/66053a473828fe808bd309de.gif">
+                            </p>
+                        </div>
+                        <div class="marquee-item">
+                            <p class="text-white">
+                                <img src="https://storage.googleapis.com/msgsndr/JEJVFEoJTPegDayFNUPW/media/66053a474d7869861fd33e2a.gif">
+                            </p>
+                        </div>
+                        <div class="marquee-item">
+                            <p class="text-white">
+                                <img src="https://storage.googleapis.com/msgsndr/JEJVFEoJTPegDayFNUPW/media/66053a47a79bbe2b66be4bde.gif">
+                            </p>
+                        </div>
+                        <div class="marquee-item">
+                            <p class="text-white">
+                                <img src="https://storage.googleapis.com/msgsndr/JEJVFEoJTPegDayFNUPW/media/66053a4726422b837c1ac3ef.gif">
+                            </p>
+                        </div>
+                        <div class="marquee-item">
+                            <p class="text-white">
+                                <img src="https://storage.googleapis.com/msgsndr/JEJVFEoJTPegDayFNUPW/media/66053a473828fe29a4d309dd.gif">
+                            </p>
+                        </div>
+                        <div class="marquee-item">
+                            <p class="text-white">
+                                <img src="https://storage.googleapis.com/msgsndr/JEJVFEoJTPegDayFNUPW/media/66053a475badf3b055606cf0.gif">
+                            </p>
+                        </div>
+                        <div class="marquee-item">
+                            <p class="text-white">
+                                <img src="https://storage.googleapis.com/msgsndr/JEJVFEoJTPegDayFNUPW/media/66053a4726422b83f71ac3ee.gif">
+                            </p>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
