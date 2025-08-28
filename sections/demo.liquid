@@ -1,184 +1,118 @@
-{% style %}
-  .tab-with-accordion {
-    padding-top: 100px;
-    padding-bottom: 100px;
-  }
-  .tab-with-accordion .page-width {
-    max-width: 1300px;
-    padding: 0 15px;
-    margin: 0 auto;
-    width: 100%;
-  }
-  .tab-with-accordion .lab-results__heading {
-    font-family: "Bakbak One", sans-serif;
-    font-size: 28px;
-    font-weight: 700;
-    line-height: 1.4em;
-    letter-spacing: 0;
-    text-transform: none;
-    padding-bottom: 30px;
-    margin: 0;
-  }
-  .tab-with-accordion .lr-tabs {
-    display: flex;
-    border: 1px solid #000;
-    border-bottom: none;
-    background: #fff;
-  }
-  .tab-with-accordion .lr-tabs button.lr-tab.is-active {
-    background: #c8b9b9;
-  }
-  .tab-with-accordion .lr-tab {
-    padding: 16px;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 18px;
-    font-family: "Bakbak One", sans-serif;
-    background: #fff;
-    transition: background 0.3s;
-    appearance: none;
-    border: none;
-    border-right: 1px solid #000;
-  }
-  .tab-with-accordion .lr-panel {
-    display: none;
-    border: 1px solid #000;
-    padding: 16px;
-    background: #fff;
-  }
-  .tab-with-accordion .lr-panel.is-active {
-    display: block;
-  }
-  .tab-with-accordion .lr-accordion {
-    border: 1px solid #000;
-    margin: 20px auto;
-    padding: 18px 24px;
-  }
-  .tab-with-accordion .lr-accordion__content {
-    border-top: 1px solid #000;
-  }
-  .tab-with-accordion .lr-accordion__content h3 {
-    font-family: "Bakbak One", sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    margin: 0 0 10px;
-    color: #000;
-  }
-  .tab-with-accordion .lr-accordion__content p {
-    font-family: sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    margin: 0;
-    color: #333;
-  }
-  .tab-with-accordion .lr-empty {
-    margin: 10px 0 0;
-    opacity: 0.7;
-    font-size: 14px;
-  }
-  @media screen and (max-width: 1024px) {
-    
-  }
-  @media screen and (max-width: 767px) {
-    
-  }
-{% endstyle %}
+{% comment %}
+  Section: Image with Text
+  Description: Displays an image on the left with title, content, and button on the right.
+{% endcomment %}
 
-<section id="lab-results-{{ section.id }}" class="tab-with-accordion">
-  <div class="page-width">
-    <div class="lab-results-details">
-      {% if section.settings.heading != blank %}
-        <h2 class="lab-results__heading">{{ section.settings.heading }}</h2>
-      {% endif %}
-      <!-- Dynamic Tabs -->
-      {% assign unique_tabs_array = section.blocks | where: "type", "accordion" | map: "settings" | map: "tab_title" | uniq %}
-      {% if unique_tabs_array.size > 0 %}
-        <div class="lr-tabs" role="tablist" aria-label="Lab result categories">
-          {% for tab in unique_tabs_array %}
-            {% assign tab_id = tab | handleize %}
-            <button class="lr-tab{% if forloop.first %} is-active{% endif %}" role="tab" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="lr-{{ section.id }}-{{ tab_id }}" data-tab="{{ tab_id }}">
-              {{ tab }}
-            </button>
-          {% endfor %}
-        </div>
-      {% endif %}
-      <!-- Tab Panels -->
-      {% for tab in unique_tabs_array %}
-        {% assign tab_id = tab | handleize %}
-        <div id="lr-{{ section.id }}-{{ tab_id }}" class="lr-panel{% if forloop.first %} is-active{% endif %}">
-          {% for block in section.blocks %}
-            {% if block.type == 'accordion' and block.settings.tab_title == tab %}
-              <div class="lr-accordion" {{ block.shopify_attributes }}>
-                <div class="lr-accordion__content">
-                  {{ block.settings.batch_list_html }}
-                </div>
-              </div>
-            {% endif %}
-          {% endfor %}
-        </div>
-      {% endfor %}
-    </div>
+{%- style -%}
+  .image-with-text {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .image-with-text__image {
+    flex: 1 1 40%;
+    max-width: 500px;
+  }
+  .image-with-text__image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  .image-with-text__content {
+    flex: 1 1 50%;
+  }
+  .image-with-text__title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .image-with-text__content p {
+    margin-bottom: 1.5rem;
+  }
+  .image-with-text__button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: {{ section.settings.button_color }};
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+  @media (max-width: 768px) {
+    .image-with-text {
+      flex-direction: column;
+      text-align: center;
+    }
+    .image-with-text__image,
+    .image-with-text__content {
+      flex: 1 1 100%;
+    }
+  }
+{%- endstyle -%}
+
+<section class="image-with-text">
+  <div class="image-with-text__image">
+    {% if section.settings.image != blank %}
+      <img src="{{ section.settings.image | img_url: 'large' }}" alt="{{ section.settings.image.alt | escape }}">
+    {% else %}
+      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+    {% endif %}
+  </div>
+  <div class="image-with-text__content">
+    <h2 class="image-with-text__title">{{ section.settings.title | escape }}</h2>
+    <p>{{ section.settings.content }}</p>
+    {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+      <a href="{{ section.settings.button_link }}" class="image-with-text__button">{{ section.settings.button_text }}</a>
+    {% endif %}
   </div>
 </section>
 
-<script>
-  (function() {
-    var root = document.getElementById('lab-results-{{ section.id }}');
-    if (!root) return;
-    var tabs = root.querySelectorAll('.lr-tab');
-    var panels = root.querySelectorAll('.lr-panel');
-    tabs.forEach(function(tab) {
-      tab.addEventListener('click', function() {
-        tabs.forEach(function(t) {
-          t.classList.remove('is-active');
-          t.setAttribute('aria-selected', 'false');
-        });
-        tab.classList.add('is-active');
-        tab.setAttribute('aria-selected', 'true');
-        var target = tab.getAttribute('data-tab');
-        panels.forEach(function(p) {
-          p.classList.remove('is-active');
-        });
-        var panel = root.querySelector('#lr-{{ section.id }}-' + target);
-        if (panel) panel.classList.add('is-active');
-      });
-    });
-  })();
-</script>
-
 {% schema %}
-  {
-    "name": "Tab with accordion",
-    "settings": [
-      {
-        "type": "text",
-        "id": "heading",
-        "label": "Heading",
-        "default": "Check Out Our Lab Test Results:"
-      }
-    ],
-    "blocks": [
-      {
-        "type": "accordion",
-        "name": "Accordion",
-        "settings": [
-          {
-            "type": "text",
-            "id": "tab_title",
-            "label": "Tab Title"
-          },
-          {
-            "type": "richtext",
-            "id": "batch_list_html",
-            "label": "Content (Use H3 for Question, P for Answer)"
-          }
-        ]
-      }
-    ],
-    "presets": [
-      {
-        "name": "Tab with accordion"
-      }
-    ]
-  }
+{
+  "name": "Image with Text",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Your Title Here"
+    },
+    {
+      "type": "textarea",
+      "id": "content",
+      "label": "Content",
+      "default": "Add your content here."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button Color",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image with Text",
+      "category": "Custom"
+    }
+  ]
+}
 {% endschema %}
