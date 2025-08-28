@@ -20,7 +20,7 @@
         "button_link": "shopify://collections/add-to-cart",
         "button_color": "#000000",
         "desktop_custom_css": ".image-with-text {\n    background: red;\n}",
-        "mobile_custom_css": "/* Add your mobile custom CSS here */"
+        "mobile_custom_css": ".image-with-text p {\n    color: #FFF;\n}"
       }
     },
     "demo_UWG8YT": {
@@ -34,7 +34,7 @@
         "button_link": "shopify://collections/add-to-cart",
         "button_color": "#000000",
         "desktop_custom_css": ".image-with-text {\n    background: #FF5F;\n}",
-        "mobile_custom_css": "/* Add your mobile custom CSS here */"
+        "mobile_custom_css": ".image-with-text p {\n    color: #FFF;\n}"
       }
     },
     "1621243260e1af0c20": {
