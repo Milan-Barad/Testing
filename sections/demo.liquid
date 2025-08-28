@@ -1,3 +1,7 @@
+{% comment %}
+  Section: Image with Text
+  Description: Displays an image on the left with title, content, and button on the right, with custom CSS option and unique ID.
+{% endcomment %}
 
 {%- style -%}
   #shopify-section-{{ section.id }} .image-with-text {
@@ -47,8 +51,15 @@
     }
   }
   {% if section.settings.custom_css != blank %}
-    {% capture custom_css_scoped %}#shopify-section-{{ section.id }} {{ section.settings.custom_css | strip_newlines }}{% endcapture %}
-    {{ custom_css_scoped }}
+    {% assign css_lines = section.settings.custom_css | split: '\n' %}
+    {% for line in css_lines %}
+      {% assign stripped_line = line | strip %}
+      {% unless stripped_line contains '}' or stripped_line contains '{' or stripped_line == '' %}
+        #shopify-section-{{ section.id }} {{ stripped_line }}
+      {% else %}
+        {{ stripped_line }}
+      {% endunless %}
+    {% endfor %}
   {% endif %}
 {%- endstyle -%}
 
@@ -111,7 +122,7 @@
       "type": "textarea",
       "id": "custom_css",
       "label": "Custom CSS",
-      "info": "Add custom CSS to style this section further. Example: .image-with-text { background-color: #f5f5f5; }",
+      "info": "Add custom CSS to style this section further. Example: .image-with-text { background-color: #f5f5f5; }\nAdd multiple lines as needed.",
       "default": "/* Add your custom CSS here */"
     }
   ],
