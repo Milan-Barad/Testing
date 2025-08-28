@@ -3,10 +3,17 @@ section.auto-scroll-section {
     background: #E82C2A;
     padding: 16px 0;
 }
+section.auto-scroll-section .scroll-list {
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 0;
+}
 section.auto-scroll-section ul {
     padding: 0;
     list-style: none;
     margin: 0;
+    display: inline-flex;
+    animation: marquee 35s linear infinite;
 }
 section.auto-scroll-section ul li {
     display: flex;
@@ -14,38 +21,12 @@ section.auto-scroll-section ul li {
     gap: 10px;
     padding: 0 40px;
     border-right: 1px solid #fff;
-}
-.infinit-scrolling {
-    padding: 10px 0;
-}
-.infinit-scrolling .page-width {
-    max-width: 100%;
-    padding: 0;
-    margin: 0;
-}
-.infinit-scrolling .logos-slide {
-    display: inline-flex;
-    animation: 35s slider infinite linear;
-}
-.infinit-scrolling .logos {
-    overflow: hidden;
-    white-space: nowrap;
-    margin: 50px 0;
-}
-.infinit-scrolling .logos-slide img {
-    margin: 0 40px;
-}
-.infinit-scrolling .icon-text img {
-    margin: 0;
-}
-.infinit-scrolling .icon-text {
-    display: flex;
-    align-items: center;
-    gap: 50px;
-    margin-right: 50px;
     width: max-content;
 }
-@keyframes slider {
+section.auto-scroll-section .icon-text img {
+    margin: 0;
+}
+@keyframes marquee {
     from {
         transform: translateX(0);
     }
