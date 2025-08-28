@@ -1,6 +1,8 @@
 {%- style -%}
   {% if section.settings.desktop_custom_css != blank %}
-    #shopify-section-{{ section.id }} {{ section.settings.desktop_custom_css | strip_newlines }}
+    #shopify-section-{{ section.id }} {
+      {{ section.settings.desktop_custom_css | strip_newlines }}
+    }
   {% endif %}
   #shopify-section-{{ section.id }} .image-with-text {
     display: flex;
