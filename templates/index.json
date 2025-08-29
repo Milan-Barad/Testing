@@ -9,53 +9,9 @@
  */
 {
   "sections": {
-    "demo_ikwzat": {
-      "type": "demo",
-      "blocks": {
-        "text_xfAXjb": {
-          "type": "text",
-          "settings": {
-            "text": "asdasdas"
-          }
-        },
-        "text_97r7Jy": {
-          "type": "text",
-          "settings": {
-            "text": "asdasdas asdasdas"
-          }
-        },
-        "text_kdRWwk": {
-          "type": "text",
-          "settings": {
-            "text": "asdg asdfgahsd"
-          }
-        },
-        "text_RA6aVy": {
-          "type": "text",
-          "settings": {
-            "text": "hello jpw are you"
-          }
-        },
-        "text_WEM7Rq": {
-          "type": "text",
-          "settings": {
-            "text": "asdasdas asdasdas"
-          }
-        }
-      },
-      "block_order": [
-        "text_xfAXjb",
-        "text_97r7Jy",
-        "text_kdRWwk",
-        "text_RA6aVy",
-        "text_WEM7Rq"
-      ],
-      "name": "Tab with accordion",
-      "settings": {}
-    },
-    "demo_UWG8YT": {
-      "type": "demo",
-      "name": "Tab with accordion",
+    "test_Kkdqkn": {
+      "type": "test",
+      "name": "test",
       "settings": {}
     },
     "1621243260e1af0c20": {
@@ -1273,8 +1229,7 @@
     }
   },
   "order": [
-    "demo_ikwzat",
-    "demo_UWG8YT",
+    "test_Kkdqkn",
     "1621243260e1af0c20",
     "16225316461d1cff80",
     "162251092958fcda7c",
