@@ -190,30 +190,27 @@
     // 🔹 Attach event listener to Custom Button (ID = custom_button)
     document.addEventListener('click', function(event) {
       if (event.target.id === 'custom_button') {
+        // Push to dataLayer (good for GTM setups)
         window.dataLayer.push({
           event: 'custom_button_click',
           button_id: 'custom_button',
           button_text: event.target.innerText || 'Custom Button'
         });
-        console.log('Custom button event pushed:', window.dataLayer[window.dataLayer.length - 1]);
+        console.log('Custom button event pushed to dataLayer:', window.dataLayer[window.dataLayer.length - 1]);
+
+        // 🔹 Directly send event to Google Analytics 4
+        if (typeof gtag === 'function') {
+          gtag('event', 'custom_button_click', {
+            event_category: 'engagement',
+            event_label: event.target.innerText || 'Custom Button',
+            button_id: 'custom_button'
+          });
+          console.log('Custom button event sent to GA4');
+        }
       }
     });
-
   })();
 </script>
-<script>
-document.addEventListener('click', function(event) {
-  if (event.target.id === 'custom_button') {
-    window.dataLayer.push({
-      event: 'cta_click',
-      button_id: 'custom_button',
-      button_text: event.target.innerText || 'CTA Button'
-    });
-    console.log('CTA Click event fired from custom_button');
-  }
-});
-</script>
-
 
 
   <body
