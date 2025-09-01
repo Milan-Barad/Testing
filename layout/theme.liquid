@@ -97,7 +97,6 @@
     {% render 'custom-code-head' %}
   {% include 'pagefly-app-header' %}</head>
 
-  <!-- Google tag (gtag.js) -->
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-KHL9F4RW56"></script>
 <script>
@@ -111,13 +110,13 @@
         window.dataLayer.push({
           event: 'add_to_cart',
           ecommerce: {
-            currency: product.currency || 'USD', // Fallback currency
-            value: parseFloat(product.price) || 0, // Ensure price is a number
+            currency: product.currency || 'USD',
+            value: parseFloat(product.price) || 0,
             items: [{
-              item_id: product.id || 'unknown', // Fallback ID
-              item_name: product.name || 'Unknown Product', // Fallback name
-              price: parseFloat(product.price) || 0, // Ensure price is a number
-              quantity: parseInt(product.quantity, 10) || 1 // Ensure quantity is an integer
+              item_id: product.id || 'unknown',
+              item_name: product.name || 'Unknown Product',
+              price: parseFloat(product.price) || 0,
+              quantity: parseInt(product.quantity, 10) || 1
             }]
           }
         });
@@ -133,16 +132,16 @@
         window.dataLayer.push({
           event: 'purchase',
           ecommerce: {
-            transaction_id: order.transaction_id || 'unknown', // Unique transaction ID
-            value: parseFloat(order.value) || 0, // Total order value
-            currency: order.currency || 'USD', // Currency
-            tax: parseFloat(order.tax) || 0, // Tax amount
-            shipping: parseFloat(order.shipping) || 0, // Shipping cost
+            transaction_id: order.transaction_id || 'unknown',
+            value: parseFloat(order.value) || 0,
+            currency: order.currency || 'USD',
+            tax: parseFloat(order.tax) || 0,
+            shipping: parseFloat(order.shipping) || 0,
             items: order.items.map(item => ({
-              item_id: item.id || 'unknown', // Item ID
-              item_name: item.name || 'Unknown Product', // Item name
-              price: parseFloat(item.price) || 0, // Item price
-              quantity: parseInt(item.quantity, 10) || 1 // Item quantity
+              item_id: item.id || 'unknown',
+              item_name: item.name || 'Unknown Product',
+              price: parseFloat(item.price) || 0,
+              quantity: parseInt(item.quantity, 10) || 1
             }))
           }
         });
@@ -152,43 +151,57 @@
       }
     }
 
-    // Example: Attach event listener to Add to Cart button
+    // Attach event listener to Add to Cart button
     document.addEventListener('click', function(event) {
       if (event.target.closest('.add-to-cart-button')) {
         var product = {
-          id: '12345', // Replace with dynamic product ID
-          name: 'Sample Product', // Replace with dynamic product name
-          price: 29.99, // Replace with dynamic product price
-          quantity: 1, // Replace with dynamic quantity
-          currency: 'USD' // Replace with dynamic currency
+          id: '12345',
+          name: 'Sample Product',
+          price: 29.99,
+          quantity: 1,
+          currency: 'USD'
         };
         onAddToCart(product);
       }
     });
 
-    // Example: Attach event listener for payment completion (e.g., on a "Confirm Purchase" button)
+    // Attach event listener for Confirm Purchase button
     document.addEventListener('click', function(event) {
       if (event.target.closest('.confirm-purchase-button')) {
         var order = {
-          transaction_id: 'TXN-' + Date.now(), // Replace with dynamic transaction ID
-          value: 59.98, // Replace with dynamic total order value
-          currency: 'USD', // Replace with dynamic currency
-          tax: 4.99, // Replace with dynamic tax amount
-          shipping: 5.00, // Replace with dynamic shipping cost
+          transaction_id: 'TXN-' + Date.now(),
+          value: 59.98,
+          currency: 'USD',
+          tax: 4.99,
+          shipping: 5.00,
           items: [
             {
-              id: '12345', // Replace with dynamic product ID
-              name: 'Sample Product', // Replace with dynamic product name
-              price: 29.99, // Replace with dynamic product price
-              quantity: 2 // Replace with dynamic quantity
+              id: '12345',
+              name: 'Sample Product',
+              price: 29.99,
+              quantity: 2
             }
           ]
         };
         onPurchase(order);
       }
     });
+
+    // 🔹 Attach event listener to Custom Button (ID = custom_button)
+    document.addEventListener('click', function(event) {
+      if (event.target.id === 'custom_button') {
+        window.dataLayer.push({
+          event: 'custom_button_click',
+          button_id: 'custom_button',
+          button_text: event.target.innerText || 'Custom Button'
+        });
+        console.log('Custom button event pushed:', window.dataLayer[window.dataLayer.length - 1]);
+      }
+    });
+
   })();
 </script>
+
 
   <body
     id="m-theme"
