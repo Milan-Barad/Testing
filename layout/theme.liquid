@@ -201,6 +201,19 @@
 
   })();
 </script>
+<script>
+document.addEventListener('click', function(event) {
+  if (event.target.id === 'custom_button') {
+    window.dataLayer.push({
+      event: 'cta_click',
+      button_id: 'custom_button',
+      button_text: event.target.innerText || 'CTA Button'
+    });
+    console.log('CTA Click event fired from custom_button');
+  }
+});
+</script>
+
 
 
   <body
