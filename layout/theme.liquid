@@ -96,23 +96,8 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    
+
     gtag('config', 'G-KHL9F4RW56');
-    
-    // Function to track add to cart event
-    function trackAddToCart(itemId, itemName, price, quantity) {
-      gtag('event', 'add_to_cart', {
-        'event_category': 'ecommerce',
-        'event_label': itemName,
-        'value': price,
-        'items': [{
-          'item_id': itemId,
-          'item_name': itemName,
-          'price': price,
-          'quantity': quantity
-        }]
-      });
-    }
   </script>
 
   <body
