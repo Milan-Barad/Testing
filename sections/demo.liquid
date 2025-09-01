@@ -1,0 +1,54 @@
+{% style %}
+  
+{% endstyle %}
+
+<section id="{{ section.id }}" class="features-section {{ section.settings.custom_class }}">
+  <div class="page-width">
+    <div class="section-title" style="text-align: {{ section.settings.text_align }};">
+      {% if section.settings.title != blank %}
+        <h2 class="black-color">{{ section.settings.title }}</h2>
+      {% endif %}
+      {% if section.settings.content != blank %}
+        <div class="black-color m-18 font-weight-400">
+          {{ section.settings.content }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Features section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading"
+    },
+  ],
+  "blocks": [
+    {
+      "type": "features",
+      "name": "Features",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "feature_title",
+          "label": "Heading"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Features section"
+    }
+  ]
+}
+{% endschema %}
