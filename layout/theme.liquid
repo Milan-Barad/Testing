@@ -99,8 +99,8 @@
     
     gtag('config', 'G-KHL9F4RW56');
     
-    // Generic function to track item-related action
-    function trackAction(itemId, itemName, price, quantity) {
+    // Function to track adding item to cart
+    function trackItemAction(itemId, itemName, price, quantity) {
       gtag('event', 'add_to_cart', {
         'event_category': 'ecommerce',
         'event_label': itemName,
@@ -112,8 +112,39 @@
           'quantity': quantity
         }]
       });
-      console.log('Tracked action:', {itemId, itemName, price, quantity}); // Debugging
     }
+    
+    // Function to track checkout process
+    function trackCheckoutAction(items, step, option) {
+      gtag('event', 'begin_checkout', {
+        'event_category': 'ecommerce',
+        'event_label': 'Checkout Started',
+        'value': items.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+        'items': items.map(item => ({
+          'item_id': item.itemId,
+          'item_name': item.itemName,
+          'price': item.price,
+          'quantity': item.quantity
+        })),
+        'checkout_step': step,
+        'checkout_option': option
+      });
+    }
+    
+    onclick="dataLayer.push({ 'ecommerce': null });dataLayer.push({
+    'event': 'add_to_cart',
+    'ecommerce': {
+        'items': [{
+        'item_id': '{{ product.id }}',
+        'item_name': '{{ product.title | remove: "'" | remove: '"' }}',
+        'item_brand': '{{ product.vendor | remove: "'" | remove: '"' }}',
+        'item_category': '{{ product.collections[0].title | remove: "'" | remove: '"' }}',
+        'item_variant': '{{ product.selected_variant.sku }}',
+        'currency': '{{ shop.currency }}',
+        'price': '{{ product.price  | times: 0.01}}'
+        }]
+      }
+    });"
   </script>
 
   <body
