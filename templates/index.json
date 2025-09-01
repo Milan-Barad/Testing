@@ -9,10 +9,12 @@
  */
 {
   "sections": {
-    "test_Kkdqkn": {
-      "type": "test",
-      "name": "test",
-      "settings": {}
+    "demo_LP337P": {
+      "type": "demo",
+      "name": "Features section",
+      "settings": {
+        "title": ""
+      }
     },
     "1621243260e1af0c20": {
       "type": "slider",
@@ -1229,7 +1231,7 @@
     }
   },
   "order": [
-    "test_Kkdqkn",
+    "demo_LP337P",
     "1621243260e1af0c20",
     "16225316461d1cff80",
     "162251092958fcda7c",
