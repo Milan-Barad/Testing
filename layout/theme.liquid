@@ -98,49 +98,97 @@
   {% include 'pagefly-app-header' %}</head>
 
   <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KHL9F4RW56"></script>
-  <script>
-    (function() {
-      // Initialize dataLayer if not already defined
-      window.dataLayer = window.dataLayer || [];
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KHL9F4RW56"></script>
+<script>
+  (function() {
+    // Initialize dataLayer if not already defined
+    window.dataLayer = window.dataLayer || [];
 
-      // Function to push add_to_cart event to dataLayer
-      function onAddToCart(product) {
-        try {
-          window.dataLayer.push({
-            event: 'add_to_cart',
-            ecommerce: {
-              currency: product.currency || 'USD', // Fallback currency
-              value: parseFloat(product.price) || 0, // Ensure price is a number
-              items: [{
-                item_id: product.id || 'unknown', // Fallback ID
-                item_name: product.name || 'Unknown Product', // Fallback name
-                price: parseFloat(product.price) || 0, // Ensure price is a number
-                quantity: parseInt(product.quantity, 10) || 1 // Ensure quantity is an integer
-              }]
-            }
-          });
-          console.log('Add to Cart event pushed:', window.dataLayer[window.dataLayer.length - 1]);
-        } catch (error) {
-          console.error('Error pushing add_to_cart event:', error);
-        }
+    // Function to push add_to_cart event to dataLayer
+    function onAddToCart(product) {
+      try {
+        window.dataLayer.push({
+          event: 'add_to_cart',
+          ecommerce: {
+            currency: product.currency || 'USD', // Fallback currency
+            value: parseFloat(product.price) || 0, // Ensure price is a number
+            items: [{
+              item_id: product.id || 'unknown', // Fallback ID
+              item_name: product.name || 'Unknown Product', // Fallback name
+              price: parseFloat(product.price) || 0, // Ensure price is a number
+              quantity: parseInt(product.quantity, 10) || 1 // Ensure quantity is an integer
+            }]
+          }
+        });
+        console.log('Add to Cart event pushed:', window.dataLayer[window.dataLayer.length - 1]);
+      } catch (error) {
+        console.error('Error pushing add_to_cart event:', error);
       }
+    }
 
-      // Example: Attach event listener to Add to Cart button
-      document.addEventListener('click', function(event) {
-        if (event.target.closest('.add-to-cart-button')) {
-          var product = {
-            id: '12345', // Replace with dynamic product ID
-            name: 'Sample Product', // Replace with dynamic product name
-            price: 29.99, // Replace with dynamic product price
-            quantity: 1, // Replace with dynamic quantity
-            currency: 'USD' // Replace with dynamic currency
-          };
-          onAddToCart(product);
-        }
-      });
-    })();
-  </script>
+    // Function to push purchase event to dataLayer
+    function onPurchase(order) {
+      try {
+        window.dataLayer.push({
+          event: 'purchase',
+          ecommerce: {
+            transaction_id: order.transaction_id || 'unknown', // Unique transaction ID
+            value: parseFloat(order.value) || 0, // Total order value
+            currency: order.currency || 'USD', // Currency
+            tax: parseFloat(order.tax) || 0, // Tax amount
+            shipping: parseFloat(order.shipping) || 0, // Shipping cost
+            items: order.items.map(item => ({
+              item_id: item.id || 'unknown', // Item ID
+              item_name: item.name || 'Unknown Product', // Item name
+              price: parseFloat(item.price) || 0, // Item price
+              quantity: parseInt(item.quantity, 10) || 1 // Item quantity
+            }))
+          }
+        });
+        console.log('Purchase event pushed:', window.dataLayer[window.dataLayer.length - 1]);
+      } catch (error) {
+        console.error('Error pushing purchase event:', error);
+      }
+    }
+
+    // Example: Attach event listener to Add to Cart button
+    document.addEventListener('click', function(event) {
+      if (event.target.closest('.add-to-cart-button')) {
+        var product = {
+          id: '12345', // Replace with dynamic product ID
+          name: 'Sample Product', // Replace with dynamic product name
+          price: 29.99, // Replace with dynamic product price
+          quantity: 1, // Replace with dynamic quantity
+          currency: 'USD' // Replace with dynamic currency
+        };
+        onAddToCart(product);
+      }
+    });
+
+    // Example: Attach event listener for payment completion (e.g., on a "Confirm Purchase" button or page load after payment)
+    document.addEventListener('click', function(event) {
+      if (event.target.closest('.confirm-purchase-button')) {
+        var order = {
+          transaction_id: 'TXN-' + Date.now(), // Replace with dynamic transaction ID
+          value: 59.98, // Replace with dynamic total order value
+          currency: 'USD', // Replace with dynamic currency
+          tax: 4.99, // Replace with dynamic tax amount
+          shipping: 5.00, // Replace with dynamic shipping cost
+          items: [
+            {
+              id: '12345', // Replace with dynamic product ID
+              name: 'Sample Product', // Replace with dynamic product name
+              price: 29.99, // Replace with dynamic product price
+              quantity: 2 // Replace with dynamic quantity
+            }
+            // Add more items as needed
+          ]
+        };
+        onPurchase(order);
+      }
+    });
+  })();
+</script>
 
   <body
     id="m-theme"
