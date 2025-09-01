@@ -192,7 +192,7 @@
       if (event.target.id === 'custom_button') {
         // Push to dataLayer (good for GTM setups)
         window.dataLayer.push({
-          event: 'Custom Event',
+          event: 'custom_button_click',
           button_id: 'custom_button',
           button_text: event.target.innerText || 'Custom Button'
         });
@@ -200,7 +200,7 @@
 
         // 🔹 Directly send event to Google Analytics 4
         if (typeof gtag === 'function') {
-          gtag('event', 'Custom Event', {
+          gtag('event', 'custom_button_click', {
             event_category: 'engagement',
             event_label: event.target.innerText || 'Custom Button',
             button_id: 'custom_button'
