@@ -93,71 +93,46 @@
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-KHL9F4RW56"></script>
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    
-    gtag('config', 'G-KHL9F4RW56');
-    
-    // Function to track adding item to cart
-    function trackItemAction(itemId, itemName, price, quantity) {
-      gtag('event', 'add_to_cart', {
-        'event_category': 'ecommerce',
-        'event_label': itemName,
-        'value': price,
-        'items': [{
-          'item_id': itemId,
-          'item_name': itemName,
-          'price': price,
-          'quantity': quantity
-        }]
-      });
-    }
-    
-    // Function to track checkout process
-    function trackCheckoutAction(items, step, option) {
-      gtag('event', 'begin_checkout', {
-        'event_category': 'ecommerce',
-        'event_label': 'Checkout Started',
-        'value': items.reduce((sum, item) => sum + (item.price * item.quantity), 0),
-        'items': items.map(item => ({
-          'item_id': item.itemId,
-          'item_name': item.itemName,
-          'price': item.price,
-          'quantity': item.quantity
-        })),
-        'checkout_step': step,
-        'checkout_option': option
-      });
-    }
-    
-    window.dataLayer = window.dataLayer || [];
+    (function() {
+      // Initialize dataLayer if not already defined
+      window.dataLayer = window.dataLayer || [];
+
+      // Function to push add_to_cart event to dataLayer
       function onAddToCart(product) {
-        window.dataLayer.push({
-          event: 'add_to_cart',
-          ecommerce: {
-            currency: 'USD', // Replace with your currency code
-            value: product.price, // Replace with dynamic product price
-            items: [{
-              item_id: product.id, // Replace with dynamic product ID
-              item_name: product.name, // Replace with dynamic product name
-              price: product.price, // Replace with dynamic product price
-              quantity: product.quantity || 1 // Replace with dynamic quantity
-            }]
-          }
-        });
+        try {
+          window.dataLayer.push({
+            event: 'add_to_cart',
+            ecommerce: {
+              currency: product.currency || 'USD', // Fallback currency
+              value: parseFloat(product.price) || 0, // Ensure price is a number
+              items: [{
+                item_id: product.id || 'unknown', // Fallback ID
+                item_name: product.name || 'Unknown Product', // Fallback name
+                price: parseFloat(product.price) || 0, // Ensure price is a number
+                quantity: parseInt(product.quantity, 10) || 1 // Ensure quantity is an integer
+              }]
+            }
+          });
+          console.log('Add to Cart event pushed:', window.dataLayer[window.dataLayer.length - 1]);
+        } catch (error) {
+          console.error('Error pushing add_to_cart event:', error);
+        }
       }
 
-      // Example: Call this function when the "Add to Cart" button is clicked
-      document.querySelector('.add-to-cart-button').addEventListener('click', function() {
-        var product = {
-          id: '8373748498744', // Replace with actual product ID
-          name: 'Sample Product', // Replace with actual product name
-          price: 5,299.00, // Replace with actual product price
-          quantity: 1 // Replace with actual quantity
-        };
-        onAddToCart(product);
+      // Example: Attach event listener to Add to Cart button
+      document.addEventListener('click', function(event) {
+        if (event.target.closest('.add-to-cart-button')) {
+          var product = {
+            id: '12345', // Replace with dynamic product ID
+            name: 'Sample Product', // Replace with dynamic product name
+            price: 29.99, // Replace with dynamic product price
+            quantity: 1, // Replace with dynamic quantity
+            currency: 'USD' // Replace with dynamic currency
+          };
+          onAddToCart(product);
+        }
       });
+    })();
   </script>
 
   <body
