@@ -90,6 +90,16 @@
     {% render 'custom-code-head' %}
   {% include 'pagefly-app-header' %}</head>
 
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KHL9F4RW56"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-KHL9F4RW56');
+  </script>
+
   <body
     id="m-theme"
     class="{{ body_classes }}"
