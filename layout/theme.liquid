@@ -98,6 +98,7 @@
   {% include 'pagefly-app-header' %}</head>
 
   <!-- Google tag (gtag.js) -->
+<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-KHL9F4RW56"></script>
 <script>
   (function() {
@@ -165,7 +166,7 @@
       }
     });
 
-    // Example: Attach event listener for payment completion (e.g., on a "Confirm Purchase" button or page load after payment)
+    // Example: Attach event listener for payment completion (e.g., on a "Confirm Purchase" button)
     document.addEventListener('click', function(event) {
       if (event.target.closest('.confirm-purchase-button')) {
         var order = {
@@ -181,7 +182,6 @@
               price: 29.99, // Replace with dynamic product price
               quantity: 2 // Replace with dynamic quantity
             }
-            // Add more items as needed
           ]
         };
         onPurchase(order);
