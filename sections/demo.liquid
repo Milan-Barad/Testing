@@ -1,50 +1,133 @@
-{% style %}
-  
-{% endstyle %}
+<style>
+    .compare-sec{
+        padding: 80px 0;
+    }
+    .compare-section .section-title{
+        text-align: center;
+        margin: 0 0 24px;
+    }
+    .compare-sec .section-title h2 {
+        color: #000;
+        font-family: 'Avenir Next';
+        font-weight: 700;
+        font-size: 40px;
+        line-height: 48px;
+        letter-spacing: 0em;
+        text-align: center;
+        margin: 0;
+    }
+    .compare-sec .section-title p{
+        color: #000;
+        font-family: Avenir Next;
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 32px;
+        letter-spacing: 0;
+        text-align: center;
+        margin: 8px 0 40px;
+    }
+    .video-container {
+        position: relative;
+        width: 100%;
+        max-width: 719px;
+        margin: 0 auto;
+    }
+    .video-container .poster-image{
+        position: relative;
+        z-index: 1;
+        cursor: pointer;
+    }
+    .video-container .poster-image img {
+        width: 100%;
+        vertical-align: top;
+    }
+    .compare-video .video-wrap {
+        position: relative;
+        padding-top: 56.25%;
+        display: none;
+    }
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        width: 100%;
+    }
+    @media screen and (max-width: 767px){
+        .compare-sec {
+            padding: 40px 0 0;
+        }
+        .compare-sec .section-title h2 {
+            font-size: 32px;
+            line-height: 48px;
+        }
+    }
+</style>
 
-<section id="{{ section.id }}" class="features-section {{ section.settings.custom_class }}">
-  <div class="page-width">
-    <div class="section-title" style="text-align: {{ section.settings.text_align }};">
-      {% if section.settings.title != blank %}
-        <h2 class="black-color">{{ section.settings.title }}</h2>
-      {% endif %}
-      <a href="https://hopiant1.myshopify.com/collections">VIew all collections</a>
+<section class="compare-sec">
+    <div class="page-width">
+        <div class="section-title">
+            <h2>{{section.settings.section_title}}</h2>
+            <p>{{section.settings.section_text}}</p>
+        </div>
+        <div class="compare-video">
+            <div class="video-container">
+                <div class="poster-image" onclick="playVideo()">
+                    <img src="{{ section.settings.video_img | img_url: 'master' }}" alt="">
+                </div>
+                <div class="video-wrap">
+                    <iframe id="youtube-video" src="{{ section.settings.iframe_link }}" class="js-youtube" allow="autoplay; encrypted-media" allowfullscreen title="Describe the video"></iframe>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </section>
 
+<script>
+      const posterImage = document.querySelector('.poster-image');
+      const videoWrap = document.querySelector('.video-wrap');
+      const videoIframe = document.querySelector('#youtube-video');
+
+      posterImage.addEventListener('click', function() {
+          posterImage.style.display = 'none';
+          videoWrap.style.display = 'block';
+          videoIframe.src += "&autoplay=1"; // Auto play the video after it's shown
+      });
+</script>
+
 {% schema %}
-{
-  "name": "Features section",
-  "settings": [
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Heading"
-    },
-  ],
-  "blocks": [
-    {
-      "type": "features",
-      "name": "Features",
-      "settings": [
+  {
+    "name": "Compare Section",
+    "settings": 
+    [ 
         {
-          "type": "image_picker",
-          "id": "icon",
-          "label": "Icon"
+            "type": "text",
+            "id": "section_title",
+            "label": "Titile"
         },
         {
+            "type": "textarea",
+            "id": "section_text",
+            "label": "Text"
+        },
+        {
+          "type": "image_picker",
+          "id": "video_img",
+          "label": "Video img"
+        },
+        {
+          "id": "iframe_link",
           "type": "text",
-          "id": "feature_title",
-          "label": "Heading"
+          "label": "Iframe Link"
         }
-      ]
-    }
-  ],
-  "presets": [
+	],
+    "presets": [
     {
-      "name": "Features section"
+      "name": "Compare Section",
+      "category": "Text"
     }
   ]
-}
+  }
 {% endschema %}
