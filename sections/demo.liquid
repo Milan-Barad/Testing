@@ -74,7 +74,7 @@
         </div>
         <div class="compare-video">
             <div class="video-container">
-                <div class="poster-image" onclick="playVideo()">
+                <div id="custom_button" class="poster-image" onclick="playVideo()">
                   {% if section.settings.video_img != blank %}
                     <img src="{{ section.settings.video_img | image_url }}" alt="image" height="auto" width="auto">
                   {% endif %}
