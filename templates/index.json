@@ -13,7 +13,10 @@
       "type": "demo",
       "name": "Features section",
       "settings": {
-        "title": ""
+        "section_title": "ROVE's Dash Cam Ensures",
+        "section_text": "With ROVE's state-of-the-art Dash Cam by your side, embrace the freedom of the road, knowing you're shielded wherever your adventures lead.",
+        "video_img": "shopify://shop_images/banner-27.jpg",
+        "iframe_link": "https://www.youtube.com/embed/TpNl6RchXsA?si=ttmb4vA6Omb5zD2M"
       }
     },
     "1621243260e1af0c20": {
