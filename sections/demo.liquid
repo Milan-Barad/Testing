@@ -75,7 +75,9 @@
         <div class="compare-video">
             <div class="video-container">
                 <div class="poster-image" onclick="playVideo()">
-                    <img src="{{ section.settings.video_img | img_url: 'master' }}" alt="">
+                  {% if section.settings.video_img != blank %}
+                    <img src="{{ section.settings.video_img | image_url }}" alt="image" height="auto" width="auto">
+                  {% endif %}
                 </div>
                 <div class="video-wrap">
                     <iframe id="youtube-video" src="{{ section.settings.iframe_link }}" class="js-youtube" allow="autoplay; encrypted-media" allowfullscreen title="Describe the video"></iframe>
