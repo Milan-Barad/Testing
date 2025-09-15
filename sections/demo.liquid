@@ -81,13 +81,67 @@
             line-height: 48px;
         }
     }
+    .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Popup box */
+  .popup-content {
+    background: #fff;
+    padding: 20px 40px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .popup-content button {
+    margin-top: 15px;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
 </style>
 
 <section class="compare-sec">
     <div class="page-width">
-        <div class="view-product">
-            <a id="view_product" href="https://hopiant1.myshopify.com/products/apple-wicker">View Product</a>
+        <div class="open-popup">
+            <button id="button_event">Click Me</button>
         </div>
+        <div class="popup-overlay" id="popup">
+            <div class="popup-content">
+                Hello
+                <br>
+                <button id="close_popup">Close</button>
+            </div>
+        </div>
+        <script>
+            const button = document.getElementById("button_event");
+            const popup = document.getElementById("popup");
+            const closeBtn = document.getElementById("close_popup");
+
+            button.addEventListener("click", () => {
+                popup.style.display = "flex";
+            });
+
+            closeBtn.addEventListener("click", () => {
+                popup.style.display = "none";
+            });
+
+            // Close popup if clicked outside the box
+            window.addEventListener("click", (e) => {
+                if (e.target === popup) {
+                popup.style.display = "none";
+                }
+            });
+            </script>
         <div class="section-title">
             <h2>{{section.settings.section_title}}</h2>
             <p>{{section.settings.section_text}}</p>
