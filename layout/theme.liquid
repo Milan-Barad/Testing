@@ -105,22 +105,6 @@
 
   // Basic pageview
   gtag('config', 'G-035NWCD33Q');
-
-  // Fire custom event on button click
-  document.addEventListener("DOMContentLoaded", function () {
-    const customBtn = document.getElementById("custom_button");
-
-    if (customBtn) {
-      customBtn.addEventListener("click", function () {
-        gtag('event', 'custom_button', {
-          event_category: 'engagement',
-          event_label: 'Custom Button Click',
-          value: 1
-        });
-        console.log("GA4 custom_button event fired!");
-      });
-    }
-  });
 </script>
 
 
