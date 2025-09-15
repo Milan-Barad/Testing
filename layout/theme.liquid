@@ -106,35 +106,28 @@
   // Basic pageview
   gtag('config', 'G-035NWCD33Q');
 
-  // Collection page view (you can conditionally run this only on collection pages)
-  gtag('event', 'view_item_list', {
-    item_list_id: 'collection_page',
-    item_list_name: 'Collection Page',
-    items: [
-      {
-        item_id: '12345', // dynamic product ID
-        item_name: 'Product Name', // dynamic product name
-        price: '99.00', // dynamic product price
-        item_category: 'Category Name'
-      }
-      // Add multiple items if the collection has more products
-    ]
-  });
-
-  // Add to cart event (trigger this when user clicks add to cart button)
-  function trackAddToCart(productId, productName, productPrice, productCategory) {
+  /** ------------------------------
+   *  Add to Cart Event
+   *  Call this when the user clicks "Add to Cart"
+   * ------------------------------ */
+  function trackAddToCart(productId, productName, productPrice, productCategory, qty = 1) {
     gtag('event', 'add_to_cart', {
-      currency: 'USD', // change to your store currency
-      value: productPrice,
-      items: [
-        {
-          item_id: productId,
-          item_name: productName,
-          price: productPrice,
-          item_category: productCategory,
-          quantity: 1
-        }
-      ]
+      currency: 'USD',   // change to your store currency
+      value: productPrice * qty,
+      items: [{
+        item_id: productId,
+        item_name: productName,
+        price: productPrice,
+        item_category: productCategory,
+        quantity: qty
+      }]
+    });
+  }
+  function trackBeginCheckout(cartItems, totalValue, currency = 'USD') {
+    gtag('event', 'begin_checkout', {
+      currency: currency,
+      value: totalValue,
+      items: cartItems
     });
   }
 </script>
