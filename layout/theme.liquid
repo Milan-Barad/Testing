@@ -106,31 +106,22 @@
   // Basic pageview
   gtag('config', 'G-035NWCD33Q');
 
-  // Attach event to button with id="custom_button"
+  // Fire custom event on button click
   document.addEventListener("DOMContentLoaded", function () {
-    const addButton = document.getElementById("custom_button");
+    const customBtn = document.getElementById("custom_button");
 
-    if (addButton) {
-      addButton.addEventListener("click", function () {
-        gtag('event', 'add_to_cart', {
-          currency: 'USD',   // change to your store currency
-          value: 99.00,      // dynamic product price
-          items: [{
-            item_id: '12345',        // dynamic product ID
-            item_name: 'Product Name', // dynamic product name
-            price: 99.00,              // dynamic product price
-            item_category: 'Shoes',    // dynamic category
-            quantity: 1
-          }]
+    if (customBtn) {
+      customBtn.addEventListener("click", function () {
+        gtag('event', 'custom_button', {
+          event_category: 'engagement',
+          event_label: 'Custom Button Click',
+          value: 1
         });
-        console.log("GA4 Add to Cart event fired!");
+        console.log("GA4 custom_button event fired!");
       });
     }
   });
 </script>
-
-
-
 
 
   <body
