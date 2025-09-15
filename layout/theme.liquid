@@ -106,31 +106,29 @@
   // Basic pageview
   gtag('config', 'G-035NWCD33Q');
 
-  /** ------------------------------
-   *  Add to Cart Event
-   *  Call this when the user clicks "Add to Cart"
-   * ------------------------------ */
-  function trackAddToCart(productId, productName, productPrice, productCategory, qty = 1) {
-    gtag('event', 'add_to_cart', {
-      currency: 'USD',   // change to your store currency
-      value: productPrice * qty,
-      items: [{
-        item_id: productId,
-        item_name: productName,
-        price: productPrice,
-        item_category: productCategory,
-        quantity: qty
-      }]
-    });
-  }
-  function trackBeginCheckout(cartItems, totalValue, currency = 'USD') {
-    gtag('event', 'begin_checkout', {
-      currency: currency,
-      value: totalValue,
-      items: cartItems
-    });
-  }
+  // Attach event to button with id="custom_button"
+  document.addEventListener("DOMContentLoaded", function () {
+    const addButton = document.getElementById("custom_button");
+
+    if (addButton) {
+      addButton.addEventListener("click", function () {
+        gtag('event', 'add_to_cart', {
+          currency: 'USD',   // change to your store currency
+          value: 99.00,      // dynamic product price
+          items: [{
+            item_id: '12345',        // dynamic product ID
+            item_name: 'Product Name', // dynamic product name
+            price: 99.00,              // dynamic product price
+            item_category: 'Shoes',    // dynamic category
+            quantity: 1
+          }]
+        });
+        console.log("GA4 Add to Cart event fired!");
+      });
+    }
+  });
 </script>
+
 
 
 
